@@ -1,0 +1,38 @@
+\documentclass[a4paper,14pt]{extarticle}                     % тип документа с размером шрифта 14pt
+
+%---------------------------------------------------------------------------------------------------
+
+\usepackage{times}                                           % использование Times New Roman
+\usepackage[top=2cm,left=3cm,right=1cm,bottom=2cm]{geometry} % размеры полей
+\usepackage[]{inputenc}                                      % эта строка нужна, чтобы документ открывался в редакторе MikTex
+\usepackage[T2A]{fontenc}                                    % для поддержки русского языка
+\usepackage[russian]{babel}                                  % включение русского языка
+\usepackage{amsmath,amsthm,amscd,amsfonts,amssymb}           % специальные символы и т.п.
+\usepackage{indentfirst}                                     % отступ для начала абзаца
+\usepackage{textcomp}                                        % текст в формулах
+\usepackage{graphicx}                                        % подключение графики
+\usepackage{caption2}                                        % для изменения стиля подписи рисунков
+                                                             %     (приводит к warning-у, так что использовать только по необходимости)
+\usepackage{verbatim}                                        % использование дополнительных возможностей verbatim           
+\usepackage{fancybox}                                        % использование расширенного Verbatim
+
+%---------------------------------------------------------------------------------------------------
+
+\renewcommand{\baselinestretch}{1.5}                         % полуторный отступ между строк
+\renewcommand{\captionlabeldelim}{.}                         % разделитель между номером рисунка и названием
+\numberwithin{equation}{section}                             % нумерация формул по секциям
+\numberwithin{figure}{section}                               % нумерация картинок по секциям
+\numberwithin{table}{section}                                % нумерация таблиц по секциям
+\theoremstyle{plain}                                         % стиль теорем
+\newtheorem{theorem}{Теорема}[section]                       % теорема
+\newtheorem{lemma}{Лемма}[section]                           % лемма
+\newtheorem{definition}{Определение}[section]                % определение
+\numberwithin{theorem}{section}                              % нумерация теорем по секциям
+\numberwithin{lemma}{section}                                % нумерация лемм по секциям
+\numberwithin{definition}{section}                           % нумерация определений по секциям
+
+%---------------------------------------------------------------------------------------------------
+
+\begin{document}
+test
+\end{document}
