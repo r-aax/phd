@@ -2,7 +2,8 @@
 
 %---------------------------------------------------------------------------------------------------
 
-\usepackage{times}                                           % использование Times New Roman
+%\usepackage{times}                                          % использование Times New Roman
+                                                             %     (почему-то сносит все форматирование)
 \usepackage[top=2cm,left=3cm,right=1cm,bottom=2cm]{geometry} % размеры полей
 \usepackage[]{inputenc}                                      % эта строка нужна, чтобы документ открывался в редакторе MikTex
 \usepackage[T2A]{fontenc}                                    % для поддержки русского языка
@@ -51,6 +52,7 @@
 \section*{Введение}                      % выключить номер введения
 \addcontentsline{toc}{section}{Введение} % но добавить его в оглавление
 
+
 \paragraph{Актуальность темы.}
 
 \paragraph{Цели диссертационной работы.}
@@ -78,12 +80,14 @@
 \setcounter{lemma}{0}
 \setcounter{definition}{0}
 
+\input text_1_immersed_boundary_method.tex
+
 %---------------------------------------------------------------------------------------------------
 
 \newpage
 \section*{Глава 2. TODO}                      % выключить номер первой главы
 \addcontentsline{toc}{section}{Глава 2. TODO} % но добавить ее в оглавление
-\addtocounter{section}{1}                     % а теперь и счетчик продвинуть
+\addtocounter{section}{2}                     % а теперь и счетчик продвинуть
 \setcounter{subsection}{0}
 \setcounter{figure}{0}
 \setcounter{equation}{0}
@@ -96,7 +100,7 @@
 \newpage
 \section*{Глава 3. TODO}                      % выключить номер первой главы
 \addcontentsline{toc}{section}{Глава 3. TODO} % но добавить ее в оглавление
-\addtocounter{section}{1}                     % а теперь и счетчик продвинуть
+\addtocounter{section}{3}                     % а теперь и счетчик продвинуть
 \setcounter{subsection}{0}
 \setcounter{figure}{0}
 \setcounter{equation}{0}
@@ -109,7 +113,7 @@
 \newpage
 \section*{Глава 4. TODO}                      % выключить номер первой главы
 \addcontentsline{toc}{section}{Глава 4. TODO} % но добавить ее в оглавление
-\addtocounter{section}{1}                     % а теперь и счетчик продвинуть
+\addtocounter{section}{4}                     % а теперь и счетчик продвинуть
 \setcounter{subsection}{0}
 \setcounter{figure}{0}
 \setcounter{equation}{0}
