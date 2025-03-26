@@ -12,10 +12,36 @@
 \usepackage{indentfirst}                                     % отступ для начала абзаца
 \usepackage{textcomp}                                        % текст в формулах
 \usepackage{graphicx}                                        % подключение графики
-\usepackage{caption2}                                        % для изменения стиля подписи рисунков
+\usepackage{listings}                                        % печать листингов
+\usepackage{caption2}                                         % для изменения стиля подписи рисунков
                                                              %     (приводит к warning-у, так что использовать только по необходимости)
 \usepackage{verbatim}                                        % использование дополнительных возможностей verbatim           
 \usepackage{fancybox}                                        % использование расширенного Verbatim
+
+%---------------------------------------------------------------------------------------------------
+
+\lstset{
+language=C++,
+basewidth=0.5em,
+xleftmargin=45pt,
+xrightmargin=45pt,
+basicstyle=\linespread{0.8}\small\ttfamily,                  % 0.8 - уменьшение расстояния между строк
+                                                             % linespread должен идти первым 
+keywordstyle=\bfseries\underbar,
+numbers=left,
+numberstyle=\tiny,
+stepnumber=1,
+numbersep=10pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=trBL,
+tabsize=2,
+captionpos=t,
+breaklines=true,
+breakatwhitespace=false,
+escapeinside={\%*}{*)}
+}
 
 %---------------------------------------------------------------------------------------------------
 
@@ -124,6 +150,7 @@
 \setcounter{definition}{0}
 
 \input text_4_avx_512.tex
+\input text_4_small_matr.tex
 
 %---------------------------------------------------------------------------------------------------
 
