@@ -1,0 +1,230 @@
+% Метод перестроения поверхности с помощью общей огибающей семейства сфер.
+\subsection{Геометрическое перестроение расчетной сетки с помощью общей огибающей семейства сфер}
+
+\subsubsection{Определение смещения узлов расчетной сетки во время ледообразования}
+
+Рассмотрим геометрическую задачу определения новых положений узлов расчетной сетки, если для каждого узла $\overline{N}$ известна скорость образования ледяного покрова $v(\overline{N})$, измеряемая в метрах в секунду.
+Будем считать, что нарастание льда в любой точке роста льда выполняется одновременно во всех направлениях аналогично принципу Гюйгенса-Френеля распространения волн.
+Таким образом, фронт распространения льда от произвольной точки $\overline{P}$ через промежуток времени $\Delta t$ будет иметь форму сферы с центром с точке $\overline{P}$ и радиусом $v(\overline{P})\Delta t$.
+Далее будем считать, что мы выполняем расчет новых положений узлов через некоторый фиксированный момент времени $\Delta t$, то есть для каждого узла $\overline{N}$ известен радиус продвижения фронта ледообразования $R(\overline{N}) = v(\overline{N}) \Delta t$.
+Так как при выполнении численных расчетов фронт продвижения льда у нас представлен неструктурированной поверхностной расчетной сеткой, ячейки которой имеют форму треугольников, а радиусы продвижения фронта льда заданы только в узлах сетки, необходимо определить радиусы продвижения фронта льда для каждой точки внутри ячейки сетки.
+
+Рассмотрим некоторую ячейку расчетной сетки, это треугольник с вершинами $\overline{A}$ , $\overline{B}$ , $\overline{C}$ (каждая точка представлена вектором в трехмерном пространстве).
+Все точки треугольника $ABC$ представляют собой геометрическое место точек, описываемое следующим образом:
+\begin{equation}
+	\left\{
+		\begin{aligned}
+			\overline{P}(\beta, \gamma) = \overline{A} + \beta(\overline{B} - \overline{A}) + \gamma(\overline{C} - \overline{A}) = \overline{A} + \beta \overline{AB} + \gamma \overline{AC} \\
+			\beta \ge 0 \\
+			\gamma \ge 0 \\
+			\beta + \gamma \le 1
+		\end{aligned}
+	\right.
+\end{equation}
+
+Далее определим для каждой точки $\overline{P}(\beta,\gamma)$ радиус продвижения фронта льда как
+\begin{equation}
+	R(\overline{P}(\beta,\gamma)) = R(\beta,\gamma) + R(\overline{A}) + \beta(R(\overline{B}) - R(\overline{A})) + \gamma(R(\overline{C}) - R(\overline{A})),
+\end{equation}
+
+и фронт продвижения льда от точки $\overline{P}(\beta,\gamma)$ представляет собой сферу $S(\beta,\gamma) = S(\overline{P}(\beta,\gamma),R(\beta,\gamma))$.
+Фронтом продвижения льда для всей ячейки расчетной сетки является огибающая множества сфер $S(\beta,\gamma)$ для всех точек треугольника этой расчетной ячейки, что проиллюстрировано на рис.~\ref{fig:text_1_remesh_common_envelope_1}.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/triangle.pdf}
+	\caption{Общая огибающая множества сфер, центры которых образуют треугольник в пространстве}
+	\label{fig:text_1_remesh_common_envelope_1}
+\end{figure}
+
+При изменении положения узлов расчетной ячейки (точки $\overline{A}$, $\overline{B}$, $\overline{C}$) будем исходить из предположения, что новые положения узлов расчетной ячейки (точки $\overline{A}'$, $\overline{B}'$, $\overline{C}'$) будут находиться на общей огибающей множества сфер $S(\beta,\gamma)$ (пока в данном расчете не учитываем влияние соседних расчетных ячеек).
+Без ограничения общности можно рассмотреть только одну вершину расчетной ячейки (точка $\overline{A}$).
+Пусть траектория движения точки $\overline{A}$ описывается уравнением прямой $\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}$ при $\alpha \ge 0$ ($\overline{D}$ —- вектор направления движения точки, при этом можно считать $|\overline{D}| = 1$).
+Для поиска точек пересечения траектории движения точки $\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}$ с произвольной сферой $S(\beta,\gamma)$ необходимо подставить координаты точки $\overline{P}(\alpha)$ в уравнение сферы $|\overline{P} - \overline{C}(\beta,\gamma)| = R(\beta,\gamma)$, где $\overline{C}(\beta,\gamma)$ -- центр рассматриваемой сферы.
+В результате получим уравнение
+\begin{equation}
+	|(\overline{A} + \alpha \overline{D}) - \overline{C}(\beta, \gamma)| = R(\beta, \gamma),
+\end{equation}
+
+которое нужно решить относительно неизвестной $\alpha$ при фиксированных параметрах $\beta$, $\gamma$ .
+Это уравнение является квадратным, оно имеет не более двух корней, которые являются функциями с двумя параметрами $\alpha_{1,2} = \alpha_{1,2}(\beta,\gamma)$.
+Для определения нового положения точки $\overline{A}$ необходимо найти максимальное значение вещественного корня такого уравнения для всех допустимых значений параметров.
+При этом точка пересечения траектории движения точки $\overline{A}$ с общей огибающей множества сфер $S(\beta,\gamma)$ может находиться на разных участках данной огибающей, что продемонстрировано на рис.~\ref{fig:text_1_remesh_common_envelope_2} и связано с условиями, которым удовлетворяют параметры $\beta$, $\gamma$ (a, b, c -- пересечение со сферой с центром в вершинах треугольника; d, e, f -- пересечение со сферой с центром на ребрах треугольника, g — пересечение со сферой с центром внутри треугольника).
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/triangle2.pdf}
+	\caption{Различные варианты пересечения траектории смещения узла и общей огибающей семейства сфер}
+	\label{fig:text_1_remesh_common_envelope_2}
+\end{figure}
+
+Введем следующие $R_A = R(\overline{A})$, $R_{AB} = R(\overline{B}) - R(\overline{A})$, $R_{AC} = R(\overline{C}) - R(\overline{A})$, тогда требуемое уравнение можно записать в виде
+\begin{equation}
+	|\alpha \overline{D} - (\beta \overline{AB} + \gamma \overline{AC})|^2 = (R_A + \beta R_{AB} + \gamma R_{AC})^2,
+\end{equation}
+
+или явно как квадратное уравнение относительно переменной $\alpha$:
+\begin{multline}
+	|\overline{D}|^2 \alpha^2 - 2(\beta (\overline{D}, \overline{AB}) + \gamma (\overline{D}, \overline{AC})) \alpha + \\
+	|\beta \overline{AB} + \gamma \overline{AC}|^2 - (R_A + \beta R_{AB} + \gamma R_{AC})^2 = 0
+\end{multline}
+
+Наибольший корень этого квадратного уравнения вычисляется следующим образом (с учетом условия $|\overline{D}| = 1$):
+\begin{multline}
+	\alpha(\beta, \gamma) = \beta (\overline{D}, \overline{AB}) + \gamma (\overline{D}, \overline{AC}) + \\
+	\sqrt{(\beta (\overline{D}, \overline{AB}) + \gamma (\overline{D}, \overline{AC}))^2 - |\beta \overline{AB} + \gamma \overline{AC}|^2 + (R_A + \beta R_{AB} + \gamma R_{AC})^2},
+\end{multline}
+
+или
+\begin{equation}
+	\begin{aligned}
+		\alpha(\beta, \gamma) = k_{\beta} \beta + k_{\gamma} \gamma + \sqrt{T} \\
+		T = q_{\beta^2} \beta^2 + q_{\gamma^2} \gamma^2 + q_{\beta \gamma} \beta \gamma + q_{\beta} \beta + q_{\gamma} \gamma + q \\
+		k_{\beta} = (\overline{D}, \overline{AB}), \ k_{\gamma} = (\overline{D}, \overline{AC}) \\
+		q_{\beta^2} = (\overline{D}, \overline{AB})^2 - |\overline{AB}|^2 + R_{AB}^2, \ q_{\gamma^2} = (\overline{D}, \overline{AC})^2 - |\overline{AC}|^2 + R_{AC}^2 \\
+		q_{\beta \gamma} = 2 \left( (\overline{D}, \overline{AB}) (\overline{D}, \overline{AC}) - (\overline{AB}, \overline{AC}) + R_{AB}R_{AC} \right) \\
+		q_{\beta} = 2 R_A R_{AB}, \ q_{\gamma} = 2 R_A R_{AC}, \ q = R_A^2
+	\end{aligned}
+\end{equation}
+
+Для поиска нового положения точки $\overline{A}$ требуется найти максимум выражения $\alpha(\beta,\gamma)$ при условии соблюдения ограничений $\beta \ge 0$, $\gamma \ge 0$, $\beta + \gamma \le 1$.
+Максимум выражения $\alpha(\beta, \gamma)$ достигается либо при условии нахождения центра сферы внутри треугольника $ABC$ , либо на одной из его сторон.
+В случае нахождения центра сферы на стороне $AB$ треугольника $ABC$ выполняется условие $\gamma = 0$, и выражение для величины $\alpha$ имеет вид
+\begin{equation}
+	\alpha_{\gamma = 0} = k_{\beta} \beta + \sqrt{q_{\beta^2} \beta^2 + q_{\beta} \beta + q}.
+\end{equation}
+
+В случае нахождения центра сферы на стороне $AC$ треугольника $ABC$ выполняется условие $\beta = 0$, и выражение для вели-
+чины $\alpha$ имеет вид
+\begin{equation}
+	\alpha_{\beta = 0} = k_{\gamma} \gamma + \sqrt{q_{\gamma^2} \gamma^2 + q_{\gamma} \gamma + q}.
+\end{equation}
+
+В случае нахождения центра сферы на стороне $BC$ треугольника $ABC$ выполняется условие $\beta + \gamma = 1$, и выражение для величины $\alpha$ имеет вид
+\begin{multline}
+	\alpha_{\beta + \gamma = 1} = (k_{\gamma} - k_{\beta}) \gamma + k_{\beta} + \\
+	\sqrt{(q_{\beta^2} + q_{\gamma^2} + q_{\beta \gamma}) \gamma^2 + (-2 q_{\beta^2} + q_{\beta \gamma} - q_{\beta} + q_{\gamma}) \gamma + (q_{\beta^2} + q_{\beta} + q)}
+\end{multline}
+
+Во всех случаях нахождения центра сферы на одной из сторон треугольника задача нахождения максимального значения $\alpha(\beta, \gamma)$ при заданных ограничениях сводится к задаче поиска максимального значения функции вида $\alpha(x) = k_x x + k + \sqrt{q_{x^2} x^2 + q_x x + q}$ (с учетом этих ограничений), что не представляет труда (точкой максимума является либо точка локального экстремума, либо точка, находящаяся на границе области определения функции).
+
+Отдельно рассмотрим вариант, когда центр искомой сферы находится внутри треугольника.
+В этом случае точка пересечения траектории $\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}$ находится на общей касательной плоскости к сферам $S(0,0)$, $S(1,0)$, $S(0,1)$ (плоскость $A'B'C'$, см. рис.~\ref{fig:text_1_remesh_common_envelope_3}).
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/case1.pdf}
+	\caption{Случай нахождения пересечения траектории движения точки с общей огибающей семейства сфер, если центр сферы лежит внутри треугольника}
+	\label{fig:text_1_remesh_common_envelope_3}
+\end{figure}
+
+Центр искомой сферы находится в точке пересечения плоскости $ABC$ и прямой, проходящей через точку $\overline{P}(\alpha)$ и направленной вдоль нормали к плоскости $A'B'C'$ .
+Если вектор единичной нормали плоскости $A'B'C'$ обозначить через $\overline{n}$, то взаимосвязь точек плоскостей $ABC$ и $A'B'C'$ можно выразить следующим образом:
+\begin{equation}
+	\begin{aligned}
+		\overline{A}' = \overline{A} + \overline{n}R_A \\
+		\overline{B}' = \overline{B} + \overline{n}R_B \\
+		\overline{C}' = \overline{C} + \overline{n}R_C
+	\end{aligned}
+\end{equation}
+
+Для нахождения вектора $\overline{n}$ используем тот факт, что результат векторного произведения $\overline{A'B'} \times \overline{A'C'}$ коллинеарен вектору $\overline{n}$.
+Данный факт записывается в явном виде
+\begin{equation}
+	(\overline{AB} + \overline{n} R_{AB}) \times (\overline{AC} + \overline{n} R_{AC}) = t \overline{n}
+\end{equation}
+
+\begin{equation}
+	\overline{AB} \times \overline{AC} + R_AB(\overline{n} \times \overline{AC}) - R_{AC}(\overline{n} \times \overline{AB}) = t \overline{n}
+\end{equation}
+
+\begin{equation}
+	t
+	\begin{pmatrix}
+		n_x \\
+		n_y \\
+		n_z
+	\end{pmatrix}
+	+ R_{AC}
+	\begin{pmatrix}
+		n_y AB_z - n_z AB_y \\
+		n_z AB_x - n_x AB_z \\
+		n_x AB_y - n_y AB_x
+	\end{pmatrix}
+	- R_{AB}
+	\begin{pmatrix}
+		n_y AC_z - n_z AC_y \\
+		n_z AC_x - n_x AC_z \\
+		n_x AC_y - n_y AC_x
+	\end{pmatrix}
+	= \overline{AB} \times \overline{AC}
+\end{equation}
+
+Данное соотношение может выполняться при $t > 0$, либо $t < 0$, что соответствует существованию двух общих касательных плоскостей к трем сферам.
+Перепишем приведенное соотношение в виде системы линейных уравнений относительно составляющих нормали при произвольном значении параметра $t$.
+\begin{multline}
+	\begin{pmatrix}
+		t                         & R_{AC} AB_z - R_{AB} AC_z & R_{AB} AC_y - R_{AC} AB_y \\
+		R_{AB} AC_z - R_{AC} AB_z & t                         & R_{AC} AB_x - R_{AB} AC_x \\
+		R_{AC} AB_y - R_{AB} AC_y & R_{AB} AC_x - R_{AC} AB_x & t
+	\end{pmatrix}
+	\begin{pmatrix}
+		n_x \\
+		n_y \\
+		n_z
+	\end{pmatrix} \\
+	= \overline{AB} \times \overline{AC}
+\end{multline}
+
+Из данной системы уравнений находятся два возможных направления нормали к общей касательной плоскости для сфер $S(0,0)$, $S(1,0)$, $S(0,1)$.
+Для каждого направления нормали находится плоскость $A'B'C'$ и точка $\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}$ на ней (и сам искомый параметр $\alpha$).
+Данную точку можно учитывать в общем наборе решений только в том случае, если ей соответствует сфера $S(\beta, \gamma)$, параметры которой удовлетворяют условиям $\beta \ge 0$, $\gamma ge 0$, $\beta + \gamma \le 1$.
+Параметры $\beta$, и $\gamma$ можно определить путем поиска точки пересечения прямой $\overline{P}(\alpha) - x \overline{n}, x \in \mathbb{R}$ и плоскости $ABC$.
+
+Таким образом, найдя решения всех потенциально возможных частных случаев, представленных на рис. 2, находим множество решений $\alpha$ , из которых для определения актуального нового положения точки $\overline{A}'$ необходимо выбрать максимальное.
+На этом определение смещения узлов расчетной сетки завершено.
+
+Изложенный выше алгоритм касается определения смещения узла с учетом только одной инцидентной ячейки.
+При рассмотрении отдельного узла расчетной сетки требуется вычислить смещение данного узла относительно каждой инцидентной ячейки и выбрать среди этих смещений максимальное (см. рис.~\ref{fig:text_1_remesh_common_envelope_4}).
+На рис.~\ref{fig:text_1_remesh_common_envelope_4} представлена двумерная иллюстрация действия алгоритма на примере затягивания небольшой впадины.
+Видно, что результирующая поверхность получилась более гладкой, хоть некоторые ячейки и стянулись в более мелкие.
+Для повышения качества сетки можно выполнить удаление слишком мелких ячеек.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/out_from_cave.pdf}
+	\caption{Схема стягивания впадины после одного шага алгоритма перестроения поверхности с использованием общей огибающей семейства сфер}
+	\label{fig:text_1_remesh_common_envelope_4}
+\end{figure}
+
+Другим интересным случаям является результат работы алгоритма на участках сетки с острыми выпуклыми пиками (рис.~\ref{fig:text_1_remesh_common_envelope_5}).
+Из данного рисунка видно, что в результате работы алгоритма острый угол сглаживается, и при продолжении наращивания льда в несколько итераций сглаживание продолжится (рис.~\ref{fig:text_1_remesh_common_envelope_5}, слева).
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/peak1.pdf}
+	\caption{Сглаживание острых выпуклых пиков поверхности в результате работы алгоритма}
+	\label{fig:text_1_remesh_common_envelope_5}
+\end{figure}
+
+Следует отметить, что на таких острых пиках несколько снижена точность по объему льда.
+Данную точность можно повысить путем добавления новых узлов расчетной сетки и корректировки направлений смещения получившихся вершин (рис.~\ref{fig:text_1_remesh_common_envelope_6}, справа).
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/peak2.pdf}
+	\caption{Сглаживание острых выпуклых пиков поверхности в результате работы алгоритма}
+	\label{fig:text_1_remesh_common_envelope_6}
+\end{figure}
+
+Описанный алгоритм реализован в программном коде на языке python.
+Тестирование работы алгоритма выполнялось на модельных поверхностях, взятых из открытых источников, в частности на моделях из The Stanford 3D Scanning Repository (см. рис.~\ref{fig:text_1_remesh_common_envelope_7}).
+В результате реализации описанного в работе алгоритма удалось получить программный модуль, способный обрабатывать поверхностные расчетные сетки произвольной сложности и содержащие дефекты.
+Также данный алгоритм не содержит итерационных процедур сглаживания.
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_common_envelope/bunny.png}
+	\caption{Демонстрация сглаживания мелких впадин на модельной поверхности}
+	\label{fig:text_1_remesh_common_envelope_7}
+\end{figure}
