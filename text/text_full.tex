@@ -13,7 +13,8 @@
 \usepackage{textcomp}                                        % текст в формулах
 \usepackage{graphicx}                                        % подключение графики
 \usepackage{listings}                                        % печать листингов
-\usepackage{caption2}                                         % для изменения стиля подписи рисунков
+\usepackage{xcolor}                                          % использование цветов
+\usepackage{caption2}                                        % для изменения стиля подписи рисунков
                                                              %     (приводит к warning-у, так что использовать только по необходимости)
 \usepackage{verbatim}                                        % использование дополнительных возможностей verbatim           
 \usepackage{fancybox}                                        % использование расширенного Verbatim
@@ -21,13 +22,13 @@
 %---------------------------------------------------------------------------------------------------
 
 \lstset{
-language=C++,
+language={[ANSI]C++},
 basewidth=0.5em,
 xleftmargin=45pt,
 xrightmargin=45pt,
 basicstyle=\linespread{0.8}\small\ttfamily,                  % 0.8 - уменьшение расстояния между строк
                                                              % linespread должен идти первым 
-keywordstyle=\bfseries\underbar,
+keywordstyle=\color[rgb]{0,0,1},
 numbers=left,
 numberstyle=\tiny,
 stepnumber=1,
