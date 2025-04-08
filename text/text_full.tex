@@ -71,6 +71,11 @@ escapeinside={\%*}{*)}
 
 \begin{document}
 
+\numberwithin{lstlisting}{section}                           % нумерация листингов по секциям
+                                                             % определяем тут, так как счетчик листинга до begin{document}
+                                                             % еще не существует
+                                                             % https://tex.stackexchange.com/questions/441618/how-to-number-the-listings-within-sections
+
 \title{Организация суперкомпьютерных вычислений на поверхностных неструктурированных расчетных сетках}
 \author{}
 \date{}
@@ -86,7 +91,6 @@ escapeinside={\%*}{*)}
 \newpage
 \section*{Введение}                      % выключить номер введения
 \addcontentsline{toc}{section}{Введение} % но добавить его в оглавление
-
 
 \paragraph{Актуальность темы.}
 
@@ -134,6 +138,7 @@ escapeinside={\%*}{*)}
 \setcounter{theorem}{0}
 \setcounter{lemma}{0}
 \setcounter{definition}{0}
+\setcounter{lstlisting}{0}
 
 \input text_2_qual.tex
 \input text_2_decompsurf.tex
@@ -154,6 +159,7 @@ escapeinside={\%*}{*)}
 \setcounter{theorem}{0}
 \setcounter{lemma}{0}
 \setcounter{definition}{0}
+\setcounter{lstlisting}{0}
 
 \input text_3_graph_prim.tex
 \input text_3_edge_coloring.tex
@@ -172,12 +178,12 @@ escapeinside={\%*}{*)}
 \setcounter{theorem}{0}
 \setcounter{lemma}{0}
 \setcounter{definition}{0}
+\setcounter{lstlisting}{0}
 
-\input text_4_flat.tex
-\input text_4_vec_class.tex
-\input text_4_avx_512.tex
+\input text_4_vec_description.tex
 \input text_4_small_matr.tex
 \input text_4_spec_matr.tex
+\input text_4_flat.tex
 \input text_4_tozh.tex
 \input text_4_mesh_intersect.tex
 \input text_4_vec_mrg_under_cond.tex

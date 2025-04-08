@@ -82,15 +82,81 @@
 %---------------------------------------------------------------------------------------------------
 % Глава 4.
 
-% Особенности AVX-512.
+% Обзорная часть.
+%
+\bibitem{Cebrian2019VecScal}\textbf{Cebrian~J., Natvig~L., Lahre~M.} Scalability analysis of AVX-512 extensions. // The Journal of Supercomputing, 2020, Vol.~76, P.~2082-2097. DOI:~10.1007/s11227-019-02840-7
+%
+\bibitem{Kulikov2019VecAstro}\textbf{Kulikov~I., Chernykh~I., Tutukov~A.} A new hydrodynamic code with explicit vectorization instructions optimizations that is dedicated to the numerical simulation of astrophysical gas flow. I. Numerical method, tests, and model problem. // The Astrophysical Journal Supplement Series, 2019, Vol.~243, No.~4, 15~P. DOI:~10.3847/1538-4365/ab2237
+%
+\bibitem{Glinting2019VecSwim}\textbf{Glinting~B., Mundani~R.-P.} Comparison of shallow water solvers: applications for dam-break and tsunami cases with reordering strategy for efficient vectorization on modern hardware. // Water, 2019, Vol.~11(4), No.~639, 31~P. DOI:~10.3390/w11040639
+%
+\bibitem{Yildirim2021VecCFD}\textbf{Yildirim~A., Mader~C., Martins~J.} Accelerating parallel CFD codes on modern vector processors using blockettes. // PASC’21: Proceedings of the Platform for Advanced Scientific Computing Conference, 2021.
+DOI:~10.1145/3468267.3470615
+%
+\bibitem{Rucci2020VecNBody}\textbf{Rucci~E., Moreno~E., Pousa~A., Chichizola~F.} Optimization of the N-body simulation on Intel’s architectures based on AVX-512 instruction set. // In book: Comminications in Computer and Information Science, 2020.
+DOI:~10.1007/978-3-030-48325-8\_3
+%
+\bibitem{Rucci2019VecSW}\textbf{Rucci~E., Garcia~C., Botella~G., De~Giusti~A.} SWIMM 2.0: Enhanced Smith-Waterman on Intel’s multicore and manycore architectures based on AVX-512 vector extensions. // International Journal of Parallel Programming,
+2019, Vol.~47(17). DOI:~10.1007/s10766-018-0585-7
+%
+\bibitem{Choi2023VecKorean}\textbf{Choi~Y., Choi~H., Chung~S.} AVX512Crypto: Parallel implementations of Korean block ciphers using AVX-512. // IEEE Access, 2023. DOI:~10.1109/ACCESS.2023.3278993
+%
+\bibitem{Cheng2021VecCSIDH}\textbf{Cheng~H., Fotiadis~G., Gro{\ss}sch{\"a}dl~J., Ryan~P., R{\o}nne~P.} Batching CSIDH group actions using AVX-512. // IACR Transactions on Cryptographic Hardware and Embedded Systems, 2021, Vol.~2021, No.~4, P.~618-649. DOI:~10.46586/tches.v2021.i4.618-649
+%
+% ----------
+%
+\bibitem{Kusswurm2022VecCpp}\textbf{Kusswurm~D.} Modern parallel programming with C++ and Assembly Language. X86 SIMD development using AVX, AVX2, and AVX-512. // CA, Apress Berkeley Publ., 2022, 633~ P. DOI:~10.1007/978-1-4842-7918-2
+%
+\bibitem{Blacher2022VecQuick}\textbf{Blacher~M., Giesen~J., Sanders~P., Wassenberg~J.} Vectorized and performance-portable Quicksort. // ArXiv, 2022, art.~2205.05982, P.~1–21. DOI:~10.48550/arXiv.2205.05982
+%
+\bibitem{Long2022VecSPD}\textbf{Long~S., Fan~X., Chao~L., Yi~L., Fan~S., Guo~X.-W., Yang~C.} VecDualSPHysics: A vectorized implementation of Smoothed Particle Hydrodynamics method for simulating fluid flows on multi-core processors. // Journal of Computational Physics, 2022, Vol.~463, art.~111234. DOI:~10.1016/j.jcp.2022.111234
+%
+\bibitem{PonteFernandez2022VecInteractions}\textbf{Ponte-Fern{\'a}ndez~C., Gonz{\'a}lez-Dom{\'i}nguez~J., Mart{\'i}n~M.~J.} A SIMD algorithm for the detection of epistatic interactions of any order. // Future Generation Comput. Sys., 2022, Vol.~132, P.~108–123. DOI:~10.1016/j.future.2022.02.009
+%
+\bibitem{Quisland2023VecSeries}\textbf{Quislant~R., Fernandez~I.} Time series analysis acceleration with advanced vectorization extensions. // The Journal of Supercomputing, 2023, Vol.~79, No.~9, P.~10178–10207. DOI:~10.1007/s11227-023-05060-2
+%
+\bibitem{Buhrow2022VecMult}\textbf{Buhrow~B., Gilbert~B., Haider~C.} Parallel modular multiplication using 512-bit advanced vector instructions. // Journal of Cryptographic Engineering, 2022, Vol.~12, P.~95–105. DOI:~10.1007/s13389-021-00256-9
+%
+\bibitem{Choi2022VecPIPO}\textbf{Choi~H., Seo~S.~C.} Efficient parallel implementations of PIPO Block Cipher on CPU and GPU. // IEEE Access, 2022, Vol.~10, P.~85995–86007. DOI:~10.1109/ACCESS.2022.3198707
+%
+\bibitem{Cheng2022VecSIKE}\textbf{Cheng~H., Fotiadis~G., Gro{\ss}sch{\"a}dl~J., Ryan~P.}. Highly vectorized SIKE for AVX-512. // IACR Transactions on Cryptographic Hardware and Embedded Sys., 2022, No.~2, P.~41–68. DOI:~10.46586/tches.v2022.i2.41-68
+%
+\bibitem{Sansone2023VecFourier}\textbf{Sansone~G., Cococcioni~M.} Experiments on speeding up the recursive fast Fourier transform by using AVX-512 SIMD instructions. // Proc. ApplePies. LNEE, 2023, Vol.~1036, P.~255–263. DOI:~10.1007/978-3-031-30333-3\_34
+%
+\bibitem{Edamatsu2023VecDiv}\textbf{Edamatsu~T., Takahashi~D.} Fast multiple-precision integer division using Intel AVX-512. // IEEE Transactions on Emerging Topics in Computing, 2023, Vol.~11, No.~1, P.~224–236. DOI:~10.1109/TETC.2022.3196147
+%
+\bibitem{Medakin2021VecPP}\textbf{Медакин~П.О., Никулин~Р.Н., Авдеюк~О.А., Королева~И.Ю., Павлова~Е.С., Лемешкина~И.Г.} Векторизация и распараллеливание метода «частица-частица». // Инженерный вестник Дона, 2021, No.~1. URL:~http://ivdon.ru/ru/
+magazine/archive/n1y2021/6800 (дата обращения: 01.05.2025)
+%
+\bibitem{Tayeb2023VecAuto}\textbf{Tayeb~H., Paillat~L., Bramas~B.} Autovesk: Automatic vectorization of unstructured static kernels by graph transformations. // ArXiv, 2023, art.~2301.01018, P.~1–21. DOI:~10.48550/arXiv.2301.01018
+%
+\bibitem{Laukemann2019VecAuto}\textbf{Laukemann~J., Hammer~J., Hager~G., Wellein~G.} Automatic throughput and critical path analysis of x86 and ARM assembly kernels. // Proc. IEEE/ACM PMBS, 2019, P.~1–6. DOI:~10.1109/PMBS49563.2019.00006
+%
+
+% Описание инструкций AVX-512.
 %
 \bibitem{IntelSDM2025}Intel 64 and IA-32 architectures software developer's manual. Combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4. // Order number: 325462-087US, march 2025.
 %
-\bibitem{Volkonsky2003}\textbf{Волконский В., Окунев С.} Предикатное представление как основа оптимизации программы для архитектур с явно выраженной параллельностью. // Информационные технологии, 2003, № 4, С. 36–45.
+\bibitem{Kalamkar2019VecBF16}\textbf{Kalamkar~D., Mudigere~D., Mellempudi~N., Das~D. et al.} A study of BFloat16 for deep learning training. // ArXiv, 2019, art.~1905.12322, P.~1-11. DOI:~10.48550/arXiv.1905.12322
 %
-\bibitem{Kim2013}\textbf{Ким А., Перекатов В., Ермаков С.} Микропроцессоры и вычислительные комплексы семейства «Эльбрус», Питер, СПб., 2013, 273 С.
+\bibitem{Zhou2024VecVNNI}\textbf{Zhou~H., Han~Q., Shi~H., Zhang~Y., Yao~J.} Boost linear algebra computation performance via efficient VNNI utilization. // ASPLOS '24: Proceedings of the 29th ACM International Conference on Architectural Support for Programming Languages and Operating Systems, 2024, Vol.~3, P.~149-163. DOI:~10.1145/3620666.3651333
+%
+\bibitem{DiezCanas2021VecVP2Int}\textbf{D{\'i}ez-Ca{\~n}as~G.} Faster-than-native alternatives for x86 VP2INTERSECT instructions. // ArXiv, 2021, art.~2112.06342, P.~1-10. DOI:~10.48550/arXiv.2112.06342
+%
+\bibitem{Kovats2024VecAES}\textbf{Kovats~T., Rameshan~N., Karunarathe~K., Giannopoulos~I., Sebastian~A.} In-memory encryption using the advanced encryption standard. // Philosophical Transactions, 2025, Vol.~383, art.~20230396. DOI:~10.1098/rsta.2023.0396
+%
+\bibitem{Yoo2023VecGFNI}\textbf{Yoo~T.-H., Kivilinna~J., Cho~C.-H.} AVX-based acceleration of ARIA block cipher algorithm. // IEEE Access, 2023. DOI:~10.1109/ACCESS.2023.3298026
+%
+\bibitem{Volkonsky2003VecPred}\textbf{Волконский~В., Окунев~С.} Предикатное представление как основа оптимизации программы для архитектур с явно выраженной параллельностью. // Информационные технологии, 2003, №~4, С.~36–45.
+%
+\bibitem{Kim2013VecElb}\textbf{Ким~А., Перекатов~В., Ермаков~С.} Микропроцессоры и вычислительные комплексы семейства «Эльбрус», Питер, СПб., 2013, 273~С.
 %
 \bibitem{IntelIntrinsicsGuide}Intel Intrinsics Guide, https://alouettesu.github.io/Intrinsics/ (дата обращения 01.05.2025)
+%
+
+% Выделение однотипных операций - матрицы малой размерности.
+%
+\bibitem{Bendersky2018VecMat2}\textbf{Бендерский~Л., Лещев~С., Рыбаков~А.} Векторизация операций над матрицами малой размерности для процессора Intel Xeon Phi Knights Landing. // Современные информационные технологии и ИТ-образование, 2018, Т.~14, №~1, С.~73-90. DOI:~10.25559/SITITO.14.201801.073-090
 
 % Мои публикации.
 \bibitem{Rybakov2024VecComb}\textbf{Рыбаков~А.} Векторизация циклов с условными операциями с помощью комбинирования векторных масок. // Современные информационные технологии и ИТ-образование, 2024, Т.~20, №~3, С.~520-534. DOI:~10.25559/SITITO.020.202403.520-534
@@ -123,7 +189,6 @@
 %
 \bibitem{Rybakov2018VecNest}\textbf{Рыбаков~А., Телегин~П., Шабанов~Б.} Проблемы векторизации гнезд циклов с использованием инструкций AVX-512. // Электронный научный журнал: Программные продукты, системы и алгоритмы, 2018, №~3, С.~1-11. DOI:~10.15827/2311-6749.28.314
 %
-\bibitem{Bendersky2018VecMat2}\textbf{Бендерский~Л., Лещев~С., Рыбаков~А.} Векторизация операций над матрицами малой размерности для процессора Intel Xeon Phi Knights Landing. // Современные информационные технологии и ИТ-образование, 2018, Т.~14, №~1, С.~73-90. DOI:~10.25559/SITITO.14.201801.073-090
 
 %---------------------------------------------------------------------------------------------------
 
