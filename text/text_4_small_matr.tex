@@ -214,8 +214,7 @@ void matvec8_opt(float* __restrict m,
   x0 = SWIZ_2_ADD_2_BLEND_1(m0, m2, _MM_SWIZ_REG_CDAB, 0xAAAA);
   x2 = SWIZ_2_ADD_2_BLEND_1(m4, m6, _MM_SWIZ_REG_CDAB, 0xAAAA);
   m0 = SWIZ_2_ADD_2_BLEND_1(x0, x2, _MM_SWIZ_REG_BADC, 0xCCCC);
-  x0 = _mm512_add_ps(m0,
-                     _mm512_permute4f128_ps(m0, _MM_PERM_CDAB));
+  x0 = _mm512_add_ps(m0, _mm512_permute4f128_ps(m0, _MM_PERM_CDAB));
   ...
   _mm512_mask_i32scatter_ps(r, 0xF0F, ind_sct, x0, _MM_SCALE_4);
 }
