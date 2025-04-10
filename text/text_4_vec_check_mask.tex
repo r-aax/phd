@@ -1,11 +1,11 @@
 % Проверка векторных масок исполняемого кода на пустоту.
-\subsection{Проверка векторных масок исполняемого кода на пустоту}
+\subsection{Векторизация с проверкой векторных масок исполняемого кода на пустоту}
 
-Рассмотрим небольшую модификацию слияния путей исполнения из раздела \ref{sec:text_4_vec_mrg_under_cond}, добавив проверку на пустоту векторых масок \texttt{COND} и \texttt{\textasciitilde COND}, под которыми исполняются векторизованные блоки \texttt{BLOCK A} и \texttt{BLOCK B} (см. рис.~\ref{fig:text_4_vec_check_mask_cond}). 
+Рассмотрим небольшую модификацию слияния путей исполнения из раздела \ref{sec:text_4_vec_mrg_under_cond}, добавив проверку на пустоту векторых масок \texttt{COND} и \texttt{\textasciitilde COND}, под которыми исполняются векторизованные блоки \texttt{BLOCK A} и \texttt{BLOCK B} \cite{Rybakov2024VecComb} (см. рис.~\ref{fig:text_4_vec_check_mask_cond}). 
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_check_mask/cond.pdf}
+	\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_check_mask/cond.pdf}
 	\caption{Схема векторизации участка программного кода, состоящего из одного условия и двух блоков, переход на которые осуществляется в соответствии с этим условием, с использованием проверок векторных масок на пустоту.}
 	\label{fig:text_4_vec_check_mask_cond}
 \end{figure}
@@ -30,15 +30,8 @@
 \begin{figure}[ht]
 	\centering
 		\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_check_mask/chart_e_merged.png}
-	\caption{Графики зависимостей эффективности векторизации от вероятности перехода на \texttt{block A} при значениях отношения длин блоков \texttt{block A} и \texttt{block B}, равных $10.0$, $0.1$, $1.0$ и при использовании слияния путей исполнения с проверкой масок на пустоту.}
+	\caption{Графики зависимостей эффективности векторизации от вероятности перехода на \texttt{block A} при значениях отношения длин блоков \texttt{block A} и \texttt{block B} $\alpha = 10,0$, $\alpha = 0,1$ и $\alpha = 1,0$ и при использовании слияния путей исполнения с проверкой масок на пустоту.}
 	\label{fig:text_4_vec_check_mask_chart_e_merged}
 \end{figure}
 
 Из рис.~\ref{fig:text_4_vec_check_mask_chart_e_merged} видно, что эффективность векторизации возрастает, если значение вероятности перехода на один из блоков близко к единице, однако в среднем вероятность векторизации остается невысокой.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_check_mask/continuity.png}
-\caption{}
-\label{q}
-\end{figure}
