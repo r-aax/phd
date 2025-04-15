@@ -157,8 +157,8 @@ Cистема неравенств \eqref{eqn:text_1_geo_prim_2} являетс�
 
 \subsubsection{Задача поиска точек пересечения прямой с окрестностью отрезка}\label{sec:text_1_geo_prim_line_eps_intersect}
 
-Пусть в пространстве задан отрезок $Segm(\overline{A}, \overline{B})$ согласно \eqref{eqn:text_1_geo_prim_segment}.
-На точках этого отрезка $\overline{C}(\alpha) = \overline{A} + \alpha \overline{AB}, \ 0 \le \alpha \le 1$ задана функция $R(\overline{C}(\alpha))$ такая, что:
+Пусть в пространстве задан отрезок $Segm(\overline{A}, \overline{B})$.
+Рассмотрим его окрестность $O_R(Segm(\overline{A}, \overline{B}))$, где функция $R$ задана на точках этого отрезка $\overline{C}(\alpha) = \overline{A} + \alpha \overline{AB}, \ 0 \le \alpha \le 1$ следующим образом:
 \begin{equation}
 	\left\{
 		\begin{aligned}
@@ -169,12 +169,12 @@ Cистема неравенств \eqref{eqn:text_1_geo_prim_2} являетс�
 	\right.
 \end{equation}
 
-Также пусть в пространстве задана прямая согласно \eqref{eqn:text_1_geo_prim_line}.
+Также пусть в пространстве задана прямая.
 Без ограничения общности можно считать, что эта прямая проходит через начало координат, пусть она имеет вид $Line(\overline{0}, \overline{V}) = \{ \overline{P}(\tau) = \tau \overline{V}: \tau \in \mathbb{R} \}$.
 
 Требуется найти точки пересечения прямой $Line(\overline{0}, \overline{V})$ и окрестности отрезка $O_R(Segm(\overline{A}, \overline{B}))$ \cite{Rybakov2017Flight}.
 
-Точки пересечения прямой $Line(\overline{0}, \overline{V})$ и сферы с центром в точке $\overline{C}$ и радиусом $R$ находятся из решения системы уравнений
+Точки пересечения прямой $Line(\overline{0}, \overline{V})$ и сферы $Sphere(\overline{C}, R)$ находятся из решения системы уравнений
 \begin{equation}\label{eqn:text_1_geo_prim_tv_pcr}
 	\left\{
 		\begin{aligned}
@@ -187,7 +187,7 @@ Cистема неравенств \eqref{eqn:text_1_geo_prim_2} являетс�
 Система уравнений \eqref{eqn:text_1_geo_prim_tv_pcr} преобразуется в квадратное уравнение относительно $\tau$, дискриминант которого равен $4\left((\overline{C}, \overline{V})^2 - |\overline{V}|^2 \left(|\overline{C}|^2 - R^2\right)\right)$.
 Общие точки прямой и сферы существуют если этот дискриминант неотрицателен.
 
-Аналогично точки пересечения прямой $Line(\overline{0}, \overline{V})$ и сферы с центром в точке $\overline{C}(\alpha)$ и радиусом $R(\alpha)$ существуют, если выполняется условие
+Аналогично, точки пересечения прямой $Line(\overline{0}, \overline{V})$ и сферы с центром в точке $\overline{C}(\alpha)$ и радиусом $R(\alpha)$ существуют, если выполняется условие
 \begin{equation}
 	(\overline{C}(\alpha), \overline{V})^2 - |\overline{V}|^2 \left(|\overline{C}(\alpha)|^2 - R(\alpha)^2\right) \ge 0.
 \end{equation}
@@ -242,17 +242,17 @@ Cистема неравенств \eqref{eqn:text_1_geo_prim_2} являетс�
 \begin{equation}
 	\left\{
 		\begin{aligned}
-			\tau_1 = \min(t_1(\alpha_0), t_1(\alpha_1), t_1(\tilde{\alpha}_0), t_1(\tilde{\alpha}_1)) \\
-			\tau_2 = \max(t_2(\alpha_0), t_2(\alpha_1), t_2(\tilde{\alpha}_0), t_2(\tilde{\alpha}_1))
+			\tau_1 = \min(\tau_{1,2}(\alpha_0), \tau_{1,2}(\alpha_1), \tau_{1,2}(\tilde{\alpha}_0), \tau_{1,2}(\tilde{\alpha}_1)) \\
+			\tau_2 = \max(\tau_{1,2}(\alpha_0), \tau_{1,2}(\alpha_1), \tau_{1,2}(\tilde{\alpha}_0), \tau_{1,2}(\tilde{\alpha}_1))
 		\end{aligned}
 	\right.
 \end{equation}
 
-Множеством общих точек $Line(\overline{0}, \overline{V})$ и $O_R(Segm(\overline{A}, \overline{B}))$ является $\{ \overline{P}(\tau): \tau_1 \le \tau \le \tau_2 \}$.
+Множеством общих точек $Line(\overline{0}, \overline{V})$ и $O_R(Segm(\overline{A}, \overline{B}))$ является $\{ \overline{P}(\tau): \tau_1 \le \tau \le \tau_2 \}$ (см. рис.~\ref{fig:text_1_geo_prim_spheres_nest_intersection}).
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.80\textwidth]{./pics/text_1_geo_prim/spheres_nest_intersection.pdf}
+	\includegraphics[width=0.7\textwidth]{./pics/text_1_geo_prim/spheres_nest_intersection.pdf}
 	\caption{Пересечение прямой с окрестностью отрезка.}
 	\label{fig:text_1_geo_prim_spheres_nest_intersection}
 \end{figure}
