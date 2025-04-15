@@ -97,10 +97,10 @@ h(N) = \frac{1}{|\mathscr{F}(N)|} \sum_{f \in \mathscr{F}(N)}{h(f)}.
 В этом случае вместо однократного перестроения сетки по объему накопленного льда в каждой ячейке ($V(f)$), выбирается фиксированное количество шагов перестроения $k$, а дальше процедура выполняется $k$ раз подряд, но с использованием объема накопленного в ячейке льда $\frac{V(f)}{k}$.
 Точность повышается из-за того, что после каждого шага перестроения нормали в узлах сетки меняют свое направление, и общий объем наращиваемого льда становится более криволинейным, лучше учитывает геометрию сетки и, как следствие, точнее соответствует исходному значению $V(f)$ (см. рис.~\ref{fig:text_1_remesh3_multi}).
 
-\subsubsection{Rebuilding with ice volume conservation}
+\subsubsection{Перестроение поверхности с сохранением объема}
 
-The articles \cite{Thompson,Tong} describe a stable iterative mesh evolution algorithm that preserves the target volume of ice.
-It uses several improvements over the classical methods.
+В работах \cite{Thompson2013Remesh,Tong2017Remesh} описан устойчивый итерационный алгоритм эволюции поверхностной сетки, сохраняющий целевой объем льда.
+В нем используется ряд улучшений по сравнению с классическими методами.
 
 The multilayer approach implemented in this method does not use a constant number of steps -- the value of the increased volume at each step of the algorithm is calculated based on the maximum allowable fraction of the icing time step, after exceeding which numerical instability may occur in the evolution of the surface.
 The most obvious case occurs when the face normal projections intersect, in which case too large time step will cause the surface to fold.
