@@ -1,49 +1,48 @@
 % Перестроение в двумерном случае.
 \subsection{Методы перестроения поверхности в двумерном случае}
 
-Consider the geometric problem of rebuilding a surface in two-dimensional space in general form.
-Let $n$ cells of the surface grid be given, each of which is represented by a segment of length $l_i$ (that is, the total number of nodes is $n+1$).
-The direction of change of the surface of each cell is known (the direction of the normal to the segment), as well as the direction of movement of each node $\overline{g_i}$, $|\overline{g_i}| = 1$.
-It coincides with the direction of the sum of the unit normals drawn to the incident cells.
-Moreover, for a two-dimensional case, this direction lies on the bisector of the angle formed by two incident cells \cite{Fortin} (Fig.~\ref{fig:grid_normals}).
+Рассмотрим геометрическую задачу о перестроении поверхности в двумерном пространстве в общем виде.
+Пусть даны $n$ ячеек поверхностной сетки, каждая из которых представлена отрезком длины $l_i$ (то есть общее количество узлов равно $n + 1$).
+Известно направление изменения поверхности каждой ячейки (направление нормали к отрезку), а также направление движения каждого узла $\overline{g_i}$, $|\overline{g_i}| = 1$.
+Оно совпадает с направлением суммы единичных нормалей, проведенных к инцидентным ячейкам.
+К тому же для двумерного случая это направление лежит на биссектрисе угла, образованного двумя инцидентными ячейками \cite{Fortin2004Remesh2d} (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
 
 \begin{figure}[h]
 \onelinecaptionstrue
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/grid_normals.pdf}
-\captionstyle{normal}\caption{Surface mesh with designated direction of movement of the nodes.}
-\label{fig:grid_normals}
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_normals.pdf}
+\captionstyle{normal}\caption{Поверхностная сетка с обозначенными направлениями движения узлов.}
+\label{fig:text_1_remesh_2d_grid_normals}
 \end{figure}
 
-It is required to find such values of local shifts of grid nodes $h_i$ that the covering area between the old surface and the new surface for each grid cell ($S_i$) differ as small as possible from the required value a $T_i = l_iH_i$.
+Также известны локальные сдвиги поверхности для каждой ячейки (они задаются значениями $H_i$).
+Требуется найти такие значения локальных сдвигов узлов сетки $h_i$, чтобы охватывающая площадь между исходной поверхностью и новой поверхностью для каждой ячейки сетки ($S_i$) как можно меньше отличалась от требуемого значения $T_i = l_iH_i$.
 
-To solve this problem, first, it's needed to calculate the covering area for each individual cell.
+Для решения данной задачи сначала требуется вычислить охватываемую площадь для каждой отдельной ячейки.
 
-\subsubsection{The task of calculating the covering area when moving nodes of a single cell}
+\subsubsection{Задача о вычислении охватываемой площади при движении узлов отдельной ячейки}
 
-Consider a cell represented on a plane by a segment $AB$ of length $l$.
-When moving $A$ and $B$ to the new points $A_1$ and $B_1$ respectively quadrangle $AA_1B_1B$ is formed.
-It is required to find its area expressed explicitly through parameters $a = |\overline{AA_1}|$ and $b = |\overline{BB_1}|$ (Fig.~\ref{fig:local}).
+Рассматривается ячейка, представленная на плоскости отрезком $AB$ длины $l$.
+При перемещении точек $A$ и $B$ в новые точки $A_1$ и $B_1$ соответственно образуется четырехугольник $AA_1B_1B$.
+Требуется найти его площадь, выраженную явно через параметры $a = \overline{AA_1}$ и $b = \overline{BB_1}$ (рис.~\ref{fig:text_1_remesh_2d_local}).
 
 \begin{figure}[h]
 \onelinecaptionstrue
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/local.pdf}
-\captionstyle{normal}\caption{Calculation of the covering area when moving the nodes of the cell.}
-\label{fig:local}
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/local.pdf}
+\captionstyle{normal}\caption{Вычисление охватываемой площади при передвижении узлов ячейки.}
+\label{fig:text_1_remesh_2d_local}
 \end{figure}
 
-To solve the problem, we drop perpendiculars from the points $A_1$ and $B_1$ to a straight $AB$.
-Their projections will be points $A_2$ and $B_2$ respectively.
-The required area can be represented as follows:
-
+Для решения задачи опустим перпендикуляры из точек $A_1$ и $B_1$ на прямую $AB$.
+Их основаниями будут точки $A_2$ и $B_2$ соответственно.
+Искомая площадь может быть представлена в следующем виде:
 \begin{equation}
 S_{AA_1B_1B} = S_{A_2A_1B_1B_2} - S_{AA_1A_2} - S_{BB_1B_2}
 \end{equation}
 
-Denote the angle between the vectors $\overline{AA_1}$ and $\overline{AB}$ as $\alpha$, and the angle between the vectors $\overline{BB_1}$ and $\overline{BA}$ as $\beta$.
-Then the required area is calculated explicitly in the following form:
-
+Обозначим угол между векторами $\overline{AA_1}$ и $\overline{AB}$ через $\alpha$, а угол между векторами $\overline{BB_1}$ и $\overline{BA}$ через $\beta$.
+Тогда искомая площадь вычисляется явно в следующем виде:
 \begin{equation}
 S_{AA_1B_1B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \sin \beta) + \frac{1}{2}a^2 \sin \alpha \cos \alpha + \frac{1}{2}b^2 \sin \beta \cos \beta
 \end{equation}
@@ -52,48 +51,43 @@ S_{AA_1B_1B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \
 S_{AA_1B_1B} = \frac{1}{2}\big(l(a \sin \alpha + b \sin \beta) - ab \sin(\alpha + \beta)\big)
 \end{equation}
 
-\subsubsection{Gradient Descent Solution}
+\subsubsection{Поиск смещений узлов методом градиентного спуска}
 
-The gradient descent method is one of the simplest optimization method for finding the local minimum of a function.
-Provided that at any point of the function it is possible to calculate its gradient, then an iteration sequence is constructed starting from some initial approximation $x_0$.~\cite{Kantorovich}:
-
+Метод градиентного спуска является одним из наиболее простых методом оптимизации для нахождения локального минимума функции.
+При условии, что в любой точки функции можно вычислить ее градиент, то начиная с некоторого начального приближения $x_0$ строится итерационная последовательность~\cite{Kantorovich1984Func}:
 \begin{equation}
-x^{k+1} = x^k - \gamma _k \nabla f(x_k)
+x^{k+1} = x^k - \gamma_k \nabla f(x_k)
 \end{equation}
 
-where $\gamma _k \geq 0$ sets the step length and, respectively, the rate of gradient descend.
+где $\gamma_k \ge 0$ задает длину шага и, соответственно, скорость градиентного спуска.
 
-The gradient method finds its main application in the task of finding the minimum or maximum of a function.
-The direction of the anti-gradient is the direction of the fastest decreasing of the function.
-The main problem of the method is to choose the step $\gamma$.
-For large values of the step, there is a chance to "jump over" the minimum of the function.
-In addition, the method does not guarantee finding a global minimum.
+Градиентный метод находит свое основное применение в задаче поиска минимума или максимума функции.
+Направление антиградиента является направлением наискорейшего убывания функции.
+Основная проблема метода заключается в выборе шага $\gamma$.
+При слишком больших значениях шага существует вероятность миновать искомый минимум функции.
+К тому же, метод не гарантирует нахождение глобального минимума.
 
-Consider the solution of the problem by the method of gradient descent.
-The unknown parameters are the magnitudes of the shifts of the nodes of the grid $h_i$.
-Based on the solution of the local problem of determining the covering area, we can define the covering area when a separate cell moves as:
-
+Рассмотрим решение поставленной задачи методом градиентного спуска.
+Неизвестными параметрами являются величины сдвигов узлов сетки $h_i$ для $0 \le i \le n$.
+Опираясь на решение локальной задачи об определении охватываемой площади, можно записать охватываемую площадь при движении отдельной ячейки:
 \begin{equation}
 S_i = \frac{1}{2}\big(l_i(h_i \sin \alpha_i + h_{i + 1} \sin \beta_i) - h_ih_{i + 1} \sin(\alpha_i + \beta_i)\big) 
 \end{equation}
 
-The deviation of the covering area in the cell from the true value will be called the value $\delta_i = S_i - T_i$, and its error is its square $d_i = \delta_i^2$.
-The total error when rebuilding the surface is defined as the sum of errors for all cells:
-
+Отклонением охватываемой площади в ячейке от истинного значения будем называть величину $\delta_i = S_i - T_i$, а ошибкой -- ее квадрат $d_i = \delta_i^2$.
+Общая ошибка при перестроении поверхности задается как сумма ошибок для всех ячеек:
 \begin{equation}
 D = \sum_{i = 0}^{n - 1}{d_i}
 \end{equation}
 
-When finding the optimal solution, it is required to minimize the total error.
-To find the gradient, it is required to calculate the partial derivatives of the function $D$ over all unknowns $h_i$.
-These derivatives can be written explicitly.
-
+При нахождении оптимального решения требуется минимизировать общую ошибку.
+Для нахождения градиента требуется вычислить частные производные функции $D$ по всем неизвестным $h_i$.
+Эти частные производные можно записать в явном виде:
 \begin{equation}
 \frac{\partial D}{\partial h_i} = \frac{\partial d_{i - 1}}{\partial h_i} + \frac{\partial d_i}{\partial h_i}
 \end{equation}
 
-where
-
+где
 \begin{equation}
 \begin{cases}
 \frac{\partial d_{i - 1}}{\partial h_i} = \delta_{i - 1}(l_{i - 1} \sin \beta_{i - 1} - h_{i - 1} \sin(\alpha_{i - 1} + \beta_{i - 1})) \\
@@ -101,59 +95,53 @@ where
 \end{cases}
 \end{equation}
 
-Also, when implementing the gradient descent method, it is required to monitor the compliance of additional conditions that are imposed on the unknown $h_i$.
-For example, an obvious condition is that $h_i \ge 0$ is satisfied, which prevents the grid from moving in a negative direction.
-In this work, more stringent conditions $min(H_{i - 1}, H_i) \le h_i \le max(H_{i - 1}, H_i)$ were used, which do not allow the values of the displacement of the grid nodes to go beyond the limits of the displacements of the grid cells incident to them.
+\
 
-\subsubsection{Approximate solution schemes}
+Также при осуществлении метода градиентного спуска требуется следить за соблюдением дополнительных условий, которые накладываются на неизвестные $h_i$.
+Например, очевидным условием является выполнение соотношения $h_i \ge 0$, что запрещает движение сетки в отрицательном направлении.
+В нашем случае использовались более строгие условия $\min(H_{i - 1}, H_i) \le h_i \le \max(H_{i - 1}, H_i)$, которые не позволят величинам смещения узлов сетки выходить за пределы смещений инцидентных им ячеек сетки.
 
-Solving the problem of rebuilding the grid using the gradient descent method is too resource-demanding as the grid size increases.
-In addition, the quality of the solution is often unsatisfactory, especially when hit in local minima.
-Therefore, to solve the problem, methods of approximate solution were proposed, based on approximation of the solution in each cell using primitive geometric shapes.
+\subsubsection{Приближенные методы перестроения поверхности}
 
-\subsubsection{Solution by rectangles method}
+Решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательной к ресурсам задачей при увеличении размера сетки.
+К тому же качество решения зачастую оказывается неудовлетворительным, особенно при попадании в локальные минимумы.
+Поэтому для решения поставленной задачи рассмотрим методы приближенного решения, основанные на аппроксимации решения в каждой ячейке с помощью примитивных геометрических фигур.
 
-As a first method, we consider an approximation in which each grid node is shifted by a vector $\frac{1}{2}(H_{i - 1} + H_i)\overline{g_i}$.
-This method corresponds to the approximation of the solution in each cell with a rectangle on the sides of $l_i$ and $H_i$, and then averaging, as shown in Fig.~\ref{fig:grid_rectangles}.
-
-\begin{figure}[h]
-\onelinecaptionstrue
-\centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/grid_rectangles.pdf}
-\captionstyle{normal}\caption{Surface rebuilding using the rectangle method.}
-\label{fig:grid_rectangles}
-\end{figure}
-
-It is worth noting the possible development of this approach through the use of multilayer approximation, as described in \cite{Bourgault_Cote}, however, this opportunity was not considered in this paper.
-
-\subsubsection{Solution by trapezoid method}
-
-In the trapezoid method, the solution in each cell is approached by a trapezoid with an area of $T_i$, the sides of which lie on the growth directions of two nodes belonging to the considered cell.
-After constructing the trapezoid for all grid cells, each internal node has two new potential positions for the shift (formed by the cell on the left and the cell on the right).
-Their average value is chosen as the final position. (Fig.~\ref{fig:grid_trapeziums}).
+В качестве первого метода рассмотрим приближение, при котором каждый узел сетки сдвигается на вектор $\frac{1}{2}(H_{i - 1} + H_i)\overline{g_i}$.
+Этот метод соответствует приближению решения в каждой ячейке прямоугольником по сторонами $l_i$ и $H_i$, а затем усреднения, как показано на рис.~\ref{fig:text_1_remesh_2d_grid_rectangles}.
 
 \begin{figure}[h]
 \onelinecaptionstrue
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/grid_trapeziums.pdf}
-\captionstyle{normal}\caption{Surface rebuilding by trapezoid method.}
-\label{fig:grid_trapeziums}
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_rectangles.pdf}
+\captionstyle{normal}\caption{Перестроение поверхности методом прямоугольников.}
+\label{fig:text_1_remesh_2d_grid_rectangles}
 \end{figure}
 
-\subsubsection{Comparison of solution accuracy}
+В методе трапеций решение в каждой ячейке приближается трапецией с площадью $T_i$, боковые стороны которой лежат на направлениях роста двух узлов, относящихся к рассматриваемой ячейке.
+После построения трапеций для всех ячеек сетки у каждого внутреннего узла появляется две новые потенциальные позиции для сдвига (образованные ячейкой слева и ячейкой справа).
+В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_grid_trapeziums}).
 
-To compare the accuracy of the solutions obtained using the methods described, we used a model two-dimensional surface grid represented by a single sinusoid period ($x \in [0, 2 \pi]$).
-As a set of cell shifts ($ H_i $), the same shifts equal to half of cell size were used.
-With an increase in the number of nodes, both approximate methods demonstrated values $\frac{D}{\sum_i{T_i}}$ tending to zero with minor deviations from each other and from the gradient descent method that was used for verification.
-A comparison of the values of $\delta_i$ for all cells for the proposed approximate methods was also carried out.
-The results of the comparison on the model grid with the number of nodes $n = 1000$ are shown Fig.~\ref{fig:graphic}.
+\begin{figure}[h]
+\onelinecaptionstrue
+\centering
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_trapeziums.pdf}
+\captionstyle{normal}\caption{Перестроение поверхности методом трапеций.}
+\label{fig:text_1_remesh_2d_grid_trapeziums}
+\end{figure}
+
+Для сравнения точности решений, полученных с помощью описанных методов была использована модельная двумерная поверхностная сетка, представленная одним периодом синусоиды ($x \in [0, 2 \pi]$).
+В качестве набора смещений ячеек ($H_i$) использовались одинаковые смещения на величину, равную половине размера ячейки.
+При увеличении количества узлов оба приближенных метода продемонстрировали стремление к нулю величины $\frac{D}{\sum_i{T_i}}$ с незначительными отклонениями друг от друга и от метода градиентного спуска, который использовался для верификации.
+Также было проведено сравнение величин $\delta_i$ для всех ячеек для рассмотренных приближенных методов.
+Результаты сравнения на модельной сетке при количестве узлов $n = 1000$ приведены на рис.~\ref{fig:text_1_remesh_2d_graphic}.
 
 \begin{figure}[h]
 \onelinecaptionstrue
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/graphic.pdf}
-\captionstyle{normal}\caption{Comparison of the accuracy of solutions using the rectangle method and the trapezoid method.}
-\label{fig:graphic}
+\captionstyle{normal}\caption{Сравнение точности решений методом прямоугольников и методом трапеций.}
+\label{fig:text_1_remesh_2d_graphic}
 \end{figure}
 
-It can be seen from this graph that the simpler method of rectangles is at the same time more accurate, since it provides smaller deviations from the exact solution on strongly convex and strongly concave sections of the grid.
+Из графика на рис.~\ref{fig:text_1_remesh_2d_graphic} видно, что более простой метод прямоугольников является в то же время и более точным, так как обеспечивает меньшие отклонения от точного решения на сильно выпуклых и сильно вогнутых участках сетки.
