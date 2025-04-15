@@ -139,9 +139,41 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 \begin{figure}[h]
 \onelinecaptionstrue
 \centering
-\includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/graphic.pdf}
+\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/graphic.pdf}
 \captionstyle{normal}\caption{Сравнение точности решений методом прямоугольников и методом трапеций.}
 \label{fig:text_1_remesh_2d_graphic}
 \end{figure}
 
 Из графика на рис.~\ref{fig:text_1_remesh_2d_graphic} видно, что более простой метод прямоугольников является в то же время и более точным, так как обеспечивает меньшие отклонения от точного решения на сильно выпуклых и сильно вогнутых участках сетки.
+
+В заключение приведем теоретическую оценку точности приведенных методов перестроения поверхности.
+Оценку будем производить для модельной расчетной сетки, которая удовлетворяет следующим требованиям.
+Все ячейки сетки одинаковые и имеют длину $l$, смещения всех ячеек одинаково и равно $H$, кривизна сетки (угол отклонения ячейки от предыдущей ячейки) постоянна и равна $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical_rectangles}).
+
+\begin{figure}[h]
+\onelinecaptionstrue
+\centering
+\includegraphics[width=0.6\textwidth]{pics/text_1_remesh_2d/theoretical_rectangles.pdf}
+\captionstyle{normal}\caption{Сетка с постоянной кривизной $\alpha$.}
+\label{fig:text_1_remesh_2d_theoretical_rectangles}
+\end{figure}
+
+Вычислим величину значения $\delta$ для перестроения методом прямоугольников, которая одинаковая для всех ячеек (обозначим ее $\delta_r$).
+Для метода прямоугольников имеем $h = H$, $\delta_r = S_{AA_2B_2B} - lH$.
+Так как для рассматриваемого примера размер ячейки, кривизна сетки и смещение ячейки постоянно, то $AA_2B_2B$ является трапецией.
+Для нахождения площади этой трапеции найдем $\angle B_2BX = \frac{\pi + \alpha}{2} - \alpha = \frac{\pi - \alpha}{2}$.
+Тогда имеем следующее выражение для величины $\delta_r$:
+\begin{equation}
+	\delta_r = \left( l + H \cos \left( \frac{\pi - \alpha}{2} \right) \right) H \sin \left( \frac{\pi - \alpha}{2} \right) - lH
+\end{equation}
+
+\begin{figure}[h]
+\onelinecaptionstrue
+\centering
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/delta_r_lH.png}
+\captionstyle{normal}\caption{Теоретическая оценка относительной погрешности перестроения $\frac{\delta_r}{lH}$ для сеток с постоянной кривизной.}
+\label{fig:text_1_remesh_2d_delta_r_lH}
+\end{figure}
+
+Метод трапеций для сеток с постоянными значениями $l$, $H$ и $\alpha$ демонстрирует нулевую погрешность при перестроении.
+Результаты теоретических оценок приведены на рис.~\ref{fig:text_1_remesh_2d_delta_r_lH}.

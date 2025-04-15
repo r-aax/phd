@@ -1,59 +1,56 @@
 % Перестроение поверхности в 3d.
-\subsection{Перестроение поверхности в 3D}
+\subsection{Методы перестроения поверхности в трехмерном случае}
 
-\subsubsection{Mesh architecture}
+\subsubsection{Архитектура неструктурированной поверхностной расчетной сетки}
 
-The solution of the surface rebuilding problem will be considered on an unstructured surface computational mesh.
-The elements of the computational mesh are nodes ($N$), edges ($e$), and faces ($f$).
-For convenience, each mesh element is associated with all its incident elements: nodes are linked with incident edges, nodes are linked with incident faces, edges are linked with incident faces.
-The set of incident nodes will be denoted by $\mathscr{N}$, the set of incident edges will be denoted by $\mathscr{E}$, and the set of incident faces will be denoted by $\mathscr{F}$.
+Решение задачи перестроения поверхности будем рассматривать на неструктурированной поверхностной расчетной сетке с треугольными ячейками.
+Элементами расчетной сетки являются узлы ($N$), ребра ($e$) и треугольные ячейки ($f$).
+Для удобства каждый элемент сетки связан со всеми своими инцидентными элементами: так связаны между собой инцидентные узлы и ребра, узлы и ячейки, ребра и ячейки (см. рис.~\ref{fig:text_1_remesh3_architecture}).
+Множество инцидентных узлов рассматриваемого ребра или ячейки будем обозначать $\mathscr{N}$, множество инцидентных ребер рассматриваемого узла или ячейки будем обозначать $\mathscr{E}$, множество инцидентных ячеек рассматриваемого узла или ребра будем обозначать $\mathscr{F}$.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.4\textwidth]{pics/text_1_remesh_3d/pic_architecture.pdf}
-\captionstyle{center}\caption{The architecture of the computational mesh.}\label{fig:pic_architecture}
+\includegraphics[width=0.5\textwidth]{pics/text_1_remesh_3d/pic_architecture.pdf}
+\captionstyle{center}\caption{Архитектура расчетной сетки.}
+\label{fig:text_1_remesh3_architecture}
 \end{figure}
 
-The following requirements are imposed on the computational mesh.
-First, the mesh must be complete, that is, each edge has exactly two incident nodes, there are no isolated and dangling nodes, and no isolated edges.
-Second, all faces must be triangles (this ensures that the face is flat, since four or more arbitrary nodes may not lie in the same plane).
-And thirdly, only closed meshes representing  surfaces are
-considered, that is, each edge has exactly two incident faces (there
-are no border edges).
-\begin{equation}\label{eq_arch}
+К расчетной сетке предъявляются следующие требования.
+Во-первых, сетка должна быть целостной, то есть каждое ребро имеет ровно два инцидентных узла, отсутствуют изолированные и висячие узлы, а также изолированные ребра.
+Во-вторых, все ячейки должны представлять собой треугольники (это гарантирует, что ячейка является плоской, так как четыре и более произвольных узлов могут не лежать в одной плоскости).
+И в-третьих, рассматриваются только замкнутые сетки, представляющие собой поверхности, то есть каждое ребро имеет ровно две инцидентные ячейки (отсутствуют граничные ребра).
+\begin{equation}\label{eqn:text_1_remesh3_arch}
 \begin{cases}
-\forall N \Rightarrow \mathscr{E}(N) > 2, \mathscr{F}(N) > 2, \\
-\forall e \Rightarrow \mathscr{N}(e) = 2 , \mathscr{F}(e) = 2, \\
-\forall f \Rightarrow \mathscr{N}(f) = 3 , \mathscr{E}(f) = 3. \\
+\forall N \implies \mathscr{E}(N) > 2, \mathscr{F}(N) > 2, \\
+\forall e \implies \mathscr{N}(e) = 2 , \mathscr{F}(e) = 2, \\
+\forall f \implies \mathscr{N}(f) = 3 , \mathscr{E}(f) = 3. \\
 \end{cases}
 \end{equation}
-As a supplement, we will also require that the mesh is a two-sided surface, for each face the normal vector to the surface $\vec{n}_f$ is uniquely defined.
-Also, no two mesh nodes are the same and there are no faces with zero area (since this would make it impossible to calculate normals).
-For a mesh node, we will consider the concept of a normal to the surface and define this normal as
-\begin{equation*}
-\vec{n}_n(N) = \frac{1}{|\mathscr{F}(N)|} \sum_{f \in
-\mathscr{F}(N)}{\vec{n}_f(f)}.
-\end{equation*}
+
+\
+
+В качестве дополнения также будем требовать, чтобы сетка представляла собой двустороннюю поверхность, для каждой ячейки однозначно определена нормаль к поверхности $\overline{n}_f$.
+Также никакие два узла сетки не совпадают и отсутствуют ячейки с нулевой площадью (так как это сделает невозможным вычислений нормалей).
+Для узла сетки будем рассматривать понятие нормали к поверхности и определять эту нормаль как
+\begin{equation}
+\overline{n}_n(N) = \frac{1}{|\mathscr{F}(N)|} \sum_{f \in \mathscr{F}(N)}{\vec{n}_f(f)}.
+\end{equation}
 
 %---------------------------------------------------------------------------------------------------
 
-\subsubsection{Remeshing}
+\subsubsection{Классические методы перестроения поверхности}
 
-The central task of rebuilding the surface due to the growth of the ice cover is as follows.
-Let it be known that as a result of the numerical solution of the problem of ice formation by the finite volume method \cite{Beaugendre}, the mass of accumulated ice ($m$) was calculated in each face of the mesh.
-We will assume that the density of ice is constant, that is, the volume of accumulated ice ($V$) is also known in each face.
-For each mesh node $N$, it is required to find its new position $N'$ in space so that for each face with nodes $A$, $B$, $C$ the volume of space bounded by the figure $ABCA'B'C'$ corresponds to the volume of ice accumulated in this face.
+Центральная задача перестроения поверхности из-за накопления льда внутри ячеек расчетной сетки выглядит следующим образом.
+Пусть известно, что в результате численного решения задачи ледообразования конечно-объемным методом \cite{Beaugendre2003Ice} в каждой ячейке сетки была вычислена масса накопленного льда ($m$).
+Будем считать плотность льда постоянной, то есть в каждой ячейке также известен объем накопленного льда ($V$).
+Для каждого узла сетки $N$ требуется найти его новое положение в пространстве $N'$, чтобы для каждой ячейки с узлами $ABC$ объем пространства, ограниченный фигурой $ABCA'B'C'$ соответствовал объему льда, накопленному в данной ячейке.
 
-It should be noted that the problem posed may not have an exact solution, in which case we should strive to minimize the volume error (when the actually formed volume of ice does not differ too much from the target volume, that is, the difference $V_{ABCA'B'C'} - V$ is relatively small).
+Следует отметить, что поставленная задача может не иметь точного решения, и в этом случае следует стремиться к минимизации ошибки по объему (когда фактически образовавшийся объем льда не слишком сильно отличается от целевого объема, то есть разница $V_{ABCA'B'C'} - V$ мала).
 
-The task of determining the new positions of the nodes of the computational mesh can be divided into two tasks: determining the directions of nodes displacements and determining the displacement values.
-Next, we consider individual methods for rebuilding surfaces in more detail.
+Задачу определения новых положений узлов расчетной сетки можно разделить на две задачи: определение направлений смещения узлов и определение величин смещения.
 
-\subsubsection{Classical remeshing methods}
-
-The simplest classical rebuilding methods are performed under the assumption that the direction of displacement of a node coincides with the normal drawn from this node.
-Thus, it is only necessary to determine the magnitude of the offset.
-Note that in the two-dimensional formulation, we can find the optimal solution (providing the minimum deviation in volume from the target value) of the problem posed \cite{Rybakov_2D}.
+Простейшие классические методы перестроения выполняются в предположении, что направление смещения узла совпадает с нормалью, проведенной из этого узла.
+Таким образом, необходимо лишь определить величину смещения.
 
 \begin{figure}[ht]
 \centering
