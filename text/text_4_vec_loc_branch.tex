@@ -129,10 +129,10 @@ if (TMP != 0x0)
 В результате к основному циклу была применена автоматическая векторизация и было достигнуто ускорение в районе 5,0 раз на микропроцессоре Intel Xeon Phi KNL 7290 при использовании вещественных чисел формата float (см. рис.~\ref{fig:text_4_vec_loc_branch_res}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_loc_branch/res.png}
-	\caption{Ускорение от применения выноса маловероятного региона в задаче определения конфликта со спутными следами летательных аппаратов (для 10 запусков по $10^7$ окрестностей отрезков в каждом).}
-	\label{fig:text_4_vec_loc_branch_res}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_loc_branch/res.png}
+\captionstyle{center}\caption{Ускорение от применения выноса маловероятного региона в задаче определения конфликта со спутными следами летательных аппаратов (для 10 запусков по $10^7$ окрестностей отрезков в каждом).}
+\label{fig:text_4_vec_loc_branch_res}
 \end{figure}
 
 \subsubsection{Выделение вероятного пути исполнения с помощью оптимизации <<черная дыра>>}
@@ -140,10 +140,10 @@ if (TMP != 0x0)
 В этом разделе описан метод выноса маловероятных регионов из плоского цикла в общем случае с помощью подхода, который в некоторых источниках применительно к своим предметным областям встречается под названием blackhole (<<черная дыра>>) \cite{Ilbeyi2019}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_loc_branch/blackhole.pdf}
-	\caption{Иллюстрация схемы работы оптимизации <<черная дыра>>.}
-	\label{fig:text_4_vec_loc_branch_blackhole}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_loc_branch/blackhole.pdf}
+\captionstyle{center}\caption{Иллюстрация схемы работы оптимизации <<черная дыра>>.}
+\label{fig:text_4_vec_loc_branch_blackhole}
 \end{figure}
 
 Пусть дам некоторый CFG тела плоского цикла (рис.~\ref{fig:text_4_vec_loc_branch_blackhole} слева), в котором присутствует явно выделенный пусть исполнения (на рисунке выделен черным цветом), вероятность прохождения которого близка к единице \cite{Shabanov2021VecCFG}.

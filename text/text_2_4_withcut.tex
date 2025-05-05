@@ -22,10 +22,10 @@
 Рассмотрим, например, граничные условия в двумерном случае (в координатах $IJ$).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond.pdf}
-	\caption{Дробление блока может спровоцировать дробление других объектов сетки.}
-	\label{fig:text_2_withcut_cut_bcond}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond.pdf}
+\captionstyle{center}\caption{Дробление блока может спровоцировать дробление других объектов сетки.}
+\label{fig:text_2_withcut_cut_bcond}
 \end{figure}
 
 Пусть блок Block должен быть разрезан по направлению $I+$ как показано на рис.~\ref{fig:text_2_withcut_cut_bcond}.
@@ -35,10 +35,10 @@
 Если же линия разреза проходит через граничное условие, то данное граничное условие также должно быть разделено, и его части отойдут двум результирующим блокам (рис.~\ref{fig:text_2_withcut_cut_bcond2}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond2.pdf}
-	\caption{Разделение граничного условия, спровоцированное дроблением блока.}
-	\label{fig:text_2_withcut_cut_bcond2}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond2.pdf}
+\captionstyle{center}\caption{Разделение граничного условия, спровоцированное дроблением блока.}
+\label{fig:text_2_withcut_cut_bcond2}
 \end{figure}
 
 Такая же ситуация может сложиться в отношении областей начальных условий.
@@ -139,10 +139,10 @@ $\blacksquare$\\
 Статистика распределения блоков по вычислительным процессам для двух различных вариантов: без использования дробления блоков и с использованием дроблений для достижения показателя неравномерности распределения распределения не более $D^{\%} = 10\%$ (см. рис.~\ref{fig:text_2_withcut_charts}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/withcut-charts.pdf}
-	\caption{Распределение блоков тестовых сеток (5,75 млн ячеек -- слева, 94,34 млн ячеек -- справа) без дробления (наверху) и с дроблением с допустимым отклонением $D^{\%} = 10\%$ (снизу).}
-	\label{fig:text_2_withcut_charts}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/withcut-charts.pdf}
+\captionstyle{center}\caption{Распределение блоков тестовых сеток (5,75 млн ячеек -- слева, 94,34 млн ячеек -- справа) без дробления (наверху) и с дроблением с допустимым отклонением $D^{\%} = 10\%$ (снизу).}
+\label{fig:text_2_withcut_charts}
 \end{figure}
 
 Предложенный механизм распределения блоков блочно-структурированной сетки между узлами суперкомпьютерного кластера приводит к равномерной загрузке вычислительных ресурсов суперкомпьютерного кластера, что повышает эффективность его использования в расчетных задачах.
@@ -210,10 +210,10 @@ $\blacksquare$\\
 Если к вычислительному узлу отнесены несколько блоков расчетной сетки, то соответствующий столбец гистограммы разделен на несколько частей, размеры которых отражают веса блоков, также эти части раскрашены в шахматном порядке для повышения наглядности.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/2-merged-pic.pdf}
-	\caption{Гистограммы распределения блоков расчетной сетки по вычислительным узлам суперкомпьютера для сеток            test (а, б), train (в, г), ref (д, е) с помощью алгоритмов UG (а, в, д) и MCC (б, г. е).}
-	\label{fig:text_2_withcut_2_merged_pic}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/2-merged-pic.pdf}
+\captionstyle{center}\caption{Гистограммы распределения блоков расчетной сетки по вычислительным узлам суперкомпьютера для сеток test (а, б), train (в, г), ref (д, е) с помощью алгоритмов UG (а, в, д) и MCC (б, г. е).}
+\label{fig:text_2_withcut_2_merged_pic}
 \end{figure}
 
 Результаты сравнения эффективности методов UG и MCC распределения вычислительной нагрузки между узлами суперкомпьютера показывают, что использование метода MCC оправдано, так как с его помощью можно добиться распределения не худшего качества (а зачастую и лучшего), чем при использовании UG.
@@ -231,10 +231,10 @@ $\blacksquare$\\
 В качестве эталонного запуска, относительно которого считались ускорения, был выбран запуск на одном узле с двумя MPI процессами на каждом процессоре. 
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling2.png}
-	\caption{Ускорение запусков на различном числе узлов относительно эталонного запуска при проведении газодинамических расчетов на модельном входном устройстве воздухозаборника на суперкомпьютере с использованием RANS/ILES метода.}
-	\label{fig:text_2_withcut_scaling2}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling2.png}
+\captionstyle{center}\caption{Ускорение запусков на различном числе узлов относительно эталонного запуска при проведении газодинамических расчетов на модельном входном устройстве воздухозаборника на суперкомпьютере с использованием RANS/ILES метода.}
+\label{fig:text_2_withcut_scaling2}
 \end{figure}
 
 Из данных, приведенных на рис.~\ref{fig:text_2_withcut_scaling2}, можно видеть сверхлинейное ускорение при увеличении количества расчетных узлов.
@@ -267,10 +267,10 @@ $\blacksquare$\\
 \end{table}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling3.png}
-	\caption{Масштабирование вычислений при различных параметрах дробления сетки на 1-32 микропроцессорах Intel Xeon Phi Knights Landing 7290.}
-	\label{fig:text_2_withcut_scaling3}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling3.png}
+\captionstyle{center}\caption{Масштабирование вычислений при различных параметрах дробления сетки на 1-32 микропроцессорах Intel Xeon Phi Knights Landing 7290.}
+\label{fig:text_2_withcut_scaling3}
 \end{figure}
 
 На рис.~\ref{fig:text_2_withcut_scaling3} представлены результаты численных экспериментов на сегменте суперкомпьютера МВС-10П, состоящем из узлов, каждый из которых содержит по одному микропроцессору Intel Xeon Phi Knights Landing 7290.

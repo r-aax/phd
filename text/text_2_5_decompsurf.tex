@@ -13,17 +13,17 @@
 Этот трехмерный профиль был сгенерирован из двумерного профиля NACA 0012.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_grid.png}
-	\caption{Внешний вид расчетной сетки wing, используемой для тестирования алгоритмов декомпозиции.}
-	\label{fig:text_2_decompsurf_wing_grid}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_grid.png}
+\captionstyle{center}\caption{Внешний вид расчетной сетки wing, используемой для тестирования алгоритмов декомпозиции.}
+\label{fig:text_2_decompsurf_wing_grid}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_random_32.png}
-	\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью случайного распределения ячеек по доменам.}
-	\label{fig:text_2_decompsurf_wing_random_32}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_random_32.png}
+\captionstyle{center}\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью случайного распределения ячеек по доменам.}
+\label{fig:text_2_decompsurf_wing_random_32}
 \end{figure}
 
 В качестве первого и самого простого алгоритма декомпозиции рассмотрим алгоритм случайного распределения ячеек расчетной сетки по доменам.
@@ -35,10 +35,10 @@
 Использование таких буферных зон может потребоваться для реализации численных методов повышенной точности.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/mpi_border_inner.pdf}
-	\caption{Сокрытие издержек на информационные обмены за вычислениями.}
-	\label{fig:text_2_decompsurf_wing_border_inner}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/mpi_border_inner.pdf}
+\captionstyle{center}\caption{Сокрытие издержек на информационные обмены за вычислениями.}
+\label{fig:text_2_decompsurf_wing_border_inner}
 \end{figure}
 
 На этом этапе упомянем механизм частичного сокрытия издержек на обмены данными за основными вычислениями.
@@ -56,10 +56,10 @@
 Было бы гораздо эффективнее производить деление сетки поперек профиля.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_linear_32.png}
-	\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью линейного разделения множества индексов ячеек.}
-	\label{fig:text_2_decompsurf_wing_linear_32}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_linear_32.png}
+\captionstyle{center}\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью линейного разделения множества индексов ячеек.}
+\label{fig:text_2_decompsurf_wing_linear_32}
 \end{figure}
 
 В общем случае ячейки с непрерывным диапазоном индексов не обязаны составлять не то что компактные домены с границами небольшой протяженности, а вообще могут порождать несвязные домены, с артефактами, выколотыми ячейками и так далее.
@@ -73,10 +73,10 @@
 Также следует отметить инкрементальный алгоритм декомпозиции графов \cite{Yakobovsky2005Decomp}, особенностью которого является возможность освобождения части ячеек, уже распределенных по доменам, с последующим повторением роста доменов.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_rgrow_32.png}
-	\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью алгоритма наращивания доменов от случайных ячеек.}
-	\label{fig:text_2_decompsurf_wing_rgrow_32}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_rgrow_32.png}
+\captionstyle{center}\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью алгоритма наращивания доменов от случайных ячеек.}
+\label{fig:text_2_decompsurf_wing_rgrow_32}
 \end{figure}
 
 Мы рассматриваем простой алгоритм наращивания доменов, в котором все домены наращиваются одновременно, начиная с некоторых случайно выбранных ячеек сетки.
@@ -93,20 +93,20 @@
 На рис.~\ref{fig:text_2_decompsurf_hierarchical}. продемонстрирована схема, по которой изначальный головной домен h делится на пару доменов hl (left), hr (right), каждый из которых делится далее пополам и так далее на любое количество доменов, равное степени двойки.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_decompsurf/hierarchical.pdf}
-	\caption{Иллюстрация иерархического трехуровневого разделения головного домена.}
-	\label{fig:text_2_decompsurf_hierarchical}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_decompsurf/hierarchical.pdf}
+\captionstyle{center}\caption{Иллюстрация иерархического трехуровневого разделения головного домена.}
+\label{fig:text_2_decompsurf_hierarchical}
 \end{figure}
 
 Этот алгоритм предлагается расширить, введя в него произвольные критерии разбиения текущего домена на пару более мелких доменов.
 Вначале рассмотрим схему простого деления домена пополам с использованием произвольного признака, по которому производится деление (см. рис.~\ref{fig:text_2_decompsurf_split}).
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/split.pdf}
-	\caption{Схема выполнения разделения домена пополам по заданному признаку fun.}
-	\label{fig:text_2_decompsurf_split}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/split.pdf}
+\captionstyle{center}\caption{Схема выполнения разделения домена пополам по заданному признаку fun.}
+\label{fig:text_2_decompsurf_split}
 \end{figure}
 
 Пусть задан массив ячеек домена $C$ и произвольная функция извлечения признака из ячейки $fun$.
@@ -121,10 +121,10 @@
 Результат применения данного алгоритма показан на рис.~\ref{fig:text_2_decompsurf_wing_hierarchical_32}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_hierarchical_32.png}
-	\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью иерархического алгоритма.}
-	\label{fig:text_2_decompsurf_wing_hierarchical_32}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_decompsurf/wing_hierarchical_32.png}
+\captionstyle{center}\caption{Результат декомпозиции расчетной сетки на 32 домена с помощью иерархического алгоритма.}
+\label{fig:text_2_decompsurf_wing_hierarchical_32}
 \end{figure}
 
 Варьируя набор функций вычисления признаков, по которым можно выполнять разбиение домена, возможно выполнять геометрическую декомпозицию вдоль направления любой кривой, для которой вычисляется проекция ячейки.
@@ -136,10 +136,10 @@
 На рис.~\ref{fig:text_2_decompsurf_qual_D_star}, рис.~\ref{fig:text_2_decompsurf_qual_L}, рис.~\ref{fig:text_2_decompsurf_qual_I_star} представлены графики параметров $D^{*}$, $L$, $I^{*}$, вычисленные во время применения различных алгоритмов декомпозиции поверхностной расчетной сетки на разное количество доменов от 2 до 32.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_D_star.png}
-	\caption{Графики показателя $D^{*}$.}
-	\label{fig:text_2_decompsurf_qual_D_star}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_D_star.png}
+\captionstyle{center}\caption{Графики показателя $D^{*}$.}
+\label{fig:text_2_decompsurf_qual_D_star}
 \end{figure}
 
 Для эксперимента использовались две сетки.
@@ -148,17 +148,17 @@
 На графиках введены следующие краткие названия алгоритмов: random -- случайное распределение ячеек по доменам, linear -- линейное разделение ячеек между доменами по индексу, rgrow -- алгоритм наращивания доменов от случайных ячеек, hierarchical -- иерархическое деление доменов пополам по одной из трех координат (в качестве функций вычисления признаков ячеек брались просто функции извлечения каждой из трех координат центра ячейки).
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_L.png}
-	\caption{Графики показателя $L$.}
-	\label{fig:text_2_decompsurf_qual_L}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_L.png}
+\captionstyle{center}\caption{Графики показателя $L$.}
+\label{fig:text_2_decompsurf_qual_L}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_I_star.png}
-	\caption{Графики показателя $I^{*}$.}
-	\label{fig:text_2_decompsurf_qual_I_star}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_decompsurf/qual_I_star.png}
+\captionstyle{center}\caption{Графики показателя $I^{*}$.}
+\label{fig:text_2_decompsurf_qual_I_star}
 \end{figure}
 
 При этом отметим, что при использовании алгоритма rgrow умышленно использовалась только одна итерации наращивания, для демонстрации того, насколько неравномерным может быть распределение размеров доменов при случайном выборе стартовых ячеек (из рисунков видно, что значение параметра $D^{*}$ достигает значениий 0,6 и 0,8 для сеток wing и ref соответственно).

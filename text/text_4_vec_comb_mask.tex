@@ -5,10 +5,10 @@
 На этой схеме \texttt{in\_data} и \texttt{out\_data} могут являться как одиночными векторами, так и наборами векторов.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/vec_block.pdf}
-	\caption{Схема вычислений векторизованного блока команд с входными данными \texttt{in\_data}, выходными данные \texttt{out\_data} и маской исполнения \texttt{0xEA}.}
-	\label{fig:text_4_vec_comb_mask_vec_block}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/vec_block.pdf}
+\captionstyle{center}\caption{Схема вычислений векторизованного блока команд с входными данными \texttt{in\_data}, выходными данные \texttt{out\_data} и маской исполнения \texttt{0xEA}.}
+\label{fig:text_4_vec_comb_mask_vec_block}
 \end{figure}
 
 Проверка маски блока на пустоту может повысить эффективность кода, если маски часто оказываются пустыми.
@@ -23,10 +23,10 @@
 Последним действием, которое нужно выполнить является извлечение из объединенного результата \texttt{out\_data} данных \texttt{out\_data\_1} и \texttt{out\_data\_2} (см. рис.~\ref{fig:text_4_vec_comb_mask_comb_masks}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks.pdf}
-	\caption{Схема вычислений с объединением двух векторизованных блоков \texttt{in\_data\_1} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_1}, \texttt{in\_data\_2} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_2}. Объединение допустимо, так как векторные маски \texttt{0xCC00} и \texttt{0xEA} не пересекаются, объединенный блок выполняется под маской \texttt{0xCCEA}.}
-	\label{fig:text_4_vec_comb_mask_comb_masks}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks.pdf}
+\captionstyle{center}\caption{Схема вычислений с объединением двух векторизованных блоков \texttt{in\_data\_1} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_1}, \texttt{in\_data\_2} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_2}. Объединение допустимо, так как векторные маски \texttt{0xCC00} и \texttt{0xEA} не пересекаются, объединенный блок выполняется под маской \texttt{0xCCEA}.}
+\label{fig:text_4_vec_comb_mask_comb_masks}
 \end{figure}
 
 В результате такого преобразования в случае отсутствия пересечения векторных масок количество вычислений рассматриваемого блока \texttt{block} сокращается вдвое, а плотность векторных масок внутри блока повышается.
@@ -41,10 +41,10 @@
 В этом случае элементы входных данных переставляются местами в соответствии с преобразованием \texttt{perm\_to}, применяется описанная выше техника объединения блоков, а для выходных данных выполняется перестановка элементов в соответствии с преобразованием \texttt{perm\_from} (см. рис.~\ref{fig:text_4_vec_comb_mask_comb_masks_perm}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks_perm.pdf}
-	\caption{Схема вычислений с объединением двух векторизованных блоков при условии пересечения их масок. Для объединения применяется техника изменения порядка элементов в данных одного из блоков.}
-	\label{fig:text_4_vec_comb_mask_comb_masks_perm}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks_perm.pdf}
+\captionstyle{center}\caption{Схема вычислений с объединением двух векторизованных блоков при условии пересечения их масок. Для объединения применяется техника изменения порядка элементов в данных одного из блоков.}
+\label{fig:text_4_vec_comb_mask_comb_masks_perm}
 \end{figure}
 
 В описанном подходе следует отметить следующие моменты.
@@ -158,7 +158,7 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_check_mask/continuity.png}
-\caption{Иллюстрация тенденции сохранения значения условия при переходе к соседним ячейками в расчетных задачах.}
+\captionstyle{center}\caption{Иллюстрация тенденции сохранения значения условия при переходе к соседним ячейками в расчетных задачах.}
 \label{fig:text_4_vec_comb_continuity}
 \end{figure}
 
@@ -175,17 +175,17 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 Результаты распределения плотности маски \texttt{cond}, собранные по настоящему профилю исполнения векторного кода на реальных данных, представлены на рис.~\ref{fig:text_4_vec_comb_mask_real_p}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
-	\caption{Гистограмма распределения плотностей маски \texttt{cond} при условии, что все условия \texttt{p <= pk} для наборов скалярных данных являются независимыми.}
-	\label{fig:text_4_vec_comb_mask_independent_p}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
+\captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} при условии, что все условия \texttt{p <= pk} для наборов скалярных данных являются независимыми.}
+\label{fig:text_4_vec_comb_mask_independent_p}
 \end{figure}
 
 \begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
-	\caption{Гистограмма распределения плотностей маски \texttt{cond} на реальном профиле исполнения.}
-	\label{fig:text_4_vec_comb_mask_real_p}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
+\captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} на реальном профиле исполнения.}
+\label{fig:text_4_vec_comb_mask_real_p}
 \end{figure}
 
 Из рис.~\ref{fig:text_4_vec_comb_mask_independent_p} и рис.~\ref{fig:text_4_vec_comb_mask_real_p} видно, что распределение плотностей масок на реальных данных совершенно не похоже на распределение, вычисленное в предположении о независимости условий переходов.
@@ -204,10 +204,10 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 Результаты сравнения представлены на рис.~\ref{fig:text_4_vec_comb_mask_res}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/res.png}
-	\caption{Результаты сравнения эффективности векторизации при простом слиянии, с проверкой масок и с комбинированием масок в режимах эмуляции и на микропроцессоре Intel Xeon Phi Knights Landing 7290.}
-	\label{fig:text_4_vec_comb_mask_res}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/res.png}
+\captionstyle{center}\caption{Результаты сравнения эффективности векторизации при простом слиянии, с проверкой масок и с комбинированием масок в режимах эмуляции и на микропроцессоре Intel Xeon Phi Knights Landing 7290.}
+\label{fig:text_4_vec_comb_mask_res}
 \end{figure}
 
 Эксперименты показали, что в режиме эмуляции слияние ветвей исполнения привело к эффективности векторизации 0,6.

@@ -15,10 +15,10 @@
 Для наглядности будем изображать блоки сетки в виде прямоугольных параллелепипедов, как показано на рис.~\ref{fig:text_2_block_block}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_block/1-block.pdf}
-	\caption{Блок сетки.}
-	\label{fig:text_2_block_block}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_block/1-block.pdf}
+\captionstyle{center}\caption{Блок сетки.}
+\label{fig:text_2_block_block}
 \end{figure}
 
 Блоки могут граничить между собой.
@@ -32,10 +32,10 @@
 Пример касания двух блоков приведен на рис.~\ref{fig:text_2_block_block_block}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_block/2-block-block.pdf}
-	\caption{Касание блоков сетки.}
-	\label{fig:text_2_block_block_block}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_block/2-block-block.pdf}
+\captionstyle{center}\caption{Касание блоков сетки.}
+\label{fig:text_2_block_block_block}
 \end{figure}
 
 Выполнение расчетов на сетке носит итерационный по времени характер.
@@ -49,10 +49,10 @@
 На рис.~\ref{fig:text_2_block_cell_delta} показаны примеры вычислительных окрестностей ячейки.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_block/3-cell-delta.pdf}
-	\caption{Примеры вычислительных окрестностей ячеек сетки.}
-	\label{fig:text_2_block_cell_delta}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_block/3-cell-delta.pdf}
+\captionstyle{center}\caption{Примеры вычислительных окрестностей ячеек сетки.}
+\label{fig:text_2_block_cell_delta}
 \end{figure}
 
 В дальнейшем для большей наглядности будем изображать блоки в двумерном виде (с системой координат $IJ$).
@@ -64,10 +64,10 @@
 Приведем классификацию ячеек внутри блока сетки (см. рис.~\ref{fig:text_2_block_block_cells}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_2_block/4-block-cells.pdf}
-	\caption{Ячейки разных типов.}
-	\label{fig:text_2_block_block_cells}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_2_block/4-block-cells.pdf}
+\captionstyle{center}\caption{Ячейки разных типов.}
+\label{fig:text_2_block_block_cells}
 \end{figure}
 
 \begin{definition}
@@ -87,10 +87,10 @@
 \end{definition}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{./pics/text_2_block/5-mpi-cells.pdf}
-	\caption{Пересечение окрестности ячейки и соседнего блока.}
-	\label{fig:text_2_block_mpi_cells}
+\centering
+\includegraphics[width=0.5\textwidth]{./pics/text_2_block/5-mpi-cells.pdf}
+\captionstyle{center}\caption{Пересечение окрестности ячейки и соседнего блока.}
+\label{fig:text_2_block_mpi_cells}
 \end{figure}
 
 При обработке ячеек MPI обмена мы должны обращаться за данными к другому процессу.
@@ -121,17 +121,17 @@
 Для определения геометрии блока необходимо задать его линейные размеры и координаты ($X$, $Y$, $Z$) всех его узлов.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_block/6-block-and-coords.png}
-	\caption{Блок сетки и координаты его узлов.}
-	\label{fig:text_2_block_block_and_coords}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_block/6-block-and-coords.png}
+\captionstyle{center}\caption{Блок сетки и координаты его узлов.}
+\label{fig:text_2_block_block_and_coords}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_block/7-iface.pdf}
-	\caption{Структура интерфейса касания блоков.}
-	\label{fig:text_2_block_iface}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/7-iface.pdf}
+\captionstyle{center}\caption{Структура интерфейса касания блоков.}
+\label{fig:text_2_block_iface}
 \end{figure}
 
 Объектом, описывающим соприкосновение двух соседних блоков, является интерфейс (Iface) (см. рис.~\ref{fig:text_2_block_iface}).
@@ -150,10 +150,10 @@
 В приведенном на рис.~\ref{fig:text_2_block_iface} примере два смежным интерфейса, описывающих касание блоков A и B задаются следующим образом: $A(1, 3, 0, 2, 0, 0) \rightarrow B$, $B(0, 2, 1, 3, 0, 0) \rightarrow A$.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_block/8-facet.pdf}
-	\caption{Структура грани блока.}
-	\label{fig:text_2_block_facet}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/8-facet.pdf}
+\captionstyle{center}\caption{Структура грани блока.}
+\label{fig:text_2_block_facet}
 \end{figure}
 
 То есть для одного интерфейса задается блок, которому этот интерфейс принадлежит, координаты интерфейса в данном блоке и соседний блок.
@@ -183,10 +183,10 @@
 Исходя из этого, получаем следующую иерархию классов, реализующих расчетную сетку (см. рис.~\ref{fig:text_2_block_hierarchy}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_block/9-hierarchy.png}
-	\caption{Иерархия объектов внутреннего представления сетки.}
-	\label{fig:text_2_block_hierarchy}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_block/9-hierarchy.png}
+\captionstyle{center}\caption{Иерархия объектов внутреннего представления сетки.}
+\label{fig:text_2_block_hierarchy}
 \end{figure}
 
 \subsubsection{Организация межпроцессных обменов данными между блоками сетки}
@@ -203,10 +203,10 @@
 Рассмотрим механизм обмена данными между соседними блоками, находящимися в разных процессах, более подробно.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_block/10-data-exchange.pdf}
-	\caption{Обмен данными между блоками сетки.}
-	\label{fig:text_2_block_data_exchange}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/10-data-exchange.pdf}
+\captionstyle{center}\caption{Обмен данными между блоками сетки.}
+\label{fig:text_2_block_data_exchange}
 \end{figure}
 
 Пусть Блок A обрабатывается в процессе 1, а блок B -- в процессе 2, как показано на рис.~\ref{fig:text_2_block_data_exchange}.
@@ -217,17 +217,17 @@
 После этого каждый блок может извлечь данный из буфера интерфейса, в котором он является активным, и поместить эти данные в свою теневую зону, после чего начинается следующая итерация расчетов.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_block/11-mpi1.png}
-	\caption{Возникновение задержки, вызванной MPI обменами.}
-	\label{fig:text_2_block_mpi1}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_block/11-mpi1.png}
+\captionstyle{center}\caption{Возникновение задержки, вызванной MPI обменами.}
+\label{fig:text_2_block_mpi1}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_block/12-mpi2.png}
-	\caption{Избавление от задержки путем разделения вычислений для внутренних и граничных ячеек.}
-	\label{fig:text_2_block_mpi2}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_block/12-mpi2.png}
+\captionstyle{center}\caption{Избавление от задержки путем разделения вычислений для внутренних и граничных ячеек.}
+\label{fig:text_2_block_mpi2}
 \end{figure}
 
 После проведения каждой итерации счета задачи необходимо выполнять обмен данными, чтобы состояния граничных ячеек блоков были актуальными.

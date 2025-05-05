@@ -8,10 +8,10 @@
 Так как при выполнении численных расчетов фронт продвижения льда у нас представлен неструктурированной поверхностной расчетной сеткой, ячейки которой имеют форму треугольников, а радиусы продвижения фронта льда заданы только в узлах сетки, необходимо определить радиусы продвижения фронта льда для каждой точки внутри ячейки сетки.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{./pics/text_1_remesh_common_envelope/triangle.pdf}
-	\caption{Окрестность ячейки расчетной сетки.}
-	\label{fig:text_1_remesh_common_envelope_1}
+\centering
+\includegraphics[width=0.7\textwidth]{./pics/text_1_remesh_common_envelope/triangle.pdf}
+\captionstyle{center}\caption{Окрестность ячейки расчетной сетки.}
+\label{fig:text_1_remesh_common_envelope_1}
 \end{figure}
 
 Рассмотрим некоторую ячейку расчетной сетки, представляющую собой треугольник $Tri(A, B, C)$.
@@ -40,10 +40,10 @@
 При этом точка пересечения траектории движения точки $A$ с границей окрестности ячейки $O_R(ABC)$ может находиться на разных участках этой границы, что продемонстрировано на рис.~\ref{fig:text_1_remesh_common_envelope_2} и связано с условиями, которым удовлетворяют параметры $\beta$, $\gamma$ (a, b, c -- пересечение со сферой с центром в вершинах треугольника; d, e, f -- пересечение со сферой с центром на ребрах треугольника, g — пересечение со сферой с центром внутри треугольника).
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/triangle2.pdf}
-	\caption{Различные варианты пересечения траектории смещения узла и общей огибающей семейства сфер}
-	\label{fig:text_1_remesh_common_envelope_2}
+\centering
+\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/triangle2.pdf}
+\captionstyle{center}\caption{Различные варианты пересечения траектории смещения узла и общей огибающей семейства сфер}
+\label{fig:text_1_remesh_common_envelope_2}
 \end{figure}
 
 Введем следующие $R_A = R(A)$, $R_{AB} = R(B) - R(A)$, $R_{AC} = R(C) - R(A)$, тогда \eqref{eqn:text_1_remesh_common_envelope_eq} можно записать в виде
@@ -100,10 +100,10 @@
 В этом случае точка пересечения траектории $\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}$ находится на общей касательной плоскости к сферам $Sphere(0,0)$, $Sphere(1,0)$, $Sphere(0,1)$ (плоскость $A'B'C'$, см. рис.~\ref{fig:text_1_remesh_common_envelope_3}).
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/case1.pdf}
-	\caption{Случай нахождения пересечения траектории движения точки с границе окрестности ячейки, если центр сферы лежит внутри треугольника}
-	\label{fig:text_1_remesh_common_envelope_3}
+\centering
+\includegraphics[width=0.80\textwidth]{./pics/text_1_remesh_common_envelope/case1.pdf}
+\captionstyle{center}\caption{Случай нахождения пересечения траектории движения точки с границе окрестности ячейки, если центр сферы лежит внутри треугольника.}
+\label{fig:text_1_remesh_common_envelope_3}
 \end{figure}
 
 Центр искомой сферы находится в точке пересечения плоскости $ABC$ и прямой, проходящей через точку $\overline{P}(\alpha)$ и направленной вдоль нормали к плоскости $A'B'C'$ .
@@ -173,10 +173,10 @@
 На этом определение смещения узлов расчетной сетки завершено.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\textwidth]{./pics/text_1_remesh_common_envelope/out_from_cave.pdf}
-	\caption{Схема стягивания впадины после одного шага алгоритма перестроения поверхности с использованием окрестности ячейки.}
-	\label{fig:text_1_remesh_common_envelope_4}
+\centering
+\includegraphics[width=0.7\textwidth]{./pics/text_1_remesh_common_envelope/out_from_cave.pdf}
+\captionstyle{center}\caption{Схема стягивания впадины после одного шага алгоритма перестроения поверхности с использованием окрестности ячейки.}
+\label{fig:text_1_remesh_common_envelope_4}
 \end{figure}
 
 Изложенный выше алгоритм касается определения смещения узла с учетом только одной инцидентной ячейки.
@@ -192,7 +192,7 @@
 &
 \includegraphics[width=0.45\textwidth]{./pics/text_1_remesh_common_envelope/peak2.pdf}
 \end{tabular}
-\caption{Сглаживание острых выпуклых пиков поверхности в результате работы алгоритма.}
+\captionstyle{center}\caption{Сглаживание острых выпуклых пиков поверхности в результате работы алгоритма.}
 \label{fig:text_1_remesh3_common_envelope_peak}
 \end{figure}
 
@@ -213,7 +213,7 @@
 &
 \includegraphics[width=0.45\textwidth]{./pics/text_1_remesh_common_envelope/pic_envelope_peak.png}
 \end{tabular}
-\caption{Результат работы алгоритма перестроения сетки на тестовой сетке bunny.}
+\captionstyle{center}\caption{Результат работы алгоритма перестроения сетки на тестовой сетке bunny.}
 \label{fig:text_1_remesh3_common_envelope_bunny}
 \end{figure}
 
@@ -222,10 +222,10 @@
 На рис.~\ref{fig:text_1_remesh3_common_envelope_bunny} справа показан эффект сглаживания острых пиков по сравнению с перестроением с помощью метода призм.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.9\textwidth]{./pics/text_1_remesh_common_envelope/bunny.png}
-	\caption{Демонстрация сглаживания мелких впадин на тестовой сетке bunny.}
-	\label{fig:text_1_remesh3_common_envelope_bunny2}
+\centering
+\includegraphics[width=0.9\textwidth]{./pics/text_1_remesh_common_envelope/bunny.png}
+\captionstyle{center}\caption{Демонстрация сглаживания мелких впадин на тестовой сетке bunny.}
+\label{fig:text_1_remesh3_common_envelope_bunny2}
 \end{figure}
 
 На рис.~\ref{fig:text_1_remesh3_common_envelope_bunny2} продемонстрирована работа алгоритма на тестовой расчетной сетке bunny.

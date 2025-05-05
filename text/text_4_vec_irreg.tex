@@ -76,10 +76,10 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 Для этих значений шагов можно параллельно выполнять 16 соседних итераций промежуточного цикла, при этом достигается максимальная плотность векторизации (показано зеленым цветом на схеме).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_irreg/code_decomp.pdf}
-	\caption{Декомпозиция сортировки Шелла для выделения векторизуемых участков кода.}
-	\label{fig:text_4_vec_irreg_code_decomp}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_4_vec_irreg/code_decomp.pdf}
+\captionstyle{center}\caption{Декомпозиция сортировки Шелла для выделения векторизуемых участков кода.}
+\label{fig:text_4_vec_irreg_code_decomp}
 \end{figure}
 
 Все итерации промежуточного цикла разбиваются на группы по 16 соседних итераций и остаток, который векторизуется с шириной меньше 16 (показано желтым цветом, а в том случае, когда остаток состоит всего из одной итерации, то векторизация не требуется, что показано красным цветом на схеме).
@@ -99,10 +99,10 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 Таким образом, количество итераций векторизованного внутреннего цикла равно максимальному количеству итераций всех объединяемых $w$ циклов.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/shell_cfg.pdf}
-	\caption{Схема перевода тела внутреннего цикла сортировки Шелла в предикатную форму.}
-	\label{fig:text_4_vec_irreg_shell_cfg}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/shell_cfg.pdf}
+\captionstyle{center}\caption{Схема перевода тела внутреннего цикла сортировки Шелла в предикатную форму.}
+\label{fig:text_4_vec_irreg_shell_cfg}
 \end{figure}
 
 Если значения количества итераций соседних объединяемых циклов различаются сильно (а для сортировки Шелла это утверждение верно), то мы получаем потерю эффективности векторизации из за низкой плотности масок векторных инструкций (то есть малый процент элементов векторов на самом деле обрабатывается при выполнении векторной операции).
@@ -191,11 +191,11 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 \subsubsection{Экспериментальные результаты эффективности векторизации сортировки Шелла}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/theoretical_eff.pdf}
-	\caption{Сравнение теоретического ускорения векторизованной версии сортировки Шелла для различных
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/theoretical_eff.pdf}
+\captionstyle{center}\caption{Сравнение теоретического ускорения векторизованной версии сортировки Шелла для различных
 последовательностей шагов.}
-	\label{fig:text_4_vec_irreg_theoretical_eff}
+\label{fig:text_4_vec_irreg_theoretical_eff}
 \end{figure}
 
 Для проведения экспериментов были использованы две версии исходного кода: неоптимизированная функция сортировки и реализованная с помощью функций-инстринсиков.
@@ -205,10 +205,10 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 На рисунках \ref{fig:text_4_vec_irreg_theoretical_eff} и \ref{fig:text_4_vec_irreg_experimental_eff} представлены результаты теоретических оценок и экспериментальных запусков, исходя из которых получены теоретическое и экспериментальное ускорение сортировки Шелла для последовательностей шагов Шелла, Хиббарда и Сэджвика:
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/experimental_eff.pdf}
-	\caption{Сравнение экспериментального ускорения векторизованной версии сортировки Шелла для различных последовательностей шагов.}
-	\label{fig:text_4_vec_irreg_experimental_eff}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/experimental_eff.pdf}
+\captionstyle{center}\caption{Сравнение экспериментального ускорения векторизованной версии сортировки Шелла для различных последовательностей шагов.}
+\label{fig:text_4_vec_irreg_experimental_eff}
 \end{figure}
 
 Из графиков видно, что даже максимальное теоретическое ускорение далеко от идеальной верхней границы (которая равна 16 для значений типа float).
@@ -224,7 +224,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 &
 \includegraphics[scale=0.5]{./pics/text_4_vec_irreg/shell_k_15.pdf}
 \end{tabular}
-\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
+\captionstyle{center}\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
 Шелла при $k = 4$ (слева) и $k = 15$ (справа) для скалярного и векторного кода.}
 \label{fig:text_4_vec_irreg_shell_hist}
 \end{figure}
@@ -236,7 +236,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 &
 \includegraphics[scale=0.5]{./pics/text_4_vec_irreg/hibbard_k_15.pdf}
 \end{tabular}
-\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
+\captionstyle{center}\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
 Хиббарда при $k = 3$ (слева) и $k = 15$ (справа) для скалярного и векторного кода.}
 \label{fig:text_4_vec_irreg_hibbard_hist}
 \end{figure}

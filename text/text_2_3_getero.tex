@@ -89,10 +89,10 @@
 Алгоритм заканчивает свою работу, когда положение точек стабилизируется, что говорит об уравнивании всех моделируемых сил отталкивания.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/rvp.pdf}
-	\caption{Иллюстрация работы алгоритма определения базовых точек.}
-	\label{fig:text_2_getero_rvp}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/rvp.pdf}
+\captionstyle{center}\caption{Иллюстрация работы алгоритма определения базовых точек.}
+\label{fig:text_2_getero_rvp}
 \end{figure}
 
 На рис.~\ref{fig:text_2_getero_rvp} показана иллюстрация работы алгоритма определения базовых точек внутри квадратной области в двумерном случае.
@@ -122,10 +122,10 @@
 Второе слагаемое отражает время межпроцессных обменов, которое удастся сократить после добавление в партицию вершины $v$ (при этом в качестве скорости обменов берется среднее значение функции $l$ по всем вершинам графа $H$ за исключением петель).
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.7\textwidth]{./pics/text_2_getero/partition.pdf}
-	\caption{Добавление новой вершины в партицию.}
-	\label{fig:text_2_getero_partition}
+\centering
+\includegraphics[width=0.7\textwidth]{./pics/text_2_getero/partition.pdf}
+\captionstyle{center}\caption{Добавление новой вершины в партицию.}
+\label{fig:text_2_getero_partition}
 \end{figure}
 
 На рис.~\ref{fig:text_2_getero_partition} приведена иллюстрация расширения текущей партиции (отмечено красным) за счет добавления новой вершины ($v$).
@@ -145,10 +145,10 @@
 В качестве расчетного кластера рассматривались гомогенный и гетерогенный кластеры, содержащие 8 вычислителей.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/res1small.png}
-	\caption{Результат применения алгоритма для распределения вычислительной нагрузки между вычислительного гомогенного кластера.}
-	\label{fig:text_2_getero_res1}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/res1small.png}
+\captionstyle{center}\caption{Результат применения алгоритма для распределения вычислительной нагрузки между вычислительного гомогенного кластера.}
+\label{fig:text_2_getero_res1}
 \end{figure}
 
 На рис.~\ref{fig:text_2_getero_res1} проиллюстрирована работа алгоритма распределения вычислительной нагрузки для модельной задачи между 8 вычислителями гомогенного кластера (то есть все вычислители идентичны).
@@ -156,10 +156,10 @@
 Справа показаны результаты после третьей фазы алгоритма, на которой корректируется связность партиций путем поглощения отдельных узлов графа $G$, попавших не в свою партицию.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/res2small.png}
-	\caption{Результат применения алгоритма распределения вычислительной нагрузки между вычислителями гетерогенного кластера.}
-	\label{fig:text_2_getero_res2}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/res2small.png}
+\captionstyle{center}\caption{Результат применения алгоритма распределения вычислительной нагрузки между вычислителями гетерогенного кластера.}
+\label{fig:text_2_getero_res2}
 \end{figure}
 
 На рис.~\ref{fig:text_2_getero_res2} показаны аналогичные результаты работы алгоритма для гетерогенного кластера, состоящего из узлов двух типов, отличающихся по производительности друг от друга в 4 раза.
@@ -178,10 +178,10 @@
 Разность этих двух значений отражает неэффективность распределения, связанную с простоем вычислительных ресурсов.
 
 \begin{figure}[H]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/chart2.png}
-	\caption{Зависимость показателя эффективности распределения задачи между узлами гомогенного и гетерогенного вычислительных кластеров (по горизонтали отложено количество вычислителей, по вертикали -- значение $\frac{t^{max} - t^{min}}{t^{min}} \cdot 100\%$.}
-	\label{fig:text_2_getero_chart}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_getero/chart2.png}
+\captionstyle{center}\caption{Зависимость показателя эффективности распределения задачи между узлами гомогенного и гетерогенного вычислительных кластеров (по горизонтали отложено количество вычислителей, по вертикали -- значение $\frac{t^{max} - t^{min}}{t^{min}} \cdot 100\%$.}
+\label{fig:text_2_getero_chart}
 \end{figure}
 
 Для модельной задачи были проведены эксперименты по распределению графа задачи на узлы гомогенного и гетерогенного кластера при изменении количества вычислителей от 2 до 300.

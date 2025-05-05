@@ -8,10 +8,9 @@
 К тому же для двумерного случая это направление лежит на биссектрисе угла, образованного двумя инцидентными ячейками \cite{Fortin2004Remesh2d} (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_normals.pdf}
-\captionstyle{normal}\caption{Поверхностная сетка с обозначенными направлениями движения узлов.}
+\captionstyle{center}\caption{Поверхностная сетка с обозначенными направлениями движения узлов.}
 \label{fig:text_1_remesh_2d_grid_normals}
 \end{figure}
 
@@ -28,10 +27,9 @@
 Требуется найти его площадь, выраженную явно через параметры $a = \overline{AA_1}$ и $b = \overline{BB_1}$ (рис.~\ref{fig:text_1_remesh_2d_local}).
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/local.pdf}
-\captionstyle{normal}\caption{Вычисление заметаемой площади через смещения узлов ячейки.}
+\captionstyle{center}\caption{Вычисление заметаемой площади через смещения узлов ячейки.}
 \label{fig:text_1_remesh_2d_local}
 \end{figure}
 
@@ -132,10 +130,9 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Этот метод соответствует представлению площади, охватываемой при движении ячейки длины $l_i$, прямоугольником cо сторонами $l_i$ и $H_i$, а затем выбору в качестве величины смещения узла среднего арифметического высот построенных прямоугольников в инцидентных ячейках, как показано на рис.~\ref{fig:text_1_remesh_2d_grid_rectangles}.
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_rectangles.pdf}
-\captionstyle{normal}\caption{Перестроение поверхности методом прямоугольников.}
+\captionstyle{center}\caption{Перестроение поверхности методом прямоугольников.}
 \label{fig:text_1_remesh_2d_grid_rectangles}
 \end{figure}
 
@@ -144,10 +141,9 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_grid_trapeziums}).
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_trapeziums.pdf}
-\captionstyle{normal}\caption{Перестроение поверхности методом трапеций.}
+\captionstyle{center}\caption{Перестроение поверхности методом трапеций.}
 \label{fig:text_1_remesh_2d_grid_trapeziums}
 \end{figure}
 
@@ -158,10 +154,9 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Пусть величины смещений ячеек $A_1A$, $AB$ и $BB_1$ равны $H^{-}$, $H$ и $H^{+}$ соответственно.
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical.pdf}
-\captionstyle{normal}\caption{Теоретическая оценка приближенных методов перестроения выпуклой поверхности в двумерном случае.}
+\captionstyle{center}\caption{Теоретическая оценка приближенных методов перестроения выпуклой поверхности в двумерном случае.}
 \label{fig:text_1_remesh_2d_theoretical}
 \end{figure}
 
@@ -205,10 +200,9 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical_concave.pdf}
-\captionstyle{normal}\caption{Теоретическая оценка приближенных методов перестроения вогнутой поверхности в двумерном случае.}
+\captionstyle{center}\caption{Теоретическая оценка приближенных методов перестроения вогнутой поверхности в двумерном случае.}
 \label{fig:text_1_remesh_2d_theoretical_concave}
 \end{figure}
 
@@ -225,10 +219,9 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\breve{\delta}^r = \frac{S_{AA_2B_2B}^r - lH}{lH}$ и $\breve{\delta}^t = \frac{S_{AA_2B_2B}^t - lH}{lH}$ от $\alpha$ и $\Delta H$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
 
 \begin{figure}[h]
-\onelinecaptionstrue
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/main_chart.png}
-\captionstyle{normal}\caption{Графики относительных отклонений заметаемых площадей $\breve{\delta}^r$ и $\breve{\delta}^t$ от целевых значений при перестроении методами прямоугольников и трапеций.}
+\captionstyle{center}\caption{Графики относительных отклонений заметаемых площадей $\breve{\delta}^r$ и $\breve{\delta}^t$ от целевых значений при перестроении методами прямоугольников и трапеций.}
 \label{fig:text_1_remesh_2d_main_chart}
 \end{figure}
 

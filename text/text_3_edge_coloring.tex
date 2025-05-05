@@ -93,10 +93,10 @@ sec->flow_out_q -= flow_q;
 Из этого следует, что существует только одно ребро, соединяющее вершины v1 и v2. В этом случае будем говорить, что редуцирование выполняется по уникальному ребру e.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/1-pic-reduce-edge-type-1.pdf}
-	\caption{Редуцирование по уникальному ребру.}
-	\label{fig:text_3_edge_coloring_1}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/1-pic-reduce-edge-type-1.pdf}
+\captionstyle{center}\caption{Редуцирование по уникальному ребру.}
+\label{fig:text_3_edge_coloring_1}
 \end{figure}
 
 При выполнении редуцирования по ребру e само ребро e удаляется, также удаляются вершины v1 и v2, ребра e1(v1) и e2(v1) склеиваются в результирующее ребро re1, ребра e1(v2) и e2(v2) склеиваются в ребро re2 (см. рис. 1, справа).
@@ -106,10 +106,10 @@ sec->flow_out_q -= flow_q;
 Такой шаг редуцирования будем называть редуцированием по параллельному ребру.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/2-pic-reduce-edge-type-2.pdf}
-	\caption{Редуцирование по параллельному ребру.}
-	\label{fig:text_3_edge_coloring_2}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/2-pic-reduce-edge-type-2.pdf}
+\captionstyle{center}\caption{Редуцирование по параллельному ребру.}
+\label{fig:text_3_edge_coloring_2}
 \end{figure}
 
 Отдельно отметим случай, когда между двумя вершинами проходит три параллельных ребра. Если мы достигли такого графа, то это и есть минимальный кубический граф, построение раскраски для которого очевидно, и от которого нужно двигаться в обратную сторону, постепенно восстанавливая исходный граф.
@@ -119,10 +119,10 @@ sec->flow_out_q -= flow_q;
 В качестве примера рассмотрим редуцирование графа, представляющего собой куб, как показано на рис. 3.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/3-reduce-0.pdf}
-	\caption{Полное редуцирование графа.}
-	\label{fig:text_3_edge_coloring_3}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/3-reduce-0.pdf}
+\captionstyle{center}\caption{Полное редуцирование графа.}
+\label{fig:text_3_edge_coloring_3}
 \end{figure}
 
 На рис. 3 представлен кубический граф, содержащий 8 вершин v0 – v7 и 12 ребер e0 – e11. Будем считать, что нижние индексы в именах вершин и ребер являются также их идентификаторами.
@@ -145,10 +145,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 На рис. 4 приведен пример такого двухцветного красно-синего цикла.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/4-bicolor-cycle.pdf}
-	\caption{Полная замена цветов в двухцветном цикле.}
-	\label{fig:text_3_edge_coloring_4}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/4-bicolor-cycle.pdf}
+\captionstyle{center}\caption{Полная замена цветов в двухцветном цикле.}
+\label{fig:text_3_edge_coloring_4}
 \end{figure}
 
 С таким двухцветным циклом можно выполнять следующие операции.
@@ -157,10 +157,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 При такой перекраске ребер в цикле возникает два конфликта по цветам: между ребрами e1 и e2 и их перекрашенными соседями.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/5-bicolor-cycle-partial-switch.pdf}
-	\caption{Частичная замена цветов в двухцветном цикле.}
-	\label{fig:text_3_edge_coloring_5}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/5-bicolor-cycle-partial-switch.pdf}
+\captionstyle{center}\caption{Частичная замена цветов в двухцветном цикле.}
+\label{fig:text_3_edge_coloring_5}
 \end{figure}
 
 Смысл частичной замены цветов в двухцветном цикле становится понятным, если возникает необходимость поместить в граф новое ребро.
@@ -171,10 +171,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Такую операцию будем называть восстановлением ребра по двухцветному циклу.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/6-bicolor-cycle-new-edge.pdf}
-	\caption{Замена цветов в двухцветном цикле при добавлении нового ребра.}
-	\label{fig:text_3_edge_coloring_6}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/6-bicolor-cycle-new-edge.pdf}
+\captionstyle{center}\caption{Замена цветов в двухцветном цикле при добавлении нового ребра.}
+\label{fig:text_3_edge_coloring_6}
 \end{figure}
 
 Также нам понадобится операция поиска двухцветного цикла, начиная с произвольного ребра e, и содержащего ребра цветов color(e) и color2 != color(e). Такой цикл всегда существует и он ровно один.
@@ -191,10 +191,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Так как перекрашивание затронет только ребро re1, то после этой операции мы получим ситуацию, в которой ребра re1 и re2 имеют один цвет. В этом случае переходим ко второму варианту.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=1.0\textwidth]{./pics/text_3_edge_coloring/7-algorithm.pdf}
-	\caption{Итерация алгоритма восстановления и перекраски графа.}
-	\label{fig:text_3_edge_coloring_7}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_3_edge_coloring/7-algorithm.pdf}
+\captionstyle{center}\caption{Итерация алгоритма восстановления и перекраски графа.}
+\label{fig:text_3_edge_coloring_7}
 \end{figure}
 
 Вариант 2. Если результирующие ребра re1 и re2 имеют один и тот же цвет, то рассмотрим два оставшихся цвета: x и y.
@@ -205,10 +205,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Однако в ходе экспериментов по раскраске кубических дуальных графов, построенных по замкнутым поверхностным расчетным сеткам, такая ситуация не наблюдалась и для всех таких графов раскраска Тейта была найдена.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/8-restore-and-repaint.pdf}
-	\caption{Восстановление и раскраска графа.}
-	\label{fig:text_3_edge_coloring_8}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/8-restore-and-repaint.pdf}
+\captionstyle{center}\caption{Восстановление и раскраска графа.}
+\label{fig:text_3_edge_coloring_8}
 \end{figure}
 
 На рис. 8 приведена последовательность восстановления графа, редуцирование которого продемонстрировано на рис. 3.
@@ -241,10 +241,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Вызывает интерес вопрос о процентном соотношении ребер, раскрашенных в разные цвета, для жадной раскраски в 5 цветов при порядке графа, стремящемся в бесконечность.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/9-bubble.pdf}
-	\caption{Генерация кубического графа.}
-	\label{fig:text_3_edge_coloring_9}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/9-bubble.pdf}
+\captionstyle{center}\caption{Генерация кубического графа.}
+\label{fig:text_3_edge_coloring_9}
 \end{figure}
 
 Для экспериментального получения такого распределения будем строить искусственные кубические графы следующим образом.
@@ -254,10 +254,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Получившееся распределение цветов представлено на рис. 10.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/10-chart.png}
-	\caption{Распределение процентной доли цветов для разных раскрасок.}
-	\label{fig:text_3_edge_coloring_10}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/10-chart.png}
+\captionstyle{center}\caption{Распределение процентной доли цветов для разных раскрасок.}
+\label{fig:text_3_edge_coloring_10}
 \end{figure}
 
 Из рис. 10 видно, что распределение цветов жадной раскраски устроено примерно следующим образом. Большинство ребер кубического графа практически равномерно раскрасилось в 3 цвета, однако для окрашивания около 10\% ребер потребовалось использование четвертого цвета, а для окрашивания около 1,5\% ребер пришлось задействовать пятый цвет.
@@ -272,10 +272,10 @@ e5 [(v5 : e4, e14 -> re16), (v6 : e6, e14 -> re16)]
 Таким образом, в случае идеального распараллеливания s(i) = i, а e(i) = 1. Эффективность распараллеливания вычислений является удобным показателем качества исполняемого параллельного кода и сравнения различных вычислительных систем между собой.
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/11-chart.png}
-	\caption{Эффективность распараллеливания пересчета потоков для разных способов устранения конфликтов по данным.}
-	\label{fig:text_3_edge_coloring_11}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_3_edge_coloring/11-chart.png}
+\captionstyle{center}\caption{Эффективность распараллеливания пересчета потоков для разных способов устранения конфликтов по данным.}
+\label{fig:text_3_edge_coloring_11}
 \end{figure}
 
 Из рис. 11 можно заметить, что при использовании распараллеливания на относительно небольшое количество потоков нет существенной разницы между описанными методами устранения конфликтов.

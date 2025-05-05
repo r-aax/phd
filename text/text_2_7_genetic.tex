@@ -81,19 +81,19 @@ while (!q.empty())
 После выполнения скрещивания в новой особи с заданной вероятностью применяется мутация (см. рис.~\ref{fig:text_2_genetic_evolution}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_2_genetic/evolution.pdf}
-	\caption{Схема кроссовера и мутации новой особи.}
-	\label{fig:text_2_genetic_evolution}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_2_genetic/evolution.pdf}
+\captionstyle{center}\caption{Схема кроссовера и мутации новой особи.}
+\label{fig:text_2_genetic_evolution}
 \end{figure}
 
 Так как ген представляет собой номер опорной вершины дуального графа, то в качестве мутации выбрана операция замены случайной опорной вершины на выбранную случайным образом смежную с ней вершину (см. рис.~\ref{fig:text_2_genetic_mutation}).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_genetic/mutation.pdf}
-	\caption{Мутация особи путем движения опорной вершины к одной из ее смежных вершин.}
-	\label{fig:text_2_genetic_mutation}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_genetic/mutation.pdf}
+\captionstyle{center}\caption{Мутация особи путем движения опорной вершины к одной из ее смежных вершин.}
+\label{fig:text_2_genetic_mutation}
 \end{figure}
 
 Описанный генетический алгоритм поиска эффективной декомпозиции характеризуется следующими глобальными параметрами. Количество эпох (\texttt{epochs\_count}) -- количество последовательных применяемых глобальных операций по вымиранию части популяции и ее восстановлению.
@@ -121,10 +121,10 @@ while (!q.empty())
 Ввиду того, что мутация представляет собой смещение опорной вершины по ребру к одному из своих соседей (что является достаточно незначительным изменением), то такое частое возникновение мутаций оправдано.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/chart1.png}
-	\caption{Характерные графики штрафной функции лучшей особи в популяции в зависимости от номера эпохи.}
-	\label{fig:text_2_genetic_chart1}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/chart1.png}
+\captionstyle{center}\caption{Характерные графики штрафной функции лучшей особи в популяции в зависимости от номера эпохи.}
+\label{fig:text_2_genetic_chart1}
 \end{figure}
 
 Типичные графики значения штрафной функции лучшей особи в популяции от номера эпохи приведены на рис.~\ref{fig:text_2_genetic_chart1}.
@@ -134,10 +134,10 @@ while (!q.empty())
 Для этого при возникновении копий лучшей особи можно применять к ней так называемые макромутации, что соответствует принудительному выталкиванию особи из локального минимума штрафной функции \cite{Baranov2025Gen}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/changes.pdf}
-	\caption{Замещение части генотипа в процессе скрещивания (сверху), и мутация опорных вершин (снизу).}
-	\label{fig:text_2_genetic_changes}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/changes.pdf}
+\captionstyle{center}\caption{Замещение части генотипа в процессе скрещивания (сверху), и мутация опорных вершин (снизу).}
+\label{fig:text_2_genetic_changes}
 \end{figure}
 
 На рис.~\ref{fig:text_2_genetic_changes} приведены характерные варианты изменения лучшей особи при переходе от текущей популяции к популяции следующей эпохи.
@@ -160,10 +160,10 @@ while (!q.empty())
 Результаты расчетов показали, что лучшая особь популяции генетического алгоритма опережает лучшую особь случайной популяции примерно в 1,5 раза.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/chart2.png}
-	\caption{Сравнение лучшей особи в популяции генетического алгоритма с лучшей особью случайной популяции.}
-	\label{fig:text_2_genetic_chart2}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_genetic/chart2.png}
+\captionstyle{center}\caption{Сравнение лучшей особи в популяции генетического алгоритма с лучшей особью случайной популяции.}
+\label{fig:text_2_genetic_chart2}
 \end{figure}
 
 Разработанный генетический алгоритм применим к расчетным сеткам произвольного вида, с его помощью можно быстро получать качественное решение декомпозиции, произвольным образом задавая требуемую штрафную функции решения.

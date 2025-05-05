@@ -6,10 +6,10 @@
 Пример возникновения таких пилообразных границ можно увидеть на рис.~\ref{fig:text_2_decompsurf_wing_hierarchical_32}, на рис.~\ref{fig:text_2_smooth_bad_border} фрагмент сетки с пилообразными границами между доменами приведен более крупно.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_2_smooth/bad-border.pdf}
-	\caption{Возникновение протяженных пилообразных границ между доменами.}
-	\label{fig:text_2_smooth_bad_border}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_2_smooth/bad-border.pdf}
+\captionstyle{center}\caption{Возникновение протяженных пилообразных границ между доменами.}
+\label{fig:text_2_smooth_bad_border}
 \end{figure}
 
 Конечно такие границы необходимо отдельно обрабатывать с целью сокращения их длины.
@@ -28,10 +28,10 @@
 Вначале одним линейным проходом по цепи выполняется поиск всех пригодных для оптимизации границы шаблонов, представленных на рис.~\ref{fig:text_2_smooth_smooth_border}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/smooth-border.pdf}
-	\caption{Шаблоны элементарных действий сглаживания границ между доменами.}
-	\label{fig:text_2_smooth_smooth_border}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/smooth-border.pdf}
+\captionstyle{center}\caption{Шаблоны элементарных действий сглаживания границ между доменами.}
+\label{fig:text_2_smooth_smooth_border}
 \end{figure}
 
 На рис.~\ref{fig:text_2_smooth_smooth_border} представлены 5 шаблонов, которые мы будем использовать для оптимизации длины границы между двумя доменами.
@@ -55,10 +55,10 @@
 Для этого рассмотрим пример, представленный на рис.~\ref{fig:text_2_smooth_smooth}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/smooth.pdf}
-	\caption{Алгоритм сглаживания границы между доменами.}
-	\label{fig:text_2_smooth_smooth}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/smooth.pdf}
+\captionstyle{center}\caption{Алгоритм сглаживания границы между доменами.}
+\label{fig:text_2_smooth_smooth}
 \end{figure}
 
 На рис.~\ref{fig:text_2_smooth_smooth} представлена граница между двумя доменами (они условно обозначены $U$ -- верхний и $D$ -- нижний) в виде простой цепи $0-16$.
@@ -92,10 +92,10 @@ T = \{ t_{0-2}, t_{1-4}, t_{3-5}, t_{5-7}, t_{6-8}, t_{7-10}, t_{9-11}, t_{10-12
 Решением поставленной задачи является значение $\min(B(t_0, 0, 1), B(t_0, 0, 0))$, где $t_0$ -- первый шаблон на рассматриваемой цепи, в нашем случае это $t_{0-2}$.
 
 \begin{figure}[h!]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/smooth-scheme-cut.pdf}
-	\caption{Схема поиска решения задачи сглаживания границы между доменами.}
-	\label{fig:text_2_smooth_smooth_scheme}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/smooth-scheme-cut.pdf}
+\captionstyle{center}\caption{Схема поиска решения задачи сглаживания границы между доменами.}
+\label{fig:text_2_smooth_smooth_scheme}
 \end{figure}
 
 Решение задачи начинается с последнего шаблона $t_n$ (в нашем случае это $t_{14-16}$) (см. рис.~\ref{fig:text_2_smooth_smooth_scheme}, а).
@@ -146,17 +146,17 @@ T = \{ t_{0-2}, t_{1-4}, t_{3-5}, t_{5-7}, t_{6-8}, t_{7-10}, t_{9-11}, t_{10-12
 и его сложность равна $O \left( |T| \cdot (U_{max} - U_{min} + 1) \right)$.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/decomp.pdf}
-	\caption{Визуализация декомпозиции тестовой расчетной сетки dragon на 32 домена с помощью алгоритма Фархата (слева) и иерархического алгоритма (справа).}
-	\label{fig:text_2_smooth_decomp}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/decomp.pdf}
+\captionstyle{center}\caption{Визуализация декомпозиции тестовой расчетной сетки dragon на 32 домена с помощью алгоритма Фархата (слева) и иерархического алгоритма (справа).}
+\label{fig:text_2_smooth_decomp}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/decomp2.pdf}
-	\caption{Визуализация применения сглаживания границ между доменами после работы алгоритма Фархата (сверху) и иерархического алгоритма (снизу).}
-	\label{fig:text_2_smooth_decomp2}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/decomp2.pdf}
+\captionstyle{center}\caption{Визуализация применения сглаживания границ между доменами после работы алгоритма Фархата (сверху) и иерархического алгоритма (снизу).}
+\label{fig:text_2_smooth_decomp2}
 \end{figure}
 
 На рис.~\ref{fig:text_2_smooth_decomp} представлена визуализация декомпозиции тестовой расчетной сетки dragon с помощью алгоритма Фархата и иерархического алгоритма бинарной декомпозиции.
@@ -173,10 +173,10 @@ T = \{ t_{0-2}, t_{1-4}, t_{3-5}, t_{5-7}, t_{6-8}, t_{7-10}, t_{9-11}, t_{10-12
 Результаты проведения экспериментов представлены на рис.~\ref{fig:text_2_smooth_graphics}.
 
 \begin{figure}[H]
-	\centering
-		\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/graphics.pdf}
-	\caption{Графики доли кросс-ребер от общего числа ребер сетки (показатель $I^{\%}$) и максимальной длины границы между доменами (показатель $L$) при декомпозиции тестовых сеток bunny, dragon и lucy на количество доменов от 2 до 64.}
-	\label{fig:text_2_smooth_graphics}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_2_smooth/graphics.pdf}
+\captionstyle{center}\caption{Графики доли кросс-ребер от общего числа ребер сетки (показатель $I^{\%}$) и максимальной длины границы между доменами (показатель $L$) при декомпозиции тестовых сеток bunny, dragon и lucy на количество доменов от 2 до 64.}
+\label{fig:text_2_smooth_graphics}
 \end{figure}
 
 Неструктурированные поверхностные расчетные сетки bunny (количество ячеек $5 \cdot 10^3$), dragon (количество ячеек $10^5$), lucy (количество ячеек $10^5$) были взяты из открытых источников.

@@ -95,10 +95,10 @@ H = \begin{pmatrix}
 Схема выполнения расчетов продемонстрирована на рис.~\ref{fig:text_4_ibm_immersed_boundary_method_cheme}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_4_ibm/immersed_boundary_method_scheme.pdf}
-	\caption{Схема выполнения шага расчетов методом погруженных границ с использованием схемы Стегера-Уорминга.}
-	\label{fig:text_4_ibm_immersed_boundary_method_cheme}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_4_ibm/immersed_boundary_method_scheme.pdf}
+\captionstyle{center}\caption{Схема выполнения шага расчетов методом погруженных границ с использованием схемы Стегера-Уорминга.}
+\label{fig:text_4_ibm_immersed_boundary_method_cheme}
 \end{figure}
 
 Использование метода погруженных границ с фиктивными ячейками позволяет проводить газодинамические расчеты вблизи сложных границ без необходимости построения согласованных сеток.
@@ -107,10 +107,10 @@ H = \begin{pmatrix}
 С помощью метода погруженных границ на декартовой расчетной сетке можно получить качественно правильную картину обтекания, что проиллюстрировано на рис.~\ref{fig:text_4_ibm_res}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{./pics/text_4_ibm/res.pdf}
-	\caption{Визуализация поля скоростей (двумерный срез), полученного с помощью метода погруженной границы.}
-	\label{fig:text_4_ibm_res}
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_4_ibm/res.pdf}
+\captionstyle{center}\caption{Визуализация поля скоростей (двумерный срез), полученного с помощью метода погруженной границы.}
+\label{fig:text_4_ibm_res}
 \end{figure}
 
 Для анализа эффективности векторизации проводился эксперимент по организации программного кода газодинамического решателя, работающего с данными в формате double (вещественные числа размера 64 бита) с целью векторизации под микропроцессоры Intel Xeon Phi Knights Landing.
@@ -249,10 +249,10 @@ for (int k = 0; k < NZ; k++)
 Во время проведения эксперимента на модельной задаче был собран профиль исполнения до векторизации и после нее, результаты распределения времени исполнения между этими основными функциями представлены на рис.~\ref{fig:text_4_ibm_diagr}.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_ibm/diagr.png}
-	\caption{Распределение времени выполнения отдельных функций газодинамического решателя.}
-	\label{fig:text_4_ibm_diagr}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_ibm/diagr.png}
+\captionstyle{center}\caption{Распределение времени выполнения отдельных функций газодинамического решателя.}
+\label{fig:text_4_ibm_diagr}
 \end{figure}
 
 Также на рис.~\ref{fig:text_4_ibm_diagr2} представлены результаты ускорения после векторизации каждой функции в отдельности и суммарного ускорения всего расчетного кода.
@@ -260,10 +260,10 @@ for (int k = 0; k < NZ; k++)
 На практике ускорение в 4 раза для расчетных кодов, работающих с числами формата double, в результате векторизации уже можно считать успешным.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{./pics/text_4_ibm/diagr2.png}
-	\caption{Эффективность векторизации отдельных функций газодинамического решателя.}
-	\label{fig:text_4_ibm_diagr2}
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_4_ibm/diagr2.png}
+\captionstyle{center}\caption{Эффективность векторизации отдельных функций газодинамического решателя.}
+\label{fig:text_4_ibm_diagr2}
 \end{figure}
 
 Заметим, что ускорение различных функций в результате векторизации сильно отличается друг от друга.

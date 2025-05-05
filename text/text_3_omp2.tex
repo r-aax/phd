@@ -8,34 +8,34 @@
 Также можно отметить, что для всех микропроцессоров ускорение близко к линейному до тех пор, пока каждый поток запущен на своем отдельном ядре.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/speedup_scalar.png}
-	\caption{График ускорения скалярной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
-	\label{fig:text_3_omp2_speedup_scalar}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/speedup_scalar.png}
+\captionstyle{center}\caption{График ускорения скалярной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
+\label{fig:text_3_omp2_speedup_scalar}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/speedup_vec.png}
-	\caption{График ускорения векторизованной версии римановского решателя для микропроцессоров KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
-	\label{fig:text_3_omp2_speedup_vec}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/speedup_vec.png}
+\captionstyle{center}\caption{График ускорения векторизованной версии римановского решателя для микропроцессоров KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
+\label{fig:text_3_omp2_speedup_vec}
 \end{figure}
 
 На рис. 2 представлены аналогичные данные, но уже для векторизованной версии римановского решателя (соответственно только для микропроцессоров KNL, Skylake, Cascade Lake).
 Из графиков видно, что характер ускорения для KNL практически не поменялся, тогда как Skylake и Cascade Lake демонстрируют серьезную деградацию ускорения вычислений уже на небольшом количестве потоков.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/eff_scalar.png}
-	\caption{График масштабируемости скалярной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
-	\label{fig:text_3_omp2_eff_scalar}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/eff_scalar.png}
+\captionstyle{center}\caption{График масштабируемости скалярной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
+\label{fig:text_3_omp2_eff_scalar}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/eff_vec}
-	\caption{График масштабируемости векторизованной версии римановского решателя для микропроцессоров KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
-	\label{fig:text_3_omp2_eff_scalar}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_3_omp2/eff_vec}
+\captionstyle{center}\caption{График масштабируемости векторизованной версии римановского решателя для микропроцессоров KNL, Skylake, Cascade Lake для количества потоков от 1 до 160.}
+\label{fig:text_3_omp2_eff_scalar}
 \end{figure}
 
 На рис. 3 и рис. 4 приведены данные показателей эффективности масштабирования римановского решателя (скалярной и векторизованной версии соответственно).

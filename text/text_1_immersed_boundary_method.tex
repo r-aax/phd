@@ -319,10 +319,10 @@
 Первым шагом проведения вычислений с использованием метода погруженной границы является выполнение классификации ячеек объемной сетки.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{./pics/text_1_immersed_boundary_method/contour.png}
-	\caption{Иллюстрация пересечения поверхностной сетки и объемных сеток с разным количеством ячеек. На рисунках цветами обозначены только граничные и фиктивные ячейки объемной сетки (граничные -- зеленые, фиктивные -- бежевые). а) Исходная геометрия поверхностной сетки. б) Размер $10 \times 10 \times 10$. в) Размер $25 \times 25 \times 25$. г) Размер $50 \times 50 \times 50$. д) Размер $100 \times 100 \times 100$. е) Размер $150 \times 150 \times 150$.}
-	\label{fig:text_1_mesh_intersect_contour}
+\centering
+\includegraphics[width=0.6\textwidth]{./pics/text_1_immersed_boundary_method/contour.png}
+\captionstyle{center}\caption{Иллюстрация пересечения поверхностной сетки и объемных сеток с разным количеством ячеек. На рисунках цветами обозначены только граничные и фиктивные ячейки объемной сетки (граничные -- зеленые, фиктивные -- бежевые). а) Исходная геометрия поверхностной сетки. б) Размер $10 \times 10 \times 10$. в) Размер $25 \times 25 \times 25$. г) Размер $50 \times 50 \times 50$. д) Размер $100 \times 100 \times 100$. е) Размер $150 \times 150 \times 150$.}
+\label{fig:text_1_mesh_intersect_contour}
 \end{figure}
 
 На этапе первичной классификации решается задача нахождения пересечения поверхности обтекаемого тела с ячейками расчетной сетки \cite{Rybakov2019VecInt} (см. рис.~\ref{fig:text_1_mesh_intersect_contour}).
@@ -340,10 +340,10 @@
 Многие из этих шаблонов можно не рассматривать изначально (например это шаблоны, в которые попадают внутренние ячейки или другие фиктивные ячейки), другие шаблоны нужно отсеивать по специальным критериям (например, шаблон, в котором точка поверхности обтекаемого тела лежит слишком близко к какой-нибудь другой точке шаблона).
 
 \begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.4\textwidth]{./pics/text_1_immersed_boundary_method/3_points_lin_appr_velocity_2d.pdf}
-	\caption{Двумерная иллюстрация аппроксимации скорости в фиктивной ячейке}
-	\label{fig:text_1_immersed_boundary_method_2}
+\centering
+\includegraphics[width=0.4\textwidth]{./pics/text_1_immersed_boundary_method/3_points_lin_appr_velocity_2d.pdf}
+\captionstyle{center}\caption{Двумерная иллюстрация аппроксимации скорости в фиктивной ячейке.}
+\label{fig:text_1_immersed_boundary_method_2}
 \end{figure}
 
 Наибольший интерес представляет аппроксимация векторных величин, а именно аппроксимация вектора скорости в фиктивной ячейке.
@@ -351,18 +351,18 @@
 На рис.~\ref{fig:text_1_immersed_boundary_method_2} приведена иллюстрация выполнения аппроксимации вектора скорости для двумерного случая (трехмерный случай обрабатывается аналогично).
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{./pics/text_1_immersed_boundary_method/3d_mesh.png}
-	\caption{Разбиение расчетной области на внешние, граничные и фиктивные ячейки в задаче обтекания
+\centering
+\includegraphics[width=0.7\textwidth]{./pics/text_1_immersed_boundary_method/3d_mesh.png}
+\captionstyle{center}\caption{Разбиение расчетной области на внешние, граничные и фиктивные ячейки в задаче обтекания
 цилиндра.}
-	\label{fig:text_1_immersed_boundary_method_3}
+\label{fig:text_1_immersed_boundary_method_3}
 \end{figure}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{./pics/text_1_immersed_boundary_method/velocity_field.png}
-	\caption{Формирование поля скоростей в задаче обтекания цилиндра.}
-	\label{fig:text_1_immersed_boundary_method_4}
+\centering
+\includegraphics[width=0.7\textwidth]{./pics/text_1_immersed_boundary_method/velocity_field.png}
+\captionstyle{center}\caption{Формирование поля скоростей в задаче обтекания цилиндра.}
+\label{fig:text_1_immersed_boundary_method_4}
 \end{figure}
 
 Фиктивная ячейка, центр которой обозначен буквой $G$, большей частью находится внутри обтекаемого тела.

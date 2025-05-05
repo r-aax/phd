@@ -39,7 +39,7 @@ void matvec8_orig(float* __restrict m,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_small_matr/matvec8.pdf}
-\caption{Схема вычисления результата в операции \texttt{matvec8}.}
+\captionstyle{center}\caption{Схема вычисления результата в операции \texttt{matvec8}.}
 \label{fig:text_4_small_matr_matvec8}
 \end{figure}
 
@@ -88,7 +88,7 @@ void matmat8_orig(float* __restrict a,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.00\textwidth]{./pics/text_4_small_matr/matmat8.pdf}
-\caption{Схема вычисления результата в операции \texttt{matmat8}.}
+\captionstyle{center}\caption{Схема вычисления результата в операции \texttt{matmat8}.}
 \label{fig:text_4_small_matr_matmat8}
 \end{figure}
 
@@ -105,7 +105,7 @@ void matmat8_orig(float* __restrict a,
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.95\textwidth]{./pics/text_4_small_matr/horizontal_add.pdf}
-\caption{Схема суммирования элементов zmm вектора.}
+\captionstyle{center}\caption{Схема суммирования элементов zmm вектора.}
 \label{fig:text_4_small_matr_horizontal_add}
 \end{figure}
 
@@ -120,7 +120,7 @@ void matmat8_orig(float* __restrict a,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_4_small_matr/operations_tree.pdf}
-\caption{Схема суммирования элементов 16 zmm векторов.}
+\captionstyle{center}\caption{Схема суммирования элементов 16 zmm векторов.}
 \label{fig:text_4_small_matr_operations_tree}
 \end{figure}
 
@@ -162,7 +162,7 @@ void matmat8_orig(float* __restrict a,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_small_matr/invmat8.pdf}
-\caption{Базовые действия алгоритма Гаусса-Жордана нахождения обратной матрицы.}
+\captionstyle{center}\caption{Базовые действия алгоритма Гаусса-Жордана нахождения обратной матрицы.}
 \label{fig:text_4_small_matr_invmat8}
 \end{figure}
 
@@ -361,7 +361,7 @@ int invmat8_opt(float* __restrict m, float* __restrict r)
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_4_small_matr/res.png}
-\caption{Сокращение времени работы оптимизированных версий операций над матрицами размера $8 \times 8$ и $16 \times 16$.}
+\captionstyle{center}\caption{Сокращение времени работы оптимизированных версий операций над матрицами размера $8 \times 8$ и $16 \times 16$.}
 \label{fig:text_4_small_matr_res}
 \end{figure}
 
