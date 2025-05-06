@@ -7,6 +7,7 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/vec_block.pdf}
+\singlespacing
 \captionstyle{center}\caption{Схема вычислений векторизованного блока команд с входными данными \texttt{in\_data}, выходными данные \texttt{out\_data} и маской исполнения \texttt{0xEA}.}
 \label{fig:text_4_vec_comb_mask_vec_block}
 \end{figure}
@@ -25,6 +26,7 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks.pdf}
+\singlespacing
 \captionstyle{center}\caption{Схема вычислений с объединением двух векторизованных блоков \texttt{in\_data\_1} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_1}, \texttt{in\_data\_2} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_2}. Объединение допустимо, так как векторные маски \texttt{0xCC00} и \texttt{0xEA} не пересекаются, объединенный блок выполняется под маской \texttt{0xCCEA}.}
 \label{fig:text_4_vec_comb_mask_comb_masks}
 \end{figure}
@@ -43,6 +45,7 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/comb_masks_perm.pdf}
+\singlespacing
 \captionstyle{center}\caption{Схема вычислений с объединением двух векторизованных блоков при условии пересечения их масок. Для объединения применяется техника изменения порядка элементов в данных одного из блоков.}
 \label{fig:text_4_vec_comb_mask_comb_masks_perm}
 \end{figure}
@@ -130,7 +133,8 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 
 \begin{table}
 \centering
-\caption{Соответствие скалярных и векторных объектов листингов \ref{lst:text_4_vec_comb_prefun_scalar} и \ref{lst:text_4_vec_comb_prefun_vec}.}
+\singlespacing
+\captionstyle{center}\caption{Соответствие скалярных и векторных объектов листингов \ref{lst:text_4_vec_comb_prefun_scalar} и \ref{lst:text_4_vec_comb_prefun_vec}.}
 \bigskip
 \label{tbl:text_4_vec_comb_prefun_obj}
 \begin{tabular}{ | c | c | }
@@ -158,6 +162,7 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_check_mask/continuity.png}
+\singlespacing
 \captionstyle{center}\caption{Иллюстрация тенденции сохранения значения условия при переходе к соседним ячейками в расчетных задачах.}
 \label{fig:text_4_vec_comb_continuity}
 \end{figure}
@@ -177,6 +182,7 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
+\singlespacing
 \captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} при условии, что все условия \texttt{p <= pk} для наборов скалярных данных являются независимыми.}
 \label{fig:text_4_vec_comb_mask_independent_p}
 \end{figure}
@@ -184,6 +190,7 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
+\singlespacing
 \captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} на реальном профиле исполнения.}
 \label{fig:text_4_vec_comb_mask_real_p}
 \end{figure}
@@ -206,6 +213,7 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/res.png}
+\singlespacing
 \captionstyle{center}\caption{Результаты сравнения эффективности векторизации при простом слиянии, с проверкой масок и с комбинированием масок в режимах эмуляции и на микропроцессоре Intel Xeon Phi Knights Landing 7290.}
 \label{fig:text_4_vec_comb_mask_res}
 \end{figure}

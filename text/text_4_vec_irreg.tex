@@ -17,7 +17,8 @@
 
 \begin{table}
 \centering
-\caption{Различные последовательности шагов, используемые в сортировке Шелла.}
+\singlespacing
+\captionstyle{center}\caption{Различные последовательности шагов, используемые в сортировке Шелла.}
 \bigskip
 \label{tbl:text_4_vec_irreg_steps}
 \begin{tabular}{ | c | c | }
@@ -78,6 +79,7 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_4_vec_irreg/code_decomp.pdf}
+\singlespacing
 \captionstyle{center}\caption{Декомпозиция сортировки Шелла для выделения векторизуемых участков кода.}
 \label{fig:text_4_vec_irreg_code_decomp}
 \end{figure}
@@ -101,6 +103,7 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/shell_cfg.pdf}
+\singlespacing
 \captionstyle{center}\caption{Схема перевода тела внутреннего цикла сортировки Шелла в предикатную форму.}
 \label{fig:text_4_vec_irreg_shell_cfg}
 \end{figure}
@@ -193,6 +196,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/theoretical_eff.pdf}
+\singlespacing
 \captionstyle{center}\caption{Сравнение теоретического ускорения векторизованной версии сортировки Шелла для различных
 последовательностей шагов.}
 \label{fig:text_4_vec_irreg_theoretical_eff}
@@ -207,6 +211,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/experimental_eff.pdf}
+\singlespacing
 \captionstyle{center}\caption{Сравнение экспериментального ускорения векторизованной версии сортировки Шелла для различных последовательностей шагов.}
 \label{fig:text_4_vec_irreg_experimental_eff}
 \end{figure}
@@ -224,6 +229,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 &
 \includegraphics[scale=0.5]{./pics/text_4_vec_irreg/shell_k_15.pdf}
 \end{tabular}
+\singlespacing
 \captionstyle{center}\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
 Шелла при $k = 4$ (слева) и $k = 15$ (справа) для скалярного и векторного кода.}
 \label{fig:text_4_vec_irreg_shell_hist}
@@ -236,6 +242,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 &
 \includegraphics[scale=0.5]{./pics/text_4_vec_irreg/hibbard_k_15.pdf}
 \end{tabular}
+\singlespacing
 \captionstyle{center}\caption{Гистограммы распределения количества итераций внутреннего цикла при сортировке с последовательностью
 Хиббарда при $k = 3$ (слева) и $k = 15$ (справа) для скалярного и векторного кода.}
 \label{fig:text_4_vec_irreg_hibbard_hist}
