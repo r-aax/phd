@@ -151,36 +151,40 @@ $\blacksquare$\\
 
 %------------------------------------------------------------------------------------------------------
 
-\begin{lemma}\label{lem:text_3_graph_prim_cycle2_inner_space}
-Количество вершин графа, расположенных внутри двухцветного цикла, а также количество ребер, направленных внутрь двухцветного цикла, четные.
-\end{lemma}
+Утверждение о возможности раскраски ребер плоского кубического графа в три цвета является горазд более сильным, оно верно для плоских кубических графов без мостов и равносильно задаче о четырех красках \cite{Soifer2009,Tait1880}.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.5\textwidth]{./pics/text_3_graph_prim/cycle2_inner_space.pdf}
-\singlespacing
-\captionstyle{center}\caption{Структура внутренней области двухцветного цикла.}
-\label{fig:text_3_graph_prim_cycle2_inner_space}
-\end{figure}
+%------------------------------------------------------------------------------------------------------
 
-На рис.~\ref{fig:text_3_graph_prim_cycle2_inner_space} изображен двухцветный цикл (без ограничения общности это цикл $a/b$).
-Внутрь этого цикла направлены ребра цвета $c$.
-Пусть количество этих ребер равно $\tilde{\varepsilon}_c$ (граничные ребра).
-Пусть также кроме этих ребер во внутренней области находится $\nu$ вершин, $\varepsilon_a$ ребер цвета $a$, $\varepsilon_b$ ребер цвета $b$ и $\varepsilon_c$ ребер цвета $c$ (внутренние ребра).
+%\begin{lemma}\label{lem:text_3_graph_prim_cycle2_inner_space}
+%Количество вершин графа, расположенных внутри двухцветного цикла, а также количество ребер, направленных внутрь двухцветного цикла, четные.
+%\end{lemma}
 
-Сумма степеней всех вершин $\nu$ равна $3\nu$, эта сумма складывается из двух концов всех внутренних ребер и одного конца граничных ребер, то есть $2\varepsilon_a + 2\varepsilon_b + 2\varepsilon_c + \tilde{\varepsilon}_c = 3\nu$.
-Так как в каждой вершине входятся ребра разных цветов, то количество концов каждого цвета во внутренней области двухцветного цикла одинаково, то есть $2\varepsilon_a = 2\varepsilon_b = 2\varepsilon_c + \tilde{\varepsilon}_c$.
-Таким образом, количество ребер разных цветов выражается следующим образом:
-\begin{equation}\label{eqn:text_3_graph_prim_cycle2_inner_space}
-	\left\{
-		\begin{aligned}
-			& \varepsilon_a = \frac{\nu}{2} \\
-			& \varepsilon_b = \frac{\nu}{2} \\
-			& \varepsilon_c = \frac{\nu - \tilde{\varepsilon}_c}{2}
-		\end{aligned}
-	\right.
-\end{equation}
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=0.5\textwidth]{./pics/text_3_graph_prim/cycle2_inner_space.pdf}
+%\singlespacing
+%\captionstyle{center}\caption{Структура внутренней области двухцветного цикла.}
+%\label{fig:text_3_graph_prim_cycle2_inner_space}
+%\end{figure}
 
-Из соотношений \eqref{eqn:text_3_graph_prim_cycle2_inner_space} и целости чисел $\varepsilon_a$, $\varepsilon_b$, $\varepsilon_c$ следует утверждение леммы. $\blacksquare$\\
+%На рис.~\ref{fig:text_3_graph_prim_cycle2_inner_space} изображен двухцветный цикл (без ограничения общности это цикл $a/b$).
+%Внутрь этого цикла направлены ребра цвета $c$.
+%Пусть количество этих ребер равно $\tilde{\varepsilon}_c$ (граничные ребра).
+%Пусть также кроме этих ребер во внутренней области находится $\nu$ вершин, $\varepsilon_a$ ребер цвета $a$, $\varepsilon_b$ %ребер цвета $b$ и $\varepsilon_c$ ребер цвета $c$ (внутренние ребра).
+
+%Сумма степеней всех вершин $\nu$ равна $3\nu$, эта сумма складывается из двух концов всех внутренних ребер и одного конца граничных ребер, то есть $2\varepsilon_a + 2\varepsilon_b + 2\varepsilon_c + \tilde{\varepsilon}_c = 3\nu$.
+%Так как в каждой вершине входятся ребра разных цветов, то количество концов каждого цвета во внутренней области двухцветного цикла одинаково, то есть $2\varepsilon_a = 2\varepsilon_b = 2\varepsilon_c + \tilde{\varepsilon}_c$.
+%Таким образом, количество ребер разных цветов выражается следующим образом:
+%\begin{equation}\label{eqn:text_3_graph_prim_cycle2_inner_space}
+%	\left\{
+%		\begin{aligned}
+%			& \varepsilon_a = \frac{\nu}{2} \\
+%			& \varepsilon_b = \frac{\nu}{2} \\
+%			& \varepsilon_c = \frac{\nu - \tilde{\varepsilon}_c}{2}
+%		\end{aligned}
+%	\right.
+%\end{equation}
+
+%Из соотношений \eqref{eqn:text_3_graph_prim_cycle2_inner_space} и целости чисел $\varepsilon_a$, $\varepsilon_b$, $\varepsilon_c$ следует утверждение леммы. $\blacksquare$\\
 
 %------------------------------------------------------------------------------------------------------
