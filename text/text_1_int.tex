@@ -35,7 +35,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{pics/text_1_int/pic_reduce_edge.pdf}
+\includegraphics[width=0.4\textwidth]{pics/text_1_int/pic_reduce_edge.pdf}
 \singlespacing
 \captionstyle{center}\caption{Удаление короткого ребра.}\label{fig:text_1_int_reduce_edge}
 \end{figure}
@@ -197,25 +197,17 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 \begin{tabular}{ll}
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_on.png}
 &
-\includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_off.png}
-\end{tabular}
-\singlespacing
-\captionstyle{center}\caption{Демонстрация удаления самопересечения.}
-\label{fig:text_1_int_selfintoff1}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\begin{tabular}{ll}
+\includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_off.png} \\
+\\
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_on_2.png}
 &
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_off_2.png}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Демонстрация удаления самопересечения.}
+\captionstyle{center}\caption{Демонстрация удаления самопересечений.}
 \label{fig:text_1_int_selfintoff2}
 \end{figure}
 
 После завершения обхода расчетной сетки все помеченные ячейки считаются ячейками целевой поверхности, а все остальные ячейки должны быть удалены.
-На рисунках рис.~\ref{fig:text_1_int_selfintoff1} и рис.~\ref{fig:text_1_int_selfintoff2} проиллюстрированы примеры устранения самопересечений сетки в виде скрытых петель.
+На рисунке рис.~\ref{fig:text_1_int_selfintoff2} проиллюстрированы примеры устранения самопересечений сетки в виде скрытых петель.
 После удаления скрытых ячеек целевая расчетная сетка снова становится корректной, удовлетворяет соотношениям \eqref{eqn:text_1_remesh3_arch} и может быть использована для дальнейшего моделирования ледообразования.

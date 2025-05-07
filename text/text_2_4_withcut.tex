@@ -23,27 +23,21 @@
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond.pdf}
+\begin{tabular}{ll}
+\includegraphics[width=0.45\textwidth]{./pics/text_2_withcut/cut-bcond.pdf}
+&
+\includegraphics[width=0.45\textwidth]{./pics/text_2_withcut/cut-bcond2.pdf}
+\end{tabular}
 \singlespacing
 \captionstyle{center}\caption{Дробление блока может спровоцировать дробление других объектов сетки.}
 \label{fig:text_2_withcut_cut_bcond}
 \end{figure}
 
-Пусть блок Block должен быть разрезан по направлению $I+$ как показано на рис.~\ref{fig:text_2_withcut_cut_bcond}.
+Пусть блок Block должен быть разрезан по направлению $I+$ как показано на рис.~\ref{fig:text_2_withcut_cut_bcond} слева.
 Пусть этот блок имеет граничные условия по направлению $J+$.
 Тогда возможны два варианта.
 Либо линия разреза не пересекает граничное условие, и тогда граничное условие целиком отходит одному из результирующих блоков (BCond 1).
-Если же линия разреза проходит через граничное условие, то данное граничное условие также должно быть разделено, и его части отойдут двум результирующим блокам (рис.~\ref{fig:text_2_withcut_cut_bcond2}).
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{./pics/text_2_withcut/cut-bcond2.pdf}
-\singlespacing
-\captionstyle{center}\caption{Разделение граничного условия, спровоцированное дроблением блока.}
-\label{fig:text_2_withcut_cut_bcond2}
-\end{figure}
-
-Такая же ситуация может сложиться в отношении областей начальных условий.
+Если же линия разреза проходит через граничное условие, то данное граничное условие также должно быть разделено, и его части отойдут двум результирующим блокам (рис.~\ref{fig:text_2_withcut_cut_bcond}, справа). Такая же ситуация может сложиться в отношении областей начальных условий.
 В случае дробления интерфейсов могут быть более сложные ситуации дробления.
 
 \subsubsection{Равномерное распределение блоков по вычислительным процессам}
@@ -238,7 +232,7 @@ $\blacksquare$\\
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling2.png}
 \singlespacing
-\captionstyle{center}\caption{Ускорение запусков на различном числе узлов относительно эталонного запуска при проведении газодинамических расчетов на модельном входном устройстве воздухозаборника на суперкомпьютере с использованием RANS/ILES метода.}
+\captionstyle{center}\caption{Ускорение запусков и эффективность распараллеливания на различном числе узлов относительно эталонного запуска при проведении газодинамических расчетов на модельном входном устройстве воздухозаборника на суперкомпьютере с использованием RANS/ILES метода.}
 \label{fig:text_2_withcut_scaling2}
 \end{figure}
 

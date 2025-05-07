@@ -52,7 +52,7 @@
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{./pics/text_2_block/3-cell-delta.pdf}
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/3-cell-delta.pdf}
 \singlespacing
 \captionstyle{center}\caption{Примеры вычислительных окрестностей ячеек сетки.}
 \label{fig:text_2_block_cell_delta}
@@ -64,11 +64,11 @@
 При этом для некоторых ячеек обрабатываемого блока их вычислительные окрестности выходят за границу блока и затрагивают соседние блоки.
 Для эффективного счета необходимо обеспечить функционал быстрого обмена данными между блоками.
 Если два соседних блока обрабатываются на разных узлах суперкомпьютерного кластера, то для обмена данными между ними нужно использовать MPI обмены.
-Приведем классификацию ячеек внутри блока сетки (см. рис.~\ref{fig:text_2_block_block_cells}).
+Приведем классификацию ячеек внутри блока сетки (см. рис.~\ref{fig:text_2_block_block_cells}) слева.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.4\textwidth]{./pics/text_2_block/4-block-cells.pdf}
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/4-block-cells.pdf}
 \singlespacing
 \captionstyle{center}\caption{Ячейки разных типов.}
 \label{fig:text_2_block_block_cells}
@@ -87,16 +87,8 @@
 \end{definition}
 
 \begin{definition}
-Если окрестность ячейки частично накрывает некоторый блок, который обрабатывается в другом узле суперкомпьютера, то будем относить ее к ячейкам MPI обмена (MPI Cells), так как для получения данных этой окрестности нужно использовать средства межпроцессного обмена (см. рис.~\ref{fig:text_2_block_mpi_cells}).
+Если окрестность ячейки частично накрывает некоторый блок, который обрабатывается в другом узле суперкомпьютера, то будем относить ее к ячейкам MPI обмена (MPI Cells), так как для получения данных этой окрестности нужно использовать средства межпроцессного обмена (см. рис.~\ref{fig:text_2_block_block_cells} справа).
 \end{definition}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.5\textwidth]{./pics/text_2_block/5-mpi-cells.pdf}
-\singlespacing
-\captionstyle{center}\caption{Пересечение окрестности ячейки и соседнего блока.}
-\label{fig:text_2_block_mpi_cells}
-\end{figure}
 
 При обработке ячеек MPI обмена мы должны обращаться за данными к другому процессу.
 Если делать это только по мере необходимости, то придется совершать большое количество обменов, что негативно скажется на производительности.
@@ -127,7 +119,7 @@
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_2_block/6-block-and-coords.png}
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/6-block-and-coords.png}
 \singlespacing
 \captionstyle{center}\caption{Блок сетки и координаты его узлов.}
 \label{fig:text_2_block_block_and_coords}
@@ -192,7 +184,7 @@
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_2_block/9-hierarchy.png}
+\includegraphics[width=0.8\textwidth]{./pics/text_2_block/9-hierarchy.png}
 \singlespacing
 \captionstyle{center}\caption{Иерархия объектов внутреннего представления сетки.}
 \label{fig:text_2_block_hierarchy}
@@ -228,26 +220,23 @@
 
 \begin{figure}[ht]
 \centering
+\begin{tabular}{l}
 \includegraphics[width=0.6\textwidth]{./pics/text_2_block/11-mpi1.png}
-\singlespacing
-\captionstyle{center}\caption{Возникновение задержки, вызванной MPI обменами.}
-\label{fig:text_2_block_mpi1}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
+\\
+\\
 \includegraphics[width=0.6\textwidth]{./pics/text_2_block/12-mpi2.png}
+\end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Избавление от задержки путем разделения вычислений для внутренних и граничных ячеек.}
-\label{fig:text_2_block_mpi2}
+\captionstyle{center}\caption{Задержки, вызванные MPI обменами и избавление от них.}
+\label{fig:text_2_block_mpi1}
 \end{figure}
 
 После проведения каждой итерации счета задачи необходимо выполнять обмен данными, чтобы состояния граничных ячеек блоков были актуальными.
 При этом начинать обсчет следующей итерации нельзя до завершения всех обменов.
-Это может привести к возникновению задержек (см. рис.~\ref{fig:text_2_block_mpi1}).
+Это может привести к возникновению задержек (см. рис.~\ref{fig:text_2_block_mpi1}, сверху).
 Чтобы избежать такого рода потери вычислительного времени можно разделить обработку ячеек блока на отдельную обработку всех внутренних ячеек и обработку граничных ячеек.
 Сначала нужно произвести обработку всех граничных ячеек блока, затем инициировать асинхронные обмены данными (в которых участвуют только граничные ячейки), а затем сразу начать обработку внутренних ячеек, для которых получение данных фиктивных ячеек не требуется.
-Такой подход позволяет скрыть издержки на коммуникацию за полезными вычислениями (см. рис.~\ref{fig:text_2_block_mpi2}).
+Такой подход позволяет скрыть издержки на коммуникацию за полезными вычислениями (см. рис.~\ref{fig:text_2_block_mpi2}, снизу).
 
 Особенности структуры и реализации внутреннего представления блочно-структурированной сетки имеют большое значение для выполнения расчетов на этой сетке.
 Правильный выбор объектной модели сетки, способы расположения данных в памяти и другие факторы напрямую влияют на эффективность выполнения программы.

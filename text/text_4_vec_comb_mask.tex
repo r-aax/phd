@@ -181,18 +181,14 @@ void vcase_prefun_1(__m512& f, __m512& fd,
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
+\begin{tabular}{ll}
+\includegraphics[width=0.45\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
+&
+\includegraphics[width=0.45\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
+\end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} при условии, что все условия \texttt{p <= pk} для наборов скалярных данных являются независимыми.}
+\captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} при условии, что все условия \texttt{p <= pk} для наборов скалярных данных являются независимыми (слева) и на реальном профиле исполнения (справа).}
 \label{fig:text_4_vec_comb_mask_independent_p}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
-\singlespacing
-\captionstyle{center}\caption{Гистограмма распределения плотностей маски \texttt{cond} на реальном профиле исполнения.}
-\label{fig:text_4_vec_comb_mask_real_p}
 \end{figure}
 
 Из рис.~\ref{fig:text_4_vec_comb_mask_independent_p} и рис.~\ref{fig:text_4_vec_comb_mask_real_p} видно, что распределение плотностей масок на реальных данных совершенно не похоже на распределение, вычисленное в предположении о независимости условий переходов.
