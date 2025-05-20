@@ -7,7 +7,7 @@
 Несмотря на некоторые специальные методы по предотвращению конфликтов между гранями сетки и методы сглаживания, после формирования новой поверхности возможно возникновение самопересечений, появление граней неправильной формы, а также неравномерное распределение граней в сетке по размеру.
 Пока опустим самопересечения сетки и будем рассматривать только вопросы, касающиеся формы и размера ячеек.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_delaunay.pdf}
@@ -33,7 +33,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 где $Q(f) = 1$ соответствует идеальному случаю равносторонней ячейки, а $Q(f) = 0$ -- худший случай для ячеек с нулевой площадью \cite{Borouchaki2000Remesh}.
 Для выполнения разбиения ячейки на более мелкие с сохранением их качества просто выполним разбиение по серединам всех ее сторон (рис.~\ref{fig:text_1_int_cut} справа).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.4\textwidth]{pics/text_1_int/pic_reduce_edge.pdf}
 \singlespacing
@@ -78,7 +78,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 В отличие от анализа пары треугольников на пересечение, проверка на пересечение двух прямоугольных параллелепипедов со сторонами, параллельными координатным осям, является простой операцией.
 То есть па первом этапе будем искать такие пары ячеек, чьи контейнеры пересекаются (будем называть их потенциально пересекающимися ячейками).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_1_int/pic_box.pdf}
 \singlespacing
@@ -112,7 +112,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 Третья категория -- ячейки, которые пересекаются с какими-то другими ячейками. 
 Такие ячейки будем называть ячейками пересечения.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{lll}
 \includegraphics[width=0.3\textwidth]{./pics/text_1_int/pic_zip_01.png}
@@ -142,7 +142,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 После выполнения дробления получаем конструкцию, показанную на рис.~\ref{fig:text_1_int_tri_cut} справа.
 В общем случае точек, по которым необходимо разбивать ячейку, может быть сколь угодно много, и дробление должно выполняться с помощью выполнения триангуляции по этим точкам, причем некоторые ребра триангуляции должны быть фиксированы.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_before_cut.png}
@@ -161,7 +161,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 Вторым условием будем считать то, что никакой узел сетки не находится ни в какой другой ячейке.
 При выполнении этих двух дополнительных условий можно утверждать, что если ребро имеет более двух инцидентных ячеек, то это количество в точности равно 4, причем эти 4 инцидетные ячейки попарно находятся в одной плоскости.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{pics/text_1_int/pic_walk_1.pdf}
 \singlespacing
@@ -192,7 +192,7 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 
 Объединяя вместе оба рассмотренных случая, получаем критерий выбора следующей для обхода ячейки: должна быть выбрана ячейка, для которой значение показателя $f(P)$ максимально, где $f(P) = (\overline{n}_A, \overline{OP})$ для простых сеток и $f(P) = -\phi(A \rightarrow P)$ в общем случае.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
 \includegraphics[width=0.45\textwidth]{./pics/text_1_int/pic_self_intersection_on.png}

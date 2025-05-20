@@ -7,7 +7,7 @@
 Оно совпадает с направлением суммы единичных нормалей, проведенных к инцидентным ячейкам.
 К тому же для двумерного случая это направление лежит на биссектрисе угла, образованного двумя инцидентными ячейками \cite{Fortin2004Remesh2d} (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_normals.pdf}
 \singlespacing
@@ -27,7 +27,7 @@
 При перемещении точек $A$ и $B$ в новые точки $A_1$ и $B_1$ соответственно образуется четырехугольник $AA_1B_1B$.
 Требуется найти его площадь, выраженную явно через параметры $a = \overline{AA_1}$ и $b = \overline{BB_1}$ (рис.~\ref{fig:text_1_remesh_2d_local}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/local.pdf}
 \singlespacing
@@ -131,7 +131,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 В качестве первого метода рассмотрим приближение, при котором каждый узел сетки сдвигается на вектор $\frac{1}{2}(H_{i - 1} + H_i)\overline{g_i}$.
 Этот метод соответствует представлению площади, охватываемой при движении ячейки длины $l_i$, прямоугольником cо сторонами $l_i$ и $H_i$, а затем выбору в качестве величины смещения узла среднего арифметического высот построенных прямоугольников в инцидентных ячейках, как показано на рис.~\ref{fig:text_1_remesh_2d_grid_rectangles}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_rectangles.pdf}
 \singlespacing
@@ -143,7 +143,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 После построения трапеций для всех ячеек сетки у каждого внутреннего узла появляется две новые потенциальные позиции для сдвига (образованные ячейкой слева и ячейкой справа).
 В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_grid_trapeziums}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_trapeziums.pdf}
 \singlespacing
@@ -157,7 +157,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Для любой ячейки $AB$ и ее соседей $A_1A$ и $BB_1$ углы $\angle (\overline{BA}, \overline{AA_1})$ и $\angle (\overline{AB}, \overline{BB_1})$ являются постоянной величиной и равны $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}).
 Пусть величины смещений ячеек $A_1A$, $AB$ и $BB_1$ равны $H^{-}$, $H$ и $H^{+}$ соответственно.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical.pdf}
 \singlespacing
@@ -204,7 +204,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical_concave.pdf}
 \singlespacing
@@ -224,7 +224,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 
 Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\breve{\delta}^r = \frac{S_{AA_2B_2B}^r - lH}{lH}$ и $\breve{\delta}^t = \frac{S_{AA_2B_2B}^t - lH}{lH}$ от $\alpha$ и $\Delta H$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/main_chart.png}
 \singlespacing
