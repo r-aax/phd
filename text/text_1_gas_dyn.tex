@@ -1,4 +1,4 @@
-\subsection{Сопряжение с конечно-объемными газодинамическими решателями}\label{sec:text_1_gas}
+\subsection{Сопряжение с конечно-объемными \\ газодинамическими решателями}\label{sec:text_1_gas}
 
 При расчете обледенения крайне важным элементом данных является поле скоростей в области, окружающей рассматриваемую поверхность.
 Поле скоростей вблизи поверхности влияет на движение жидкой пленки по поверхности, что существенным образом определяет картину обледенения.
@@ -61,11 +61,11 @@ H = \begin{pmatrix}
 \end{equation}
 
 В первом применяемом решателе для вычисления потоков использовалась противопоточная схема Стегера-Уорминга \cite{Smirnova2018Euler}, в которой потоки получаются следующим образом (на примере потока $F$):
-\begin{equation}
+\begin{equation}\label{eqn:text_1_gas_F}
 	F_{i + \frac{1}{2}} = F_i^{+}(U_i^n) + F_i^{-}(U_{i + 1}^n)
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eqn:text_1_gas_F2}
 	F^{\pm} = \frac{\rho}{2 \gamma}
 	\begin{pmatrix}
 		\lambda_1^{\pm} + 2(\gamma - 1)\lambda_2^{\pm} + \lambda_5^{\pm} \\
@@ -77,10 +77,10 @@ H = \begin{pmatrix}
 \end{equation}
 
 \begin{equation}
-	\lambda_i^{\pm} = \frac{\lambda_i \pm |\lambda_i|}{2}, \ \lambda_1 = u - a, \ \lambda_2 = \lambda_2 = \lambda_4 = u, \ \lambda_5 = u + a, \ H = \frac{E + p}{\rho}
+	\lambda_i^{\pm} = \frac{\lambda_i \pm |\lambda_i|}{2}, \ \lambda_1 = u - a, \ \lambda_2 = \lambda_3 = \lambda_4 = u, \ \lambda_5 = u + a, \ H = \frac{E + p}{\rho}
 \end{equation}
 
 Во втором применяемом решателе для той же системы уравнений \eqref{eqn:text_1_gas_system} на той же декартовой расчетной сетке с кубическими ячейками использовался метод Годунова \cite{Kulikovsky2001Gas} на базе точного римановского решателя \cite{Borisov2018Riemann} (реализация точного римановского решателя на разных языках программирования доступна в \cite{Toro1999Riemann,riemannvecGithub}).
 
 В качестве третьего решателя (применяемого уже для решения системы уравнений Навье-Стокса) использовался комбинированный метод высокого разрешения RANS/ILES \cite{Bendersky2014RANSILES}, работающий на криволинейных блочно-структурированных расчетных сетках и применяемый для расчета турбулентных течений.
-Метод RANS/ILES является комбинацией расчета осредненных по Рейнольдсу уравнений Навье-Стокса (RANS\label{abbr:rans}) вблизи поверхности, а вдали от нее ILES\label{abbr:iles} -- метода моделирования крупных вихрей (LES\label{abbr:les}) с неявной подсеточной моделью турбулентности (SGS\label{abbr:sgs}).
+Метод RANS/ILES является комбинацией расчета осредненных по Рейнольдсу уравнений Навье-Стокса (Reynolds averaged Navier-Stokes, RANS\label{abbr:rans}) вблизи поверхности, а вдали от нее ILES\label{abbr:iles} (implicit LES) -- метода моделирования крупных вихрей (large eddy simulation, LES\label{abbr:les}) с неявной подсеточной моделью турбулентности (subgrid scale, SGS\label{abbr:sgs}).
