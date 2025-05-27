@@ -290,7 +290,7 @@ void matmat8_opt(float* __restrict a,
 Три остальные действия реализуются без каких бы то ни было особенностей с помощью применения пересылок и покомпонентных операций сложения, умножения и комбинированных FMA операций.
 
 \begin{singlespace}
-\begin{lstlisting}[caption={Векторизованная версия вычисления обратной матрицы размера $8 \times 8$.},label={lst:text_4_small_matr_invmat_opt}]
+\begin{lstlisting}[caption={Векторизованная версия вычисления обратной \\ матрицы размера $8 \times 8$.},label={lst:text_4_small_matr_invmat_opt}]
 int invmat8_opt(float* __restrict m, float* __restrict r)
 {
   z0 = _mm512_setzero_ps();
