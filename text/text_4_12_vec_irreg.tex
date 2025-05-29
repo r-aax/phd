@@ -115,7 +115,7 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 
 Для задач численного моделирования физических процессов ситуация обратная -- для соседних итераций плоского цикла профиль исполнения\label{term:execution_profile3} отдельных участков программного кода тела цикла меняется не сильно при небольших изменениях входных данных.
 
-Векторизованная версия ядра сортировки Шелла представлена на листинге~\ref{lst:text_4_vec_irreg_shell_vec}:
+Векторизованная версия ядра сортировки Шелла представлена на листинге~\ref{lst:text_4_vec_irreg_shell_vec} (полный код доступен в \cite{iparGithub}):
 
 \begin{lstlisting}[caption={Векторизованный вариант ядра сортировки Шелла.},label={lst:text_4_vec_irreg_shell_vec}]
 void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
