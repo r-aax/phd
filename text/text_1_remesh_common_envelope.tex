@@ -1,5 +1,5 @@
 % Метод перестроения поверхности с помощью общей огибающей семейства сфер.
-\subsubsection{Метод окрестностей перестроения расчетной сетки \\ в пространстве}
+\subsection{Метод окрестностей перестроения расчетной сетки \\ в пространстве}
 
 В этом разделе рассмотрим метод перестроения поверхностной сетки, в котором узлы в процессе перестроения смещаются на границу окрестности одной из инцидентных ячеек.
 Этот метод перестроения будем называеть методом окрестностей перестроения поврехности\label{term:method_remesh_okr}.
@@ -239,3 +239,146 @@
 
 На рис.~\ref{fig:text_1_remesh3_common_envelope_bunny2} продемонстрирована работа алгоритма на тестовой расчетной сетке.
 На этом рисунке видно затягивание мелких впадин и складок (отмечено синим цветом).
+
+\subsubsection{Оценки сглаживания пиков и впадин}
+
+В этом разделе приведем оценки сглаживания острых пиков и впадин для предложенного метода окрестностей\label{term:method_remesh_okr2} перестроения поверхностной сетки.\label{term:unstruct_surf_calc_mesh7}
+Оценки будем проводить для двумерного случая в сравнении с рассмотренными ранее методами прямоугольников\label{term:method_remesh_rect2} и трапеций\label{term:method_remesh_trap2}.
+Для этого будем рассматривать расчетную сетку с одинаковыми ячейками-отрезками длины $l$.
+
+Для оценки сглаживания острых пиков будем считать, что сетка является абсолютно плоской за исключением двух соседних ячеек, которые образуют острый пик с углом $2 \alpha$ (см. рис.~\ref{fig:text_1_remesh3_common_envelope_peak_cavern_general} слева).
+Аналогично для оценки сглаживания впадин будем считать, что сетка является абсолютно плоской за исключением двух соседних ячеек, которые образуют впадину с углом $2 \alpha$ (см. рис.~\ref{fig:text_1_remesh3_common_envelope_peak_cavern_general} справа)
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{./pics/text_1_remesh_common_envelope/peak-cavern-general.pdf}
+\singlespacing
+\captionstyle{center}\caption{Оценка сглаживания угла при остром пике (слева) \\ и при впадине (справа).}
+\label{fig:text_1_remesh3_common_envelope_peak_cavern_general}
+\end{figure}
+
+Во всех трех методах (прямоугольников, трапеций и окрестностей) направления смещения узлов совпадают (и лежат на биссектрисах углов, образованных соседними ячейками), поэтому будем рассматривать задачу сглаживания угла при остром пике и при впадине для произвольных смещений узлов $A$ и $B$.
+Для этого докажем следующие леммы.
+
+%------------------ сглаживание пика BEGIN
+
+\begin{lemma}\label{lem:text_1_peak_smooth}
+В задаче сглаживания острого пика значение сглаженного угла $\hat{\alpha}_1$ выражается по формуле
+\begin{equation}\label{eqn:text_1_envelope_alpha1_peak}
+\hat{\alpha}_1(h_A, h_B) = \arctg \frac{l \sin \alpha + h_B \cos \gamma}{l \cos \alpha + h_A - h_B \sin \gamma}	
+\end{equation}
+где $h_A$ -- величина смещения узла $A$, а $h_B$ -- величина смещения узла $B$ (см. рис.~\ref{fig:text_1_remesh3_common_envelope_peak_cavern_general} слева).
+\end{lemma}
+
+Выразим через $\alpha$ остальные углы: $\beta = \frac{\pi}{2} - \alpha$, $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$.
+Через углы $\alpha$ и $\gamma$ находим $OA = l \cos \alpha$, $OB = l \sin \alpha$, $BX = h_B \cos \gamma$, $B_1X = h_B \sin \gamma = OY$, откуда получаем $YB_1 = OB + BX = l \sin \alpha + h_B \cos \gamma$, $YA_1 = OA + AA_1 - OY = l \cos \alpha + h_A - h_B \sin \gamma$, откуда получаем $\hat{\alpha}_1(h_A, h_B) = \arctg \frac{YB_1}{YA_1}$, что приводит к \eqref{eqn:text_1_envelope_alpha1_peak}.
+$\blacksquare$\\
+
+%------------------ сглаживание пика END
+
+%------------------ сглаживание впадины BEGIN
+
+\begin{lemma}\label{lem:text_1_cavern_smooth}
+В задаче сглаживания впадины при условии отсутствия самопересечения сетки значение сглаженного угла $\check{\alpha}_1$ выражается по формуле
+\begin{equation}\label{eqn:text_1_envelope_alpha1_cavern}
+\check{\alpha}_1(h_A, h_B) = \arctg \frac{l \sin \alpha - h_B \cos \gamma}{l \cos \alpha - h_A + h_B \sin \gamma}
+\end{equation}
+при ограничениях на угол $\alpha$
+\begin{equation}\label{eqn:text_1_envelope_alpha1_cavern2}
+\arcsin \frac{h_B \left( \sqrt{8 l^2 + h_B^2} - h_B \right)}{4 l^2} \le \alpha \le \arccos \frac{h_A}{l}
+\end{equation}
+где $h_A$ -- величина смещения узла $A$, а $h_B$ -- величина смещения узла $B$ (см. рис.~\ref{fig:text_1_remesh3_common_envelope_peak_cavern_general} справа).
+\end{lemma}
+
+Выразим через $\alpha$ остальные углы: $\beta = \frac{\pi}{2} - \alpha$, $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$.
+Через углы $\alpha$ и $\gamma$ находим $OA = l \cos \alpha$, $OB = l \sin \alpha$, $BX = h_B \cos \gamma$, $B_1X = h_B \sin \gamma = OY$, откуда получаем $YB_1 = OB - BX = l \sin \alpha - h_B \cos \gamma$, $YA_1 = OA - AA_1 + OY = l \cos \alpha - h_A + h_B \sin \gamma$, откуда получаем $\check{\alpha}_1(h_A, h_B) = \arctg \frac{YB_1}{YA_1}$, что приводит к \eqref{eqn:text_1_envelope_alpha1_cavern}.
+
+Рассмотрим дополнительные условия применимости формулы \eqref{eqn:text_1_envelope_alpha1_cavern}.
+
+Во-первых, будем считать, что величина смещения узла $A$ достаточно маленькая и не превышает глубину впадины, что приводит к условию $AA_1 \le OA = l \cos \alpha$, или $\alpha \le \arccos \frac{h_A}{l}$.
+
+Требованием на отсутствие самопересечения сетки является условие $BX \le OB$, то есть, то есть $h_B \cos \gamma \le l \sin \alpha$.
+Подставляя явное выражение для $\cos \gamma$, получим
+\begin{equation}
+	h_B \frac{1}{\sqrt{2}} \left( \cos \frac{\alpha}{2} - \sin \frac{\alpha}{2} \right) \le l \sin \alpha
+\end{equation}
+
+Так как $\alpha < \frac{\pi}{2}$, то обе части неравенства положительные, поэтому возведем их в квадрат, и после преобразований получим
+\begin{equation}\label{eqn:text_1_envelope_find_alpha3}
+	1 - 2 \sin \alpha \le 2 \left( \frac{l}{h_B} \right)^2 \sin^2 \alpha
+\end{equation}
+
+Введя обозначение $p = 2 \left( \frac{l}{h_B} \right)^2$ и решая квадратное неравенство \eqref{eqn:text_1_envelope_find_alpha3} относительно $\sin \alpha$, получим условие $\alpha \ge \arcsin \frac{\sqrt{4p + 1} - 1}{2p}$, что в сококупности с условием $\alpha \le \arccos \frac{h_A}{l}$ приводит к \eqref{eqn:text_1_envelope_alpha1_cavern2}.
+$\blacksquare$\\
+
+%------------------ сглаживание впадины END
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_common_envelope/peak-methods.pdf}
+\singlespacing
+\captionstyle{center}\caption{Сглаживание пика при методах прямоугольников (слева), трапеций (в центре), окрестностей (справа).}
+\label{fig:text_1_remesh3_common_envelope_peak_methods}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_common_envelope/peak-methods-chart.png}
+\singlespacing
+\captionstyle{center}\caption{Сравнение сглаживания острого пика для методов прямоугольников, трапеций и окрестностей.}
+\label{fig:text_1_remesh3_common_envelope_peak_methods_chart}
+\end{figure}
+
+На основе Леммы~\ref{lem:text_1_peak_smooth} получим оценки сглаживания угла при остром пике при условии нарастания льда высотой $H$ во всех ячейках сетки.
+
+Для метода прямоугольников имеем $h_A = h_B = H$ (см. рис~\ref{fig:text_1_remesh3_common_envelope_peak_methods} слева).
+
+Для метода трапеций необходимо сначала найти высоты трапеций $AA_1B^{-}B$ и $CC_1B^{+}B$ с рис.~\ref{fig:text_1_remesh3_common_envelope_peak_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
+Высоты этих трапеций $H^{-}$ и $H^{+}$ получаются из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
+Тогда $h_A = \frac{H^{-}}{\sin \alpha}$, $h_B = \frac{H^{-} + H^{+}}{2 \sin \gamma}$.
+
+В случае метода окрестностей $h_A = H$,  $h_B = \frac{H}{\sin \gamma}$.
+
+На рис.~\ref{fig:text_1_remesh3_common_envelope_peak_methods_chart} приведены графики сравнения методов прямоугольников, трапеций и окрестностей в применении к сглаживанию острых пиков.
+При этом высота нароста льда принята $H = \frac{l}{4}$.
+На графике слева показана зависимость изменения сглаженного угла $\hat{\alpha}_1$ от $\alpha$.
+На графике справа показана эффективность сглаживания, выраженная формулой $\frac{2 \hat{\alpha}_1 - 2 \alpha}{\pi - 2 \alpha}$ (значение 1 означает полное сглаживание пика до угла $\hat{\alpha}_1 = \frac{\pi}{2}$).
+
+Можно отметить, что наиболее эффективное сглаживание угла $\alpha$ обеспечивает метод окрестностей.
+Дополнительно заметим, что использование метода трапеций для малых углов $\alpha$ является опасным, так как приводит к росту $h_A$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_common_envelope/cavern-methods.pdf}
+\singlespacing
+\captionstyle{center}\caption{Сглаживание впадины при методах прямоугольников (слева), трапеций (в центре), окрестностей (справа).}
+\label{fig:text_1_remesh3_common_envelope_cavern_methods}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_common_envelope/cavern-methods-chart.png}
+\singlespacing
+\captionstyle{center}\caption{Сравнение сглаживания впадины для методов прямоугольников, трапеций и окрестностей.}
+\label{fig:text_1_remesh3_common_envelope_cavern_methods_chart}
+\end{figure}
+
+На основе Леммы~\ref{lem:text_1_cavern_smooth} получим оценки сглаживания угла при впадине при условии нарастания льда высотой $H$ во всех ячейках сетки.
+
+Для метода прямоугольников имеем $h_A = h_B = H$ (см. рис~\ref{fig:text_1_remesh3_common_envelope_cavern_methods} слева).
+
+Для метода трапеций необходимо сначала найти высоты трапеций $AA_1B^{-}B$ и $CC_1B^{+}B$ с рис.~\ref{fig:text_1_remesh3_common_envelope_cavern_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
+Высоты этих трапеций $H^{-}$ и $H^{+}$ получаются из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
+Тогда $h_A = \frac{H^{-}}{\sin \alpha}$, $h_B = \frac{H^{-} + H^{+}}{2 \sin \gamma}$.
+
+В случае метода окрестностей $h_A = \frac{H}{\sin \alpha}$,  $h_B = H$.
+
+На рис.~\ref{fig:text_1_remesh3_common_envelope_cavern_methods_chart} приведены графики сравнения методов прямоугольников, трапеций и окрестностей в применении к сглаживанию впадин.
+При этом высота нароста льда принята $H = \frac{l}{4}$.
+На графике слева показана зависимость изменения сглаженного угла $\check{\alpha}_1$ от $\alpha$.
+На графике справа показана эффективность сглаживания, выраженная формулой $\frac{2 \check{\alpha}_1 - 2 \alpha}{\pi - 2 \alpha}$ (значение 1 означает полное сглаживание пика до угла $\hat{\alpha}_1 = \frac{\pi}{2}$).
+
+Можно отметить, что метод прямоугольников не сглаживает угол, а наоборот, делает его еще более острым (значение эффективности сглаживания меньше нуля).
+Метод трапеций показывает лучшую эффективность сглаживания, но с меньшей областью применимости.
+
+Из приведенных оценок на рис.~\ref{fig:text_1_remesh3_common_envelope_peak_methods_chart} и рис.~\ref{fig:text_1_remesh3_common_envelope_cavern_methods_chart} можно сделать вывод, что метод окрестностей перестроения поверхности более эффективен с точки зрения сглаживания дефектов сетки в виде острых пиков и впадин.
