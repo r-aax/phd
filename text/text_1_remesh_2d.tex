@@ -35,42 +35,54 @@
 \label{fig:text_1_remesh_2d_local}
 \end{figure}
 
-Для решения задачи опустим перпендикуляры из точек $A_1$ и $B_1$ на прямую $AB$.
+\begin{lemma}
+Пусть дан четырехугольник $AA_1B_1B$, в котором $AA_1 = a$, $BB_1 = b$, $\angle A_1AB = \alpha$, $\angle B_1BA = \beta$.
+Тогда площадь этого четырехугольника выражается формулой
+\begin{equation}\label{eqn:text_1_remesh_2d_one_cell_lemma}
+S_{AA_1B_1B} = \frac{1}{2} \left( l (a \sin \alpha + b \sin \beta) - ab \sin (\alpha + \beta) \right)
+\end{equation}
+причем при $\alpha + \beta \ge \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима для произвольных $a$, $b$,
+а при $\alpha + \beta < \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима при удовлетворении условий
+\begin{equation}\label{eqn:text_1_remesh_2d_one_cell_cond}
+\begin{cases}
+	a \le \frac{l \sin \beta}{\sin (\alpha + \beta)} \\
+	b \le \frac{l \sin \alpha}{\sin (\alpha + \beta)}
+\end{cases}
+\end{equation}
+\end{lemma}
+
+Опустим перпендикуляры из точек $A_1$ и $B_1$ на прямую $AB$.
 Их основаниями будут точки $A_2$ и $B_2$ соответственно.
 Искомая площадь может быть представлена в следующем виде:
 \begin{equation}
 S_{AA_1B_1B} = S_{A_2A_1B_1B_2} - S_{AA_1A_2} - S_{BB_1B_2}
 \end{equation}
 
-Обозначим угол между векторами $\overline{AA_1}$ и $\overline{AB}$ через $\alpha$, а угол между векторами $\overline{BB_1}$ и $\overline{BA}$ через $\beta$.
-Тогда искомая площадь вычисляется явно в следующем виде:
+Ее можно выразить явно через значения углов $\alpha$ и $\beta$:
 \begin{equation}
 S_{AA_1B_1B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \sin \beta) + \frac{1}{2}a^2 \sin \alpha \cos \alpha + \frac{1}{2}b^2 \sin \beta \cos \beta
 \end{equation}
 
-\begin{equation}\label{eqn:text_1_remesh2_loca_square}
-S_{AA_1B_1B} = \frac{1}{2}\big(l(a \sin \alpha + b \sin \beta) - ab \sin(\alpha + \beta)\big)
-\end{equation}
+После раскрытия скобок и преобразований получим \eqref{eqn:text_1_remesh_2d_one_cell_lemma}.
 
-Формула \eqref{eqn:text_1_remesh2_loca_square} применима как для значений $\alpha \ge \frac{\pi}{2}$, $\beta \ge \frac{\pi}{2}$ (это случай изображен на рис.~\ref{fig:text_1_remesh_2d_local}), так и для $\alpha < \frac{\pi}{2}$, $\beta < \frac{\pi}{2}$.
-Ограничение применения формулы \eqref{eqn:text_1_remesh2_loca_square} наступает, когда значение площади $S_{AA_1B_1B}$ перестает расти при возрастании $a$ и $b$, то есть при условиях
+Если лучи $AA_1$ и $BB_1$ не пересекаются, формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима для произвольных значений $a$ и $b$ (этот случай изображен на рис.~\ref{fig:text_1_remesh_2d_local}).
+Условие непесечения лучей $AA_1$ и $BB_1$ выражается как $\alpha + \beta \ge \pi$.
+
+В случае $\alpha + \beta < \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима, если значение площади $S_{AA_1B_1B}$ не убывает при увеличении $a$ и $b$, то есть при условиях
 \begin{equation}
-	\begin{aligned}
-		\frac{\partial S_{AA_1B_1B}}{\partial a} = \frac{1}{2}(l \sin \alpha - b \sin (\alpha + \beta)) = 0 \\
-		\frac{\partial S_{AA_1B_1B}}{\partial b} = \frac{1}{2}(l \sin \beta - a \sin (\alpha + \beta)) = 0
-	\end{aligned}
+	\begin{cases}
+		\frac{\partial S_{AA_1B_1B}}{\partial a} = \frac{1}{2}(l \sin \alpha - b \sin (\alpha + \beta)) \ge 0 \\
+		\frac{\partial S_{AA_1B_1B}}{\partial b} = \frac{1}{2}(l \sin \beta - a \sin (\alpha + \beta)) \ge 0
+	\end{cases}
 \end{equation}
 
-откуда получаем
-\begin{equation}
-	\begin{aligned}
-		a = \frac{l \sin \beta}{\sin (\alpha + \beta)} \\
-		b = \frac{l \sin \alpha}{\sin (\alpha + \beta)}
-	\end{aligned}
-\end{equation}
+что равносильно \eqref{eqn:text_1_remesh_2d_one_cell_cond}.
+$\blacksquare$\\
 
-что соответствует ситуации, когда точки $A_1$ и $B_1$ слились в одну и образовался треугольник со сторонами $a$, $b$, $l$.
-Эта ситуация означает возникновение самопересечения сетки, которое должно быть обработано отдельно для возможности продолжения работы с расчетной сеткой.
+Нарушение условия \eqref{eqn:text_1_remesh_2d_one_cell_cond} означает, что один из отрезков $AA_1$ или $BB_1$ вышел за пределы треугольника $ABO$, где $O$ -- точка пересечения лучей $AA_1$ и $BB_1$.
+
+Эта ситуация означает возникновение самопересечения сетки, либо превращение четырехугольника $AA_1B_1B$ в невыпуклую фигуру.
+Такие случаи должны быть обработаны отдельно для возможности продолжения работы с расчетной сеткой.
 
 \subsubsection{Поиск смещений узлов методом градиентного спуска}
 
@@ -157,8 +169,8 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 Приведем теоретическую оценку точности приближенных методов перестроения поверхности.
 Оценку будем проводить для модельной расчетной сетки, которая удовлетворяет следующим требованиям.
 Все ячейки сетки одинаковые и имеют длину $l$, поверхность является выпуклой.
-Для любой ячейки $AB$ и ее соседей $A_1A$ и $BB_1$ углы $\angle (\overline{BA}, \overline{AA_1})$ и $\angle (\overline{AB}, \overline{BB_1})$ являются постоянной величиной и равны $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}).
-Пусть величины смещений ячеек $A_1A$, $AB$ и $BB_1$ равны $H^{-}$, $H$ и $H^{+}$ соответственно.
+Для любой ячейки $AB$ и ее соседей $A_2A$ и $BB_2$ углы $\angle (\overline{BA}, \overline{AA_2})$ и $\angle (\overline{AB}, \overline{BB_2})$ являются постоянной величиной и равны $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}).
+Пусть величины смещений ячеек $A_2A$, $AB$ и $BB_2$ равны $H^{-}$, $H$ и $H^{+}$ соответственно.
 
 \begin{figure}[ht]
 \centering
@@ -168,41 +180,46 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 \label{fig:text_1_remesh_2d_theoretical}
 \end{figure}
 
-Отклонение от требуемой площади при использовании приближенных методов перестроения поверхности равно $\delta = S_{AA_2B_2B} - lH$.
-Относительное отклонение будем обозначать через $\breve{\delta} = \frac{\delta}{lH}$.
-Для вычисления отклонения необходимо вычислить площадь $S_{AA_2B_2B}$.
-При использовании разных методов перестроения эта площадь будет различаться, для метода прямоугольников обозначим ее через $S_{AA_2B_2B}^r$, а для метода трапеций -- через $S_{AA_2B_2B}^t$.
+Отклонение от требуемой площади при использовании приближенных методов перестроения поверхности равно $\Delta = S_{AA_1B_1B} - lH$.
+Относительное отклонение будем обозначать через $\delta = \frac{\Delta}{lH}$.
+Для вычисления отклонения необходимо вычислить площадь $S_{AA_1B_1B}$.
+При использовании разных методов перестроения эта площадь будет различаться, для метода прямоугольников обозначим ее через $S_{AA_1B_1B}^r$, а для метода трапеций -- через $S_{AA_1B_1B}^t$.
 
-Пусть в результате перестроения узлы $A$ и $B$ сместились в новые положения $A_2$ и $B_2$ соответственно ($AA_2 = h^{-}$, $BB_2 = h^{+}$).
-Так как мы рассматриваем выпуклую сетку то лучи $A_2A$ и $B_2B$ пересекаются в некоторой точке $O$.
-При этом треугольник $AOB$ равнобедренный, $\angle BAO = \angle ABO = \angle B_2BX = \angle B_2BB_1 - \alpha = \frac{\pi - \alpha}{2}$, $\angle AOB = \alpha$, откуда $OA = OB = \lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$.
-Далее можно выразить площадь $S_{AA_2B_2B} = S_{A_2OB_2} - S_{AOB}$:
+\begin{lemma}\label{lem:text_1_remesh2_vypukl_lemma}
+Если для ячейки $AB$ выпуклой сетки с рис.~\ref{fig:text_1_remesh_2d_theoretical} выполнены условия $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = \alpha$, то
 \begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen}
-	S_{AA_2B_2B} = \frac{1}{2} \sin \alpha \left( \lambda(h^{-} + h^{+}) + h^{-}h^{+} \right)
+S_{AA_1B_1B} = \frac{1}{2} \sin \alpha \left( \lambda(h^{-} + h^{+}) + h^{-}h^{+} \right)
 \end{equation}
+где $AB = l$, $\lambda = \frac{1}{2 \sin \frac{\alpha}{2}}$, $AA_1 = h^{-}$, $BB_1 = h^{+}$.
+\end{lemma}
+
+Так как рассматриваемая сетка выпуклая, то лучи $A_1A$ и $B_1B$ пересекаются в некоторой точке $O$.
+При этом треугольник $AOB$ равнобедренный, $\angle BAO = \angle ABO = \angle B_1BX = \angle B_1BB_2 - \alpha = \frac{\pi - \alpha}{2}$, $\angle AOB = \alpha$, откуда $OA = OB = \lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$.
+Далее можно выразить площадь $S_{AA_1B_1B} = S_{A_1OB_1} - S_{AOB}$, что после преобразования и дает требуемое соотношение \eqref{eqn:text_1_remesh2_saa2b2b_gen}.
+$\blacksquare$\\
 
 Далее будем рассматривать линейное изменение величины смещения ячеек сетки, то есть $H^{-} = H - \Delta H$, $H^{+} = H + \Delta H$.
 
 Для перестроения методом прямоугольников имеем $h^{-} = H - \frac{1}{2} \Delta H$, $h^{+} = H + \frac{1}{2} \Delta H$, откуда
 \begin{equation}\label{eqn:text_1_remesh2_s_rect}
-	S_{AA_2B_2B}^r = \cos \frac{\alpha}{2} \left( lH + \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right)
+	S_{AA_1B_1B}^r = \cos \frac{\alpha}{2} \left( lH + \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right)
 \end{equation}
 
-Теперь перейдем к вычислению $S_{AA_2B_2B}^t$ для метода трапеций.
-В методе трапеций мы должны представить заметаемые площади в ячейках $A_1A$, $AB$, $BB_1$ с помощью равнобоких трапеций, для которых известно одно из оснований (одинаково для всех ячеек и равно $l$), угол при другом основании (одинаковый для всех ячеек и равен $\frac{\pi - \alpha}{2}$, а также площади этих трапеций, равные $lH^{-} = l(H - \Delta H)$, $lH$ и $lH^{+} = l(H + \Delta H)$ соответственно.
+Теперь перейдем к вычислению $S_{AA_1B_1B}^t$ для метода трапеций.
+В методе трапеций мы должны представить заметаемые площади в ячейках $A_2A$, $AB$, $BB_2$ с помощью равнобоких трапеций, для которых известно одно из оснований (одинаково для всех ячеек и равно $l$), угол при другом основании (одинаковый для всех ячеек и равен $\frac{\pi - \alpha}{2}$, а также площади этих трапеций, равные $lH^{-} = l(H - \Delta H)$, $lH$ и $lH^{+} = l(H + \Delta H)$ соответственно.
 На основании этих данных нам необходимо вычислить высоты трапеций, что можно сделать согласно \eqref{eqn:text_1_geo_prim_trapezium_h_from_s}.
 Обозначим высоты этих трапеций:
 \begin{equation}
 	\begin{aligned}	
-		& h_t^{A_1A} = h_t^{-} = h\left(\frac{\pi - \alpha}{2}, l, l(H - \Delta H)\right) \\ 
+		& h_t^{A_2A} = h_t^{-} = h\left(\frac{\pi - \alpha}{2}, l, l(H - \Delta H)\right) \\ 
 		& h_t^{AB} = h_t = h\left(\frac{\pi - \alpha}{2}, l, lH\right) \\
-		& h_t^{BB_1} = h_t^{+} = h\left(\frac{\pi - \alpha}{2}, l, l(H + \Delta H)\right)
+		& h_t^{BB_2} = h_t^{+} = h\left(\frac{\pi - \alpha}{2}, l, l(H + \Delta H)\right)
 	\end{aligned}
 \end{equation}
 
 Тогда $h^{-} = \frac{h_t^{-} + h_t}{2 \cos \frac{\alpha}{2}}$, $h^{+} = \frac{h_t + h_t^{+}}{2 \cos \frac{\alpha}{2}}$ и выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen} для $S_{AA_2B_2B}^t$ принимает следующий вид:
 \begin{equation}\label{eqn:text_1_remesh2_trap}
-	S_{AA_2B_2B}^t = \frac{1}{4} \left( (h_t^{-} + 2 h_t + h_t^{+})l + (h_t^{-} + h_t) (h_t + h_t^{+}) \tg \frac{\alpha}{2} \right)
+	S_{AA_1B_1B}^t = \frac{1}{4} \left( (h_t^{-} + 2 h_t + h_t^{+})l + (h_t^{-} + h_t) (h_t + h_t^{+}) \tg \frac{\alpha}{2} \right)
 \end{equation}
 
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
@@ -216,16 +233,25 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 \end{figure}
 
 Для общности будем рассматривать вогнутую сетку как выпуклую с параметром $\alpha < 0$.
-Для вогнутой сетки вычисления производятся аналогично случаю выпуклой сетки, но при этом $\lambda = \frac{l}{2 \sin \left( -\frac{\alpha}{2} \right)}$, $S_{AA_2B_2B} = S_{AOB} - S_{A_2OB_2}$, откуда имеем
-\begin{equation}\label{eqn:text_1_remesh2_concave_case}
-	S_{AA_2B_2B} = \frac{1}{2} \sin (-\alpha) \left( \lambda (h^{-} + h^{+}) - h^{-} h^{+} \right)
+
+\begin{lemma}
+Если для ячейки $AB$ вогнутой сетки с рис.~\ref{fig:text_1_remesh_2d_theoretical_concave} выполнены условия $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = -\alpha$, то
+\begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen2}
+S_{AA_1B_1B} = \frac{1}{2} \sin (-\alpha) \left( \lambda(h^{-} + h^{+}) - h^{-}h^{+} \right)
 \end{equation}
+где $AB = l$, $\lambda = \frac{1}{2 \sin \left( -\frac{\alpha}{2} \right)}$, $AA_1 = h^{-}$, $BB_1 = h^{+}$, причем формула \eqref{eqn:text_1_remesh2_saa2b2b_gen2} применима при условиях $h^{-} \le \lambda$, $h^{+} \le \lambda$.
+\end{lemma}
+
+Вычисления производятся аналогично лемме~\ref{lem:text_1_remesh2_vypukl_lemma}, с той лишь разницей, что $S_{AA_1B_1B} = S_{AOB} - S_{A_1OB_1}$, откуда имеем выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen2}.
+
+Условия применимости $h^{-} \le \lambda$, $h^{+} \le \lambda$ необходимы для предотвращения самопересечения сетки и превращения $AA_1B_1B$ в невыпуклую фигуру.
+$\blacksquare$\\
 
 Для перестроения методом прямоугольников, подставляя $h^{-} = H - \frac{1}{2} \Delta H$, $h^{+} = H + \frac{1}{2} \Delta H$ в \eqref{eqn:text_1_remesh2_concave_case}, получим в точности \eqref{eqn:text_1_remesh2_s_rect}, что говорит о том, что \eqref{eqn:text_1_remesh2_s_rect} применима для произвольных углов $\alpha$.
 
 Для перестроения методом трапеций аналогично подставим $h^{-} = \frac{h_t^{-} + h_t}{2 \cos\left( -\frac{\alpha}{2} \right)}$, $h^{+} = \frac{h_t + h_t^{+}}{2 \cos\left( -\frac{\alpha}{2} \right)}$ в \eqref{eqn:text_1_remesh2_concave_case} и получим в точности \eqref{eqn:text_1_remesh2_trap}, что говорит о том, что \eqref{eqn:text_1_remesh2_trap} применима для произвольных углов.
 
-Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\breve{\delta}^r = \frac{S_{AA_2B_2B}^r - lH}{lH}$ и $\breve{\delta}^t = \frac{S_{AA_2B_2B}^t - lH}{lH}$ от $\alpha$ и $\Delta H$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
+Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\delta^r = \frac{S_{AA_1B_1B}^r - lH}{lH}$ и $\delta^t = \frac{S_{AA_2B_2B}^t - lH}{lH}$ от $\alpha$ и $\Delta H$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
 
 \begin{figure}[ht]
 \centering
@@ -235,7 +261,7 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 \label{fig:text_1_remesh_2d_main_chart}
 \end{figure}
 
-На рис.~\ref{fig:text_1_remesh_2d_main_chart} слева приведены зависимости $\breve{\delta}^r$ и $\breve{\delta}^t$ от угла $\alpha$ при постоянном значении $H$, то есть при $\Delta H = 0$.
+На рис.~\ref{fig:text_1_remesh_2d_main_chart} слева приведены зависимости $\delta^r$ и $\delta^t$ от угла $\alpha$ при постоянном значении $H$, то есть при $\Delta H = 0$.
 Метод трапеций в этом случае по определению абсолютно точен.
-Для дальнейшего анализа было выбрано значение угла $\alpha > 0$, при котором метод прямоугольников наименее точен (это значение примерно равно 0,7) и при этом фиксированном значении $\alpha = 0,7$ были построены графики зависимостей $\breve{\delta}^r$ и $\breve{\delta}^t$ от $\Delta H$, изменяющегося в диапазоне $[-\frac{l}{2}, \frac{l}{2}]$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart} справа).
+Для дальнейшего анализа было выбрано значение угла $\alpha > 0$, при котором метод прямоугольников наименее точен (это значение примерно равно 0,7) и при этом фиксированном значении $\alpha = 0,7$ были построены графики зависимостей $\delta^r$ и $\delta^t$ от $\Delta H$, изменяющегося в диапазоне $[-\frac{l}{2}, \frac{l}{2}]$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart} справа).
 Из рисунка видно, что метод трапеций перестроения поверхности в двумерном случае более точен, чем метод прямоугольников.
