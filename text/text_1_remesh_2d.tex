@@ -2,10 +2,12 @@
 \subsection{Методы перестроения поверхности в двумерном \\ случае}
 
 Рассмотрим геометрическую задачу о перестроении поверхности в двумерном пространстве в общем виде \cite{Rybakov2019Geo2D}.
-Пусть даны $n$ ячеек поверхностной сетки, каждая из которых представлена отрезком длины $l_i$ (то есть общее количество узлов равно $n + 1$).
-Известно направление нормали каждой ячейки, а также направление движения каждого узла $\overline{g}_i$, $|\overline{g}_i| = 1$.
-Оно совпадает с направлением суммы единичных нормалей, проведенных к инцидентным ячейкам.
-К тому же для двумерного случая это направление лежит на биссектрисе угла, образованного двумя инцидентными ячейками \cite{Fortin2004Remesh2d} (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
+Пусть дана поверхностная сетка в виде ломаной без самопересечений, каждая ячейка которой представлена отрезком длины $l_i$ ($0 \le i < n$).
+У $i$-ой ячейки инцидентными узлами являются узлы с номерами $i$ и $i + 1$.
+Если узлы с номерами $0$ и $n$ совпадают, то сетка является замкнутой.
+Известно направление нормали каждой ячейки, а также направление движения каждого узла, совпадающее с направлением суммы единичных нормалей, проведенных к инцидентным ячейкам.
+Для двумерного случая это направление лежит на биссектрисе угла, образованного двумя инцидентными ячейками \cite{Fortin2004Remesh2d} (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
+Угол между двумя соседними ячейками с номерами $i - 1$ и $i$ будем обозначать через $2 \phi_i$.
 
 \begin{figure}[ht]
 \centering
@@ -15,39 +17,39 @@
 \label{fig:text_1_remesh_2d_grid_normals}
 \end{figure}
 
-Пусть известно, что за некий малый промежуток времени $i$-ая ячейка сдвигается в направлении своей нормали на малую величину $H_i$, заметая таким образом площадь $T_i = l_i H_i$.
-Но если просто сдвинуть каждую ячейку в направлении своей нормали, то сетка потеряет целостность, поэтому мы можем осуществлять движение только узлов.
-Требуется найти такие значения локальных сдвигов узлов сетки $h_i$, чтобы заметаемая площадь между исходной поверхностью и новой поверхностью для каждой ячейки сетки ($S_i$) как можно меньше отличалась от требуемого значения $T_i = l_iH_i$.
+Пусть известно, что за некий малый промежуток времени $i$-ая ячейка сдвигается в направлении своей нормали на некоторую величину $H_i$, заметая таким образом площадь $T_i = l_i H_i$, эту площадь будем называть целевой площадью.
+Однако если просто сдвинуть каждую ячейку в направлении своей нормали, то сетка потеряет целостность, поэтому мы можем осуществлять движение только узлов.
+Требуется найти такие значения локальных сдвигов узлов сетки $h_i$ ($0 \le i \le n$), чтобы заметаемая площадь $S_i$ между исходной поверхностью и новой поверхностью для каждой ячейки сетки как можно меньше отличалась от значения целевой площади $T_i$.
+Для оценки отклонения фактической заметаемой площади от целевой будем использовать обозначения $\Delta_i = S_i - T_i$, $\delta_i = \frac{\Delta_i}{T_i}$.
 
-Для решения данной задачи сначала требуется вычислить заметаемую площадь для каждой отдельной ячейки.
+В применении к задаче ледообразования величина $H_i$ соответствует толщине образозавшегося слоя льда в $i$-ой ячейке.
+Новая перестроенная поверхностная сетка соответствует поверхности ледяного покрова, а общая заметаемая площадь при движении поверхности соответствует объему накопленного на поверъности льда.
+
+Для решения поставленной задачи сначала требуется вычислить заметаемую площадь для каждой отдельной ячейки.
 
 \subsubsection{Задача о вычислении заметаемой площади при движении узлов отдельной ячейки}
 
 Рассматривается ячейка, представленная на плоскости отрезком $AB$ длины $l$.
 При перемещении точек $A$ и $B$ в новые точки $A_1$ и $B_1$ соответственно образуется четырехугольник $AA_1B_1B$.
-Требуется найти его площадь, выраженную явно через параметры $a = AA_1$ и $b = BB_1$ (рис.~\ref{fig:text_1_remesh_2d_local}).
+Требуется найти его площадь, выраженную явно через параметры $a = AA_1$ и $b = BB_1$ и углы при вершинах $A$ и $B$ (рис.~\ref{fig:text_1_remesh_2d_local}).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{pics/text_1_remesh_2d/local.pdf}
+\begin{tabular}{ll}
+	\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/local.pdf}
+	&
+	\includegraphics[width=0.38\textwidth]{pics/text_1_remesh_2d/local2.pdf}
+\end{tabular}
 \singlespacing
 \captionstyle{center}\caption{Вычисление заметаемой площади через смещения узлов ячейки.}
 \label{fig:text_1_remesh_2d_local}
 \end{figure}
 
-\begin{lemma}
+\begin{lemma}\label{lem:text_1_remesh_2d_AA1B1B}
 Пусть дан четырехугольник $AA_1B_1B$, в котором $AA_1 = a$, $BB_1 = b$, $\angle A_1AB = \alpha$, $\angle B_1BA = \beta$.
 Тогда площадь этого четырехугольника выражается формулой
 \begin{equation}\label{eqn:text_1_remesh_2d_one_cell_lemma}
 S_{AA_1B_1B} = \frac{1}{2} \left( l (a \sin \alpha + b \sin \beta) - ab \sin (\alpha + \beta) \right)
-\end{equation}
-причем при $\alpha + \beta \ge \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима для произвольных $a$, $b$,
-а при $\alpha + \beta < \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима при удовлетворении условий
-\begin{equation}\label{eqn:text_1_remesh_2d_one_cell_cond}
-\begin{cases}
-	a \le \frac{l \sin \beta}{\sin (\alpha + \beta)} \\
-	b \le \frac{l \sin \alpha}{\sin (\alpha + \beta)}
-\end{cases}
 \end{equation}
 \end{lemma}
 
@@ -64,29 +66,36 @@ S_{AA_1B_1B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \
 \end{equation}
 
 После раскрытия скобок и преобразований получим \eqref{eqn:text_1_remesh_2d_one_cell_lemma}.
-
-Если лучи $AA_1$ и $BB_1$ не пересекаются, формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима для произвольных значений $a$ и $b$ (этот случай изображен на рис.~\ref{fig:text_1_remesh_2d_local}).
-Условие непесечения лучей $AA_1$ и $BB_1$ выражается как $\alpha + \beta \ge \pi$.
-
-В случае $\alpha + \beta < \pi$ формула \eqref{eqn:text_1_remesh_2d_one_cell_lemma} применима, если значение площади $S_{AA_1B_1B}$ не убывает при увеличении $a$ и $b$, то есть при условиях
-\begin{equation}
-	\begin{cases}
-		\frac{\partial S_{AA_1B_1B}}{\partial a} = \frac{1}{2}(l \sin \alpha - b \sin (\alpha + \beta)) \ge 0 \\
-		\frac{\partial S_{AA_1B_1B}}{\partial b} = \frac{1}{2}(l \sin \beta - a \sin (\alpha + \beta)) \ge 0
-	\end{cases}
-\end{equation}
-
-что равносильно \eqref{eqn:text_1_remesh_2d_one_cell_cond}.
 $\blacksquare$\\
 
-Нарушение условия \eqref{eqn:text_1_remesh_2d_one_cell_cond} означает, что один из отрезков $AA_1$ или $BB_1$ вышел за пределы треугольника $ABO$, где $O$ -- точка пересечения лучей $AA_1$ и $BB_1$.
+Отметим, что если $\alpha + \beta \ge \pi$ то $S_{AA_1B_1B}$ всегда положительна и возрастает с ростом $a$ или $b$.
+Это означает, что лучи $AA_1$ и $BB_1$ не пересекаются (этот случай изображен на рис.~\ref{fig:text_1_remesh_2d_local}).
 
-Эта ситуация означает возникновение самопересечения сетки, либо превращение четырехугольника $AA_1B_1B$ в невыпуклую фигуру.
-Такие случаи должны быть обработаны отдельно для возможности продолжения работы с расчетной сеткой.
+Рассмотрим случай $\alpha + \beta < \pi$.
+Запишем отдельно условия неубывания $S_{AA_1B_1B}$ при росте $a$ и $b$:
+\begin{equation}
+	\begin{aligned}
+		& \frac{\partial S_{AA_1B_1B}}{\partial a} = \frac{1}{2}(l \sin \alpha - b \sin (\alpha + \beta)) \ge 0 \\
+		& \frac{\partial S_{AA_1B_1B}}{\partial b} = \frac{1}{2}(l \sin \beta - a \sin (\alpha + \beta)) \ge 0
+	\end{aligned}
+\end{equation}
+
+или
+\begin{equation}\label{eqn:text_1_remesh_2d_cond_abl}
+	\begin{aligned}
+		& a \le \frac{l \sin \beta}{\sin (\alpha + \beta)} \\
+		& b \le \frac{l \sin \alpha}{\sin (\alpha + \beta)}
+	\end{aligned}
+\end{equation}
+
+Если выполняются оба условия из \eqref{eqn:text_1_remesh_2d_cond_abl}, то четырехугольник $AA_1B_1B$ продолжает оставаться выпуклым.
+Если выполнятеся только одно условие из \eqref{eqn:text_1_remesh_2d_cond_abl}, то четырех угольник стал невыпуклым.
+Если не выполняется ни одно из условий \eqref{eqn:text_1_remesh_2d_cond_abl}, то произовшло самопересечение сетки, то есть оба отрезка $AA_1$ или $BB_1$ вышли за пределы треугольника $ABO$, где $O$ -- точка пересечения лучей $AA_1$ и $BB_1$.
+Случаи самопересечения должны быть обработаны отдельно для возможности продолжения работы с расчетной сеткой.
 
 \subsubsection{Поиск смещений узлов методом градиентного спуска}
 
-Метод градиентного спуска\label{term:gradient_spusk} является одним из наиболее простых методом оптимизации для нахождения локального минимума функции.
+Метод градиентного спуска\label{term:gradient_spusk} является одним из наиболее простых методов оптимизации для нахождения локального минимума функции.
 При условии, что в любой точке функции можно вычислить ее градиент, то начиная с некоторого начального приближения $x_0$ строится итерационная последовательность~\cite{Kantorovich1984Func}:
 \begin{equation}
 x^{k+1} = x^k - \gamma_k \nabla f(x_k)
@@ -102,29 +111,27 @@ x^{k+1} = x^k - \gamma_k \nabla f(x_k)
 
 Рассмотрим решение задачи определения величин смещения узлов расчетной сетки при перестроении методом градиентного спуска.
 Неизвестными параметрами являются величины сдвигов узлов сетки $h_i$ для $0 \le i \le n$.
-Опираясь на решение локальной задачи об определении заметаемой площади, можно записать заметаемую площадь при движении отдельной ячейки:
+Опираясь на решение локальной задачи об определении заметаемой площади из леммы~\ref{lem:text_1_remesh_2d_AA1B1B}, можно записать заметаемую площадь при движении отдельной ячейки (см. рис.~\ref{fig:text_1_remesh_2d_local} справа):
 \begin{equation}
-S_i = \frac{1}{2}\big(l_i(h_i \sin \alpha_i + h_{i + 1} \sin \beta_i) - h_ih_{i + 1} \sin(\alpha_i + \beta_i)\big) 
+S_i = \frac{1}{2}\big(l_i(h_i \sin \phi_i + h_{i + 1} \sin \phi_{i+1}) - h_ih_{i + 1} \sin(\phi_i + \phi_{i+1})\big) 
 \end{equation}
 
-Отклонением охватываемой площади в ячейке от истинного значения будем называть величину $\delta_i = S_i - T_i$, а ошибкой -- ее квадрат $d_i = \delta_i^2$.
-Общая ошибка при перестроении поверхности задается как сумма ошибок для всех ячеек:
+Для нахождения решения задачи перестроения сетки в двумерном пространстве в соответствие с методом наименьших квадратов будем искать минимум функции
 \begin{equation}
-D = \sum_{i = 0}^{n - 1}{d_i}
+D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 \end{equation}
 
-При нахождении оптимального решения требуется минимизировать общую ошибку.
-Для нахождения градиента требуется вычислить частные производные функции $D$ по всем неизвестным $h_i$.
+Для нахождения градиента требуется вычислить частные производные $\frac{\partial D}{\partial h_i}$.
 Эти частные производные можно записать в явном виде:
 \begin{equation}
-\frac{\partial D}{\partial h_i} = \frac{\partial d_{i - 1}}{\partial h_i} + \frac{\partial d_i}{\partial h_i}
+\frac{\partial D}{\partial h_i} = \frac{\partial (\Delta_{i - 1})^2}{\partial h_i} + \frac{\partial (\Delta_i)^2}{\partial h_i}
 \end{equation}
 
 где
 \begin{equation}
 \begin{cases}
-\frac{\partial d_{i - 1}}{\partial h_i} = \delta_{i - 1}(l_{i - 1} \sin \beta_{i - 1} - h_{i - 1} \sin(\alpha_{i - 1} + \beta_{i - 1})) \\
-\frac{\partial d_i}{\partial h_i} = \delta_i(l_i \sin \alpha_i - h_{i + 1} \sin(\alpha_i + \beta_i))
+\frac{\partial (\Delta_{i - 1})^2}{\partial h_i} = \Delta_{i - 1} (l_{i - 1} \sin \phi_i - h_{i - 1} \sin(\phi_{i - 1} + \phi_i)) \\
+\frac{\partial (\Delta_i)^2}{\partial h_i} = \Delta_i (l_i \sin \phi_i - h_{i + 1} \sin(\phi_i + \phi_{i+1}))
 \end{cases}
 \end{equation}
 
@@ -136,41 +143,60 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 
 \subsubsection{Приближенные методы перестроения поверхности}
 
-Решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательным к ресурсам при увеличении размера сетки.
-К тому же, качество решения зачастую оказывается неудовлетворительным, особенно при попадании в локальные минимумы.
-Поэтому для решения поставленной задачи рассмотрим приближенные методы, основанные на представлении заметаемой площади при движении каждой ячейки с помощью примитивных геометрических фигур.
-
-В качестве первого метода перестроения поверхности рассмотрим приближение, при котором каждый узел сетки сдвигается на вектор $\frac{1}{2}(H_{i - 1} + H_i)\overline{g}_i$.
-Этот метод соответствует представлению площади, земетаемой при движении ячейки длины $l_i$, прямоугольником cо сторонами $l_i$ и $H_i$, а затем выбору в качестве величины смещения узла среднего арифметического высот построенных прямоугольников в инцидентных ячейках, как показано на рис.~\ref{fig:text_1_remesh_2d_grid_rectangles} (граничные узлы закреплены и не двигаются).
-Этот метод перестроения поверхности будем называть методом прямогольников\label{term:method_remesh_rect}.
+Решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательным к вычислительным ресурсам при увеличении размера сетки.
+К тому же, качество решения зачастую оказывается неудовлетворительным при попадании в локальные минимумы.
+Поэтому для решения поставленной задачи рассмотрим приближенные методы, основанные на представлении целевой площади в виде примитивных геометрических фигур.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_rectangles.pdf}
+\begin{tabular}{ll}
+\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_rectangles.pdf}
+&
+\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_trapeziums.pdf}
+\end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности методом прямоугольников.}
-\label{fig:text_1_remesh_2d_grid_rectangles}
+\captionstyle{center}\caption{Перестроение поверхности методом прямоугольников (слева) и трапеций (справа).}
+\label{fig:text_1_remesh_2d_rectangles_and_trapeziums}
 \end{figure}
+
+В качестве первого метода перестроения поверхности рассмотрим приближение, при котором целевая площадь для $i$-ой ячейки представлена прямоугольником со сторонами $l_i$ и $H_i$.
+В качестве величины смещения узла берется среднее арифметичское двух высот инцидентных ячеек $h_i = \frac{H_{i - 1} + H_i}{2}$ (см. рис.~\ref{fig:text_1_remesh_2d_rectangles_and_trapeziums} слева).
+Этот метод перестроения поверхности будем называть методом прямогольников\label{term:method_remesh_rect}.
+Заметаемую $i$-ой ячейкой площадь при использовании метода прямоугольников будем обозначать $S_i^r$, также обозначим $\Delta_i^r = S_i^r - T_i$, $\delta_i^r = \frac{\Delta_i^r}{T_i}$.
 
 В качестве второго метода перестроения поверхности будем рассматривать метод трапеций\label{term:method_remesh_trap}.
-В методе трапеций заметаемая площадь при движении ячейки представляется трапецией с площадью $T_i$.
-Боковые стороны этой трапеции лежат на направлениях движения двух узлов, инцидентных рассматриваемой ячейке (направления $\overline{g}_{i - 1}$, $\overline{g}_i$).
-После построения трапеций для всех ячеек сетки у каждого внутреннего узла появляется две новые потенциальные позиции для сдвига (образованные ячейкой слева и ячейкой справа).
-В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_grid_trapeziums}, на этом рисунке граничные узлы также закреплены).
+В методе трапеций целевая площадь $i$-ой ячейки представляется трапецией с площадью $T_i = l_i H_i$.
+Боковые стороны этой трапеции лежат на направлениях движения двух узлов, инцидентных рассматриваемой ячейке.
+Высота трапеции $H_i^t$ находится из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
+После построения трапеций для всех ячеек сетки у каждого узла появляется две новые потенциальные позиции для сдвига (образованные ячейкой слева и ячейкой справа).
+В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_rectangles_and_trapeziums} справа).
+Таким образом, величина смещения узла определяется как $h_i = \frac{H_{i - 1}^t + H_i^t}{2 \sin \phi_i}$.
+Заметаемую $i$-ой ячейкой площадь при использовании метода трапеций будем обозначать $S_i^t$, также обозначим $\Delta_i^t = S_i^t - T_i$, $\delta_i^t = \frac{\Delta_i^t}{T_i}$.
+
+Предлагается новый метод перестроения поверхностной сетки, который будем называть методом окрестностей\label{term:method_remesh_okr3}.
+В этом методе будем рассматривать фронт движения сетки (см. рис.~\ref{fig:text_1_remesh_2d_okrestnost}).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_trapeziums.pdf}
+\includegraphics[width=0.6\textwidth]{pics/text_1_remesh_2d/remesh_okrestnost.pdf}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности методом трапеций.}
-\label{fig:text_1_remesh_2d_grid_trapeziums}
+\captionstyle{center}\caption{Перестроение поверхности методом окрестностей.}
+\label{fig:text_1_remesh_2d_okrestnost}
 \end{figure}
+
+При этом фронтом движения узла с номером $i$ будем считать сферу с центром в этом узле и радиусом $r_i = \frac{H_{i - 1} + H_i}{2}$.
+Под фронтом движения ячейки сетки будем понимать выпуклую оболочку фронтов движения двух инцидентных ей узлов.
+Тогда фронтом движения сетки является объединение фронтов движения всех ее ячеек.
+В качестве нового положения узла будем брать пересечение направления смещения узла и границы фронта движения сетки.
+Заметаемую $i$-ой ячейкой площадь при использовании метода окрестностей будем обозначать $S_i^o$, также обозначим $\Delta_i^o = S_i^o - T_i$, $\delta_i^o = \frac{\Delta_i^o}{T_i}$.
+
+\subsubsection{Теоретические оценки точности методов перестроения сетки}
 
 Приведем теоретическую оценку точности приближенных методов перестроения поверхности.
 Оценку будем проводить для модельной расчетной сетки, которая удовлетворяет следующим требованиям.
 Все ячейки сетки одинаковые и имеют длину $l$, поверхность является выпуклой.
 Для любой ячейки $AB$ и ее соседей $A_2A$ и $BB_2$ углы $\angle (\overline{BA}, \overline{AA_2})$ и $\angle (\overline{AB}, \overline{BB_2})$ являются постоянной величиной и равны $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}).
-Пусть величины смещений ячеек $A_2A$, $AB$ и $BB_2$ равны $H^{-}$, $H$ и $H^{+}$ соответственно.
+Пусть величины смещений ячеек $A_2A$, $AB$ и $BB_2$ равны $H_{i - 1}$, $H_i$ и $H_{i + 1}$ соответственно.
 
 \begin{figure}[ht]
 \centering
@@ -180,47 +206,81 @@ D = \sum_{i = 0}^{n - 1}{d_i}
 \label{fig:text_1_remesh_2d_theoretical}
 \end{figure}
 
-Отклонение от требуемой площади при использовании приближенных методов перестроения поверхности равно $\Delta = S_{AA_1B_1B} - lH$.
-Относительное отклонение будем обозначать через $\delta = \frac{\Delta}{lH}$.
-Для вычисления отклонения необходимо вычислить площадь $S_{AA_1B_1B}$.
-При использовании разных методов перестроения эта площадь будет различаться, для метода прямоугольников обозначим ее через $S_{AA_1B_1B}^r$, а для метода трапеций -- через $S_{AA_1B_1B}^t$.
+Для вычисления величин $\Delta$, $\delta$ необходимо вычислить площадь $S_i = S_{AA_1B_1B}$.
+При использовании разных методов перестроения эта площадь будет различаться.
 
 \begin{lemma}\label{lem:text_1_remesh2_vypukl_lemma}
-Если для ячейки $AB$ выпуклой сетки с рис.~\ref{fig:text_1_remesh_2d_theoretical} выполнены условия $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = \alpha$, то
+Для ячейки $AB$ выпуклой сетки с равными углами $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical})
 \begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen}
-S_{AA_1B_1B} = \frac{1}{2} \sin \alpha \left( \lambda(h^{-} + h^{+}) + h^{-}h^{+} \right)
+S_i(h_i, h_{i + 1}) = \frac{1}{2} \sin \alpha \left( \lambda(h_i + h_{i+1}) + h_ih_{i+1} \right)
 \end{equation}
-где $AB = l$, $\lambda = \frac{1}{2 \sin \frac{\alpha}{2}}$, $AA_1 = h^{-}$, $BB_1 = h^{+}$.
+где $\lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$, $l = AB$, $h_i = AA_1$, $h_{i + 1} = BB_1$.
 \end{lemma}
 
 Так как рассматриваемая сетка выпуклая, то лучи $A_1A$ и $B_1B$ пересекаются в некоторой точке $O$.
-При этом треугольник $AOB$ равнобедренный, $\angle BAO = \angle ABO = \angle B_1BX = \angle B_1BB_2 - \alpha = \frac{\pi - \alpha}{2}$, $\angle AOB = \alpha$, откуда $OA = OB = \lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$.
-Далее можно выразить площадь $S_{AA_1B_1B} = S_{A_1OB_1} - S_{AOB}$, что после преобразования и дает требуемое соотношение \eqref{eqn:text_1_remesh2_saa2b2b_gen}.
+При этом треугольник $AOB$ равнобедренный, $\angle BAO = \angle ABO = \angle B_1BX = \angle B_1BB_2 - \alpha = \frac{\pi - \alpha}{2}$, $\phi_i = \phi_{i + 1} = \frac{\pi + \alpha}{2}$, $\angle AOB = \alpha$, откуда $OA = OB = \lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$.
+Далее выражаем площадь $S_i = S_{A_1OB_1} - S_{AOB}$, что после преобразования и дает требуемое соотношение \eqref{eqn:text_1_remesh2_saa2b2b_gen}.
 $\blacksquare$\\
 
-Далее будем рассматривать линейное изменение величины смещения ячеек сетки, то есть $H^{-} = H - \Delta H$, $H^{+} = H + \Delta H$.
+Далее будем рассматривать линейное изменение величины смещения ячеек сетки, то есть $H_i = H$, $H_{i - 1} = H - \Delta H$, $H_{i + 1} = H + \Delta H$.
 
-Для перестроения методом прямоугольников имеем $h^{-} = H - \frac{1}{2} \Delta H$, $h^{+} = H + \frac{1}{2} \Delta H$, откуда
+Для перестроения методом прямоугольников имеем $h_i = H - \frac{1}{2} \Delta H$, $h_{i + 1} = H + \frac{1}{2} \Delta H$, откуда
 \begin{equation}\label{eqn:text_1_remesh2_s_rect}
-	S_{AA_1B_1B}^r = \cos \frac{\alpha}{2} \left( lH + \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right)
+	S_i^r = \cos \frac{\alpha}{2} \left( lH + \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right)
 \end{equation}
 
-Теперь перейдем к вычислению $S_{AA_1B_1B}^t$ для метода трапеций.
-В методе трапеций мы должны представить заметаемые площади в ячейках $A_2A$, $AB$, $BB_2$ с помощью равнобоких трапеций, для которых известно одно из оснований (одинаково для всех ячеек и равно $l$), угол при другом основании (одинаковый для всех ячеек и равен $\frac{\pi - \alpha}{2}$, а также площади этих трапеций, равные $lH^{-} = l(H - \Delta H)$, $lH$ и $lH^{+} = l(H + \Delta H)$ соответственно.
+Теперь перейдем к вычислению $S_i^t$ для метода трапеций.
+В методе трапеций мы должны представить целевые площади в ячейках $A_2A$, $AB$, $BB_2$ с помощью равнобоких трапеций, для которых известно одно из оснований (одинаково для всех ячеек и равно $l$), угол при этом основании (одинаковый для всех ячеек и равен $\phi = \frac{\pi + \alpha}{2}$, а также площади этих трапеций, равные $T_{i - 1} = l(H - \Delta H)$, $T_i = lH$ и $T_{i + 1} = l(H + \Delta H)$ соответственно.
 На основании этих данных нам необходимо вычислить высоты трапеций, что можно сделать согласно \eqref{eqn:text_1_geo_prim_trapezium_h_from_s}.
 Обозначим высоты этих трапеций:
 \begin{equation}
-	\begin{aligned}	
-		& h_t^{A_2A} = h_t^{-} = h\left(\frac{\pi - \alpha}{2}, l, l(H - \Delta H)\right) \\ 
-		& h_t^{AB} = h_t = h\left(\frac{\pi - \alpha}{2}, l, lH\right) \\
-		& h_t^{BB_2} = h_t^{+} = h\left(\frac{\pi - \alpha}{2}, l, l(H + \Delta H)\right)
+	\begin{aligned}\label{eqn:text_1_remesh_2_Ht_vypukl}
+		& H_{i - 1}^t = H^t\left(l(H - \Delta H), l, \frac{\pi + \alpha}{2}\right) \\ 
+		& H_i^t = H^t\left(lH, l, \frac{\pi + \alpha}{2}\right) \\
+		& H_{i + 1}^t = H^t\left(l(H + \Delta H), l, \frac{\pi + \alpha}{2}\right)
 	\end{aligned}
 \end{equation}
 
-Тогда $h^{-} = \frac{h_t^{-} + h_t}{2 \cos \frac{\alpha}{2}}$, $h^{+} = \frac{h_t + h_t^{+}}{2 \cos \frac{\alpha}{2}}$ и выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen} для $S_{AA_2B_2B}^t$ принимает следующий вид:
+Тогда $h_i = \frac{H_{i - 1}^t + H_i^t}{2 \sin \phi_i} = \frac{H_{i - 1}^t + H_i^t}{2 \cos \frac{\alpha}{2}}$, $h_{i+1} = \frac{H_i^t + H_{i+1}^t}{2 \sin \phi_{i + 1}} = \frac{H_i^t + H_{i+1}^t}{2 \cos \frac{\alpha}{2}}$ и выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen} для $S_i^t$ принимает следующий вид:
 \begin{equation}\label{eqn:text_1_remesh2_trap}
-	S_{AA_1B_1B}^t = \frac{1}{4} \left( (h_t^{-} + 2 h_t + h_t^{+})l + (h_t^{-} + h_t) (h_t + h_t^{+}) \tg \frac{\alpha}{2} \right)
+	S_i^t = \frac{1}{4} \left( (H_{i - 1}^t + 2 H_i^t + H_{i + 1}^t)l + (H_{i - 1}^t + H_i^t) (H_i^t + H_{i+1}^t) \tg \frac{\alpha}{2} \right)
 \end{equation}
+
+Для получения теоретической оценки точности для метода окрестностей в случае выпуклой сетки рассмотрим следующее вспомогательное утверждение.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/accuracy_okrestnost.pdf}
+\singlespacing
+\captionstyle{center}\caption{Вычисление смещения узла в методе окрестностей для выпуклой сетки.}
+\label{fig:text_1_remesh_2d_accuracy_okrestnost}
+\end{figure}
+
+\begin{lemma}\label{lem:text_1_remesh_2d_accuracy_okrestnost}
+Пусть $AB = l$, ниже прямой $AB$ расположена точка $X$ такая, что $\angle (\overline{AX}, \overline{BA}) = \alpha$.
+Пусть построены две окружности с центрами в точках $A$ и $B$ и с радиусами $r$ и $r + \Delta r$ соответственно.
+Для построенных окружностей построена выпуклая оболочка, состоящая из дуг этих окружностей, а также отрезков общих касательных (точки касания общей касательной построенных окружностей, лежащие выше прямой $AB$, обозначим $A_2$ и $B_2$ соответственно).
+Пусть на этой выпуклой оболочке -- на окружности с центром в точке $A$, либо на отрезке $A_2B_2$ -- лежит точка $A_1$ такая, что $\angle XAA_1 = \angle BAA_1 = \phi$, $AA_1 = h$, тогда 
+\begin{equation}
+	\begin{cases}\label{eqn:text_1_remesh_2d_okr_h}
+		h = r, \  \sin \frac{\alpha}{2} > \frac{\Delta r}{l}, \\
+		h(\alpha, l, r, \Delta r) = \frac{r}{\cos \left( \arcsin \frac{\Delta r}{l} - \frac{\alpha}{2} \right)}, \  \sin \frac{\alpha}{2} \le \frac{\Delta r}{l}
+	\end{cases}
+\end{equation}
+\end{lemma}
+
+Если точка $A_1$ не находится на отрезке $A_2B_2$, то $h = AA_1 = r$.
+
+Рассмотрим случай, когда $A_1$ находится на отрезке $A_2B_2$, в этом случае $\Delta r > 0$.
+Через точку $A$ проведем прямую, параллельную $A_2B_2$, до пересечения с $BB_2$ в точке $H$.
+Тогда $\angle B_2OB = \angle HAB = \beta = \arcsin \frac{\Delta r}{l}$.
+Так как $\angle A_1AB = \phi = \frac{\pi + \alpha}{2}$, то $\angle OAA_2 + \theta + \phi = \pi$, откуда получим $\theta = \beta - \frac{\alpha}{2}$.
+
+Таким образом, условие нахождения точки $A_1$ на отрезке $A_2B_2$ равносильно $\theta \ge 0$.
+То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA_1A_2$.
+$\blacksquare$\\
+
+Используя лемму~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}, для метода окрестностей можно выразить $S_i^o$ из \eqref{eqn:text_1_remesh2_saa2b2b_gen} подставив туда выражения для $h_i = h(\alpha, l, H - \frac{1}{2}\Delta H, \Delta H)$ и $h_{i + 1} = h(\alpha, l, H + \frac{1}{2}\Delta H, \Delta H)$ из \eqref{eqn:text_1_remesh_2d_okr_h}.
 
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
 
@@ -232,26 +292,72 @@ $\blacksquare$\\
 \label{fig:text_1_remesh_2d_theoretical_concave}
 \end{figure}
 
-Для общности будем рассматривать вогнутую сетку как выпуклую с параметром $\alpha < 0$.
-
 \begin{lemma}
-Если для ячейки $AB$ вогнутой сетки с рис.~\ref{fig:text_1_remesh_2d_theoretical_concave} выполнены условия $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = -\alpha$, то
+Для ячейки $AB$ вогнутой сетки с равными углами $\angle (\overline{BA}, \overline{AA_2}) = \angle (\overline{AB}, \overline{BB_2}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical_concave})
 \begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen2}
-S_{AA_1B_1B} = \frac{1}{2} \sin (-\alpha) \left( \lambda(h^{-} + h^{+}) - h^{-}h^{+} \right)
+S_i = \frac{1}{2} \sin \alpha \left( \lambda(h_i + h_{i+1}) - h_ih_{i+1} \right)
 \end{equation}
-где $AB = l$, $\lambda = \frac{1}{2 \sin \left( -\frac{\alpha}{2} \right)}$, $AA_1 = h^{-}$, $BB_1 = h^{+}$, причем формула \eqref{eqn:text_1_remesh2_saa2b2b_gen2} применима при условиях $h^{-} \le \lambda$, $h^{+} \le \lambda$.
+где $\lambda = \frac{1}{2 \sin \frac{\alpha}{2}}$, $l = AB$, $h_i = AA_1$, $h_{i + 1} = BB_1$, при этом формула \eqref{eqn:text_1_remesh2_saa2b2b_gen2} применима при выполнении хотя бы одного из условий $h_i \le \lambda$, $h_{i+1} \le \lambda$.
 \end{lemma}
 
-Вычисления производятся аналогично лемме~\ref{lem:text_1_remesh2_vypukl_lemma}, с той лишь разницей, что $S_{AA_1B_1B} = S_{AOB} - S_{A_1OB_1}$, откуда имеем выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen2}.
+Вычисления производятся аналогично лемме~\ref{lem:text_1_remesh2_vypukl_lemma}, с той лишь разницей, что $S_i = S_{AOB} - S_{A_1OB_1}$, откуда имеем выражение \eqref{eqn:text_1_remesh2_saa2b2b_gen2}.
 
-Условия применимости $h^{-} \le \lambda$, $h^{+} \le \lambda$ необходимы для предотвращения самопересечения сетки и превращения $AA_1B_1B$ в невыпуклую фигуру.
+Выполнение хотя бы одного из условий $h_i \le \lambda$, $h_{i+1} \le \lambda$ необходимо для предотвращения самопересечения сетки.
 $\blacksquare$\\
 
-Для перестроения методом прямоугольников, подставляя $h^{-} = H - \frac{1}{2} \Delta H$, $h^{+} = H + \frac{1}{2} \Delta H$ в \eqref{eqn:text_1_remesh2_concave_case}, получим в точности \eqref{eqn:text_1_remesh2_s_rect}, что говорит о том, что \eqref{eqn:text_1_remesh2_s_rect} применима для произвольных углов $\alpha$.
+Для перестроения методом прямоугольников и методом трапеций в случае вогнутой сетки получим формулы, аналогичные \eqref{eqn:text_1_remesh2_s_rect}, \eqref{eqn:text_1_remesh_2_Ht_vypukl} и \eqref{eqn:text_1_remesh2_trap}:
+\begin{equation}\label{eqn:text_1_remesh2_s_rect_vogn}
+	S_i^r = \cos \frac{\alpha}{2} \left( lH - \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right) \\
+\end{equation}
+\begin{equation}\label{eqn:text_1_remesh_2_Ht_vogn}
+	\begin{aligned}
+	& H_{i - 1}^t = H^t\left(l(H - \Delta H), l, \frac{\pi - \alpha}{2}\right) \\ 
+	& H_i^t = H^t\left(lH, l, \frac{\pi - \alpha}{2}\right) \\
+	& H_{i + 1}^t = H^t\left(l(H + \Delta H), l, \frac{\pi - \alpha}{2}\right)
+	\end{aligned}
+\end{equation}
+\begin{equation}\label{eqn:text_1_remesh2_trap_vogn}
+	S_i^t = \frac{1}{4} \left( (H_{i - 1}^t + 2 H_i^t + H_{i + 1}^t)l - (H_{i - 1}^t + H_i^t) (H_i^t + H_{i+1}^t) \tg \frac{\alpha}{2} \right)
+\end{equation}
 
-Для перестроения методом трапеций аналогично подставим $h^{-} = \frac{h_t^{-} + h_t}{2 \cos\left( -\frac{\alpha}{2} \right)}$, $h^{+} = \frac{h_t + h_t^{+}}{2 \cos\left( -\frac{\alpha}{2} \right)}$ в \eqref{eqn:text_1_remesh2_concave_case} и получим в точности \eqref{eqn:text_1_remesh2_trap}, что говорит о том, что \eqref{eqn:text_1_remesh2_trap} применима для произвольных углов.
+Заметим, что формулы \eqref{eqn:text_1_remesh2_s_rect_vogn} -- \eqref{eqn:text_1_remesh2_trap_vogn} идентичны формулам \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} с учетом знака $\alpha$, поэтому формулы \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} применимы как для положительных значений углов $\alpha$ (случай выпуклой сетки), так и для отрицательных значений $\alpha$ (случай вогнутой сетки).
 
-Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\delta^r = \frac{S_{AA_1B_1B}^r - lH}{lH}$ и $\delta^t = \frac{S_{AA_2B_2B}^t - lH}{lH}$ от $\alpha$ и $\Delta H$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
+Для получения теоретической оценки точности для метода окрестностей в случае вогнутой сетки рассмотрим следующее вспомогательное утверждение, аналогичное лемме~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/accuracy_okrestnost2.pdf}
+\singlespacing
+\captionstyle{center}\caption{Вычисление смещения узла в методе окрестностей для вогнутой сетки.}
+\label{fig:text_1_remesh_2d_accuracy_okrestnost}
+\end{figure}
+
+\begin{lemma}\label{lem:text_1_remesh_2d_accuracy_okrestnost2}
+Пусть $AB = l$, выше прямой $AB$ расположена точка $X$ такая, что $\angle (\overline{AX}, \overline{BA}) = \alpha$.
+Пусть построены две окружности с центрами в точках $A$ и $B$ и с радиусами $r$ и $r + \Delta r$ соответственно.
+Для построенных окружностей построена выпуклая оболочка, состоящая из дуг этих окружностей, а также отрезков общих касательных (точки касания общей касательной построенных окружностей, лежащие выше прямой $AB$, обозначим $A_2$ и $B_2$ соответственно).
+Пусть на этой выпуклой оболочке -- на окружности с центром в точке $A$ либо на отрезке $A_2B_2$ -- лежит точка $A_1$ такая, что $\angle XAA_1 = \angle BAA_1 = \phi$, $AA_1 = h$, тогда 
+\begin{equation}
+	\begin{cases}\label{eqn:text_1_remesh_2d_okr_h2}
+		h = r, \ \sin \frac{\alpha}{2} < \frac{-\Delta r}{l}, \\
+		h(\alpha, l, r, \Delta r) = \frac{r}{\cos \left( \frac{\alpha}{2} - \arcsin \frac{-\Delta r}{l} \right)}, \ \sin \frac{\alpha}{2} \ge \frac{-\Delta r}{l}
+	\end{cases}
+\end{equation}
+\end{lemma}
+
+Если точка $A_1$ не находится на отрезке $A_2B_2$, то $h = AA_1 = r$.
+
+Рассмотрим случай, когда $A_1$ находится на отрезке $A_2B_2$, в этом случае $\Delta r < 0$.
+Через точку $B$ проведем прямую, параллельную $A_2B_2$, до пересечения с $AA_2$ в точке $H$.
+Тогда $\angle A_2OA = \angle HBA = \beta = \arcsin \frac{-\Delta r}{l}$.
+Так как $\angle A_1AB = \phi = \frac{\pi - \alpha}{2}$, то $\angle A_2AA_1 = \theta = \angle A_2AO - \phi = \frac{\alpha}{2} - \beta$.
+
+Таким образом, условие нахождения точки $A_1$ на отрезке $A_2B_2$ равносильно $\theta \ge 0$.
+То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA_1A_2$.
+$\blacksquare$\\
+
+
+Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\delta_i^r$ и $\delta_i^t$ от $\alpha$ и $\frac{\Delta H}{l}$, при этом будем использовать фиксированную величину $H = \frac{l}{4}$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
 
 \begin{figure}[ht]
 \centering
