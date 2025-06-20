@@ -280,7 +280,13 @@ $\blacksquare$\\
 То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA_1A_2$.
 $\blacksquare$\\
 
-Используя лемму~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}, для метода окрестностей можно выразить $S_i^o$ из \eqref{eqn:text_1_remesh2_saa2b2b_gen} подставив туда выражения для $h_i = h(\alpha, l, H - \frac{1}{2}\Delta H, \Delta H)$ и $h_{i + 1} = h(\alpha, l, H + \frac{1}{2}\Delta H, \Delta H)$ из \eqref{eqn:text_1_remesh_2d_okr_h}.
+Используя лемму~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}, для метода окрестностей можно выразить $S_i^o$ из \eqref{eqn:text_1_remesh2_saa2b2b_gen} подставив туда выражения для $h_i$ и $h_{i + 1}$ из \eqref{eqn:text_1_remesh_2d_okr_h}:
+\begin{equation}
+	\begin{aligned}
+	& h_i = h \left( \alpha, l, H - \frac{1}{2}\Delta H, \Delta H \right) \\
+	& h_{i + 1} = h \left( \alpha, l, H + \frac{1}{2}\Delta H, \Delta H \right)
+	\end{aligned}
+\end{equation}
 
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
 
@@ -356,18 +362,34 @@ $\blacksquare$\\
 То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA_1A_2$.
 $\blacksquare$\\
 
+Используя лемму~\ref{lem:text_1_remesh_2d_accuracy_okrestnost2}, для метода окрестностей можно выразить $S_i^o$ из \eqref{eqn:text_1_remesh2_saa2b2b_gen2} подставив туда выражения для $h_i$ и $h_{i + 1}$ из \eqref{eqn:text_1_remesh_2d_okr_h2}:
+\begin{equation}
+	\begin{aligned}
+	& h_i = \max \left( h \left( \alpha, l, H - \frac{3}{2}\Delta H, \Delta H \right), h \left( \alpha, l, H - \frac{1}{2}\Delta H, \Delta H \right) \right) \\
+	& h_{i + 1} = \max \left( h \left( \alpha, l, H - \frac{1}{2}\Delta H, \Delta H \right), h \left( \alpha, l, H + \frac{1}{2}\Delta H, \Delta H \right) \right)
+	\end{aligned}
+\end{equation}
 
-Используя \eqref{eqn:text_1_remesh2_s_rect} и \eqref{eqn:text_1_remesh2_trap} можно проанализировать зависимости величин $\delta_i^r$ и $\delta_i^t$ от $\alpha$ и $\frac{\Delta H}{l}$, при этом будем использовать фиксированную величину $H = \frac{l}{4}$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart}).
+Используя полученные соотношения для $S_i^r$, $S_i^t$, $S_i^o$, можно проанализировать зависимости величин $\delta_i^r$, $\delta_i^t$, $\delta_i^o$ от $\alpha$ и $\frac{\Delta H}{l}$, при этом будем использовать фиксированную величину $H = \frac{l}{2}$ (см. рис.~\ref{fig:text_1_remesh_3d_main_chart}).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/main_chart.png}
+\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/remesh_3d_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики относительных отклонений заметаемых площадей $\breve{\delta}^r$ и $\breve{\delta}^t$ от целевых значений при перестроении методами прямоугольников и трапеций.}
-\label{fig:text_1_remesh_2d_main_chart}
+\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\alpha, \frac{\Delta H}{l})$, $\delta_i^t(\alpha, \frac{\Delta H}{l})$, $\delta_i^o(\alpha, \frac{\Delta H}{l})$ при фиксированном значении $H = frac{l}{2}$.}
+\label{fig:text_1_remesh_3d_main_chart}
 \end{figure}
 
-На рис.~\ref{fig:text_1_remesh_2d_main_chart} слева приведены зависимости $\delta^r$ и $\delta^t$ от угла $\alpha$ при постоянном значении $H$, то есть при $\Delta H = 0$.
-Метод трапеций в этом случае по определению абсолютно точен.
-Для дальнейшего анализа было выбрано значение угла $\alpha > 0$, при котором метод прямоугольников наименее точен (это значение примерно равно 0,7) и при этом фиксированном значении $\alpha = 0,7$ были построены графики зависимостей $\delta^r$ и $\delta^t$ от $\Delta H$, изменяющегося в диапазоне $[-\frac{l}{2}, \frac{l}{2}]$ (см. рис.~\ref{fig:text_1_remesh_2d_main_chart} справа).
-Из рисунка видно, что метод трапеций перестроения поверхности в двумерном случае более точен, чем метод прямоугольников.
+Из рис.~\ref{fig:text_1_remesh_3d_main_chart} можно отметить, что при $\Delta H = 0$ метод трапеций по определению абсолютно точен.
+Также отметим, что при $\Delta H = 0$ отклонения $\delta_i^r$ и $\delta_i^o$ практически совпадают.
+
+Построим дополнительно два графика зависимостей $\delta_i^r$, $\delta_i^t$, $\delta_i^o$ от $\frac{\Delta H}{l}$ при фиксированных значениях $\alpha = 0,5$ (для выпуклой сетки) и $\alpha = -0,5$ (для вогнутой сетки) (см. рис.~\ref{fig:text_1_remesh_fix_alfa_chart}).
+Из рисунка видно, что метод трапеций перестроения поверхности при небольших значениях $\frac{\Delta H}{l}$ наиболее точен, а точность методов прямоугольников и окрестностей достаточно близки.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/remesh_fix_alfa_chart.png}
+\singlespacing
+\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\frac{\Delta H}{l})$, $\delta_i^t(\frac{\Delta H}{l})$, $\delta_i^o(\frac{\Delta H}{l})$ при фиксированных значениях $\alpha = 0,5$ (слева) и $\alpha = -0,5$ (справа).}
+\label{fig:text_1_remesh_fix_alfa_chart}
+\end{figure}
