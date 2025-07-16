@@ -15,7 +15,7 @@
 \usepackage{graphicx}                                        % подключение графики
 \usepackage{listings}                                        % печать листингов
 \usepackage{xcolor}                                          % использование цветов
-\usepackage{caption2}                                        % для изменения стиля подписи рисунков
+%\usepackage{caption2}                                        % для изменения стиля подписи рисунков
                                                              %     (приводит к warning-у, так что использовать только по необходимости)
 \usepackage{verbatim}                                        % использование дополнительных возможностей verbatim           
 \usepackage{fancybox}                                        % использование расширенного Verbatim
@@ -29,6 +29,7 @@
 \usepackage[section]{placeins}                               % сброс обработки флотов в конце страницы
 \usepackage{float}                                           % расположение флотов прямо тут
 \usepackage{setspace}                                        % чтобы менять междустрочный интервал с подписях
+\usepackage{subcaption}                                      % подпись к каждому подрисунку
 
 %---------------------------------------------------------------------------------------------------
 
@@ -63,21 +64,21 @@ escapeinside={\%*}{*)}
 %\renewcommand{\GenericWarning}[2]{\GenericError{#1}{#2}{}{This warning has been turned into a fatal error.}} % Предупреждения -> ошибки.
 \newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}    % положение тильды
 \renewcommand{\baselinestretch}{1.0}                         % полуторный отступ между строк
-\renewcommand{\captionlabeldelim}{.}                         % разделитель между номером рисунка и названием
+%\renewcommand{\captionlabeldelim}{.}                         % разделитель между номером рисунка и названием
 %\numberwithin{equation}{section}                             % нумерация формул по секциям
 %\numberwithin{figure}{section}                               % нумерация картинок по секциям
 %\numberwithin{table}{section}                                % нумерация таблиц по секциям
 \theoremstyle{plain}                                         % стиль теорем
-%\newtheorem{theorem}{Теорема}[section]                       % теорема
-%\newtheorem{lemma}{Лемма}[section]                           % лемма
-%\newtheorem{definition}{Определение}[section]                % определение
+\newtheorem{theorem}{Теорема}[section]                       % теорема
+\newtheorem{lemma}{Лемма}[section]                           % лемма
+\newtheorem{definition}{Определение}[section]                % определение
 %\numberwithin{theorem}{section}                              % нумерация теорем по секциям
 %\numberwithin{lemma}{section}                                % нумерация лемм по секциям
 %\numberwithin{definition}{section}                           % нумерация определений по секциям
 
 %---------------------------------------------------------------------------------------------------
 
-\captionstyle{center}
+%\captionstyle{center}
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
 
@@ -154,54 +155,39 @@ escapeinside={\%*}{*)}
 
 %---------------------------------------------------------------------------------------------------
 
-\textbf{Первая глава} посвящена геометрическим аспектам работы с поверхностной неструктурированной расчетной сеткой.
+\textbf{Первая глава} посвящена задаче перестроения поверхностной сетки в двумерном случае.
 
-%----------------------------------
-
-В п.~1.1 приводятся основные определения и геометрические примитивы, используемые в работе.
-
-%----------------------------------
-
-В п.~1.2 рассматривается задача перестроения поверхностной расчетной сетки в двумерном случае.
-Сетка рассматривается в виде ломаной без самопересечений, ячейки которой являются отрезками длины $l_i$ ($0 \le i < n$) с инцидентными узлами с номерами $i$ и $i + 1$.
-Известно направление нормали каждой ячейки, а также направление движения каждого узла, совпадающее с направлением суммы единичных нормалей, проведенных к инцидентным ячейкам.
-Угол между двумя соседними ячейками с номерами $i - 1$ и $i$ обозначен через $2 \phi_i$.
-Пусть известно, что за некоторый промежуток времени $i$-ая ячейка сдвигается в направлении своей нормали на величину $H_i$, заметая площадь $T_i = l_i H_i$, называемую \textit{целевой площадью}.
-Если просто сдвинуть каждую ячейку в направлении своей нормали, то сетка потеряет целостность, поэтому допустимо осуществлять движение только узлов.
-Требуется найти такие значения локальных сдвигов узлов сетки $h_i$ ($0 \le i \le n$), чтобы заметаемая площадь $S_i$ между исходной поверхностью и новой поверхностью для каждой ячейки сетки как можно меньше отличалась от значения целевой площади $T_i$.
-Для оценки отклонения фактической заметаемой площади от целевой используются обозначения $\Delta_i = S_i - T_i$, $\delta_i = \frac{\Delta_i}{T_i}$.
-
-В применении к задаче ледообразования величина $H_i$ соответствует толщине образозавшегося слоя льда в $i$-ой ячейке.
-Новая перестроенная поверхностная сетка соответствует поверхности ледяного покрова, а общая заметаемая площадь при движении поверхности соответствует объему накопленного на поверхности льда.
-
-В общем виде задача может быть решена с помощью метода градиентного спуска путем нахождения минимума функции
-\begin{equation}
-	D(\overline{h}) = \sum_{i = 0}^{n - 1}{\Delta_i^2} = \sum_{i = 0}^{n - 1}{ \left( \frac{1}{2} \left( l_i(h_i \sin \phi_i + h_{i + 1} \sin \phi_{i+1}) - h_ih_{i + 1} \sin(\phi_i + \phi_{i+1}) \right) - T_i \right)^2}
-\end{equation}
-градиент которой вычисляется как
-\begin{equation}
-	\begin{aligned}
-		& \frac{\partial D}{\partial h_i} = \frac{\partial (\Delta_{i - 1})^2}{\partial h_i} + \frac{\partial (\Delta_i)^2}{\partial h_i} \\
-		& \frac{\partial (\Delta_{i - 1})^2}{\partial h_i} = \Delta_{i - 1} (l_{i - 1} \sin \phi_i - h_{i - 1} \sin(\phi_{i - 1} + \phi_i)) \\
-		& \frac{\partial (\Delta_i)^2}{\partial h_i} = \Delta_i (l_i \sin \phi_i - h_{i + 1} \sin(\phi_i + \phi_{i+1}))
-	\end{aligned}
-\end{equation}
-
-Решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательным к вычислительным ресурсам при увеличении размера сетки и требует наложения дополнительных ограничений.
-К тому же качество решения зачастую оказывается неудовлетворительным при попадании в локальные минимумы.
-Поэтому для решения поставленной задачи рассматриваются приближенные методы, основанные на представлении целевой площади в виде примитивных геометрических фигур.
+\textbf{Определение.} \textit{Двумерной поверхностной сеткой будем называть ломаную без самопересечений, состоящую из $n$ ячеек-отрезков $F_i$ длины $l_i$ ($0 \le i < n)$. Инцидентными узлами ячейки $F_i$ являются узлы $N_i$, $N_{i + 1}$. Для ячейки $F_i$ определена внешняя единичная нормаль $\overline{n}_i^F$. Для узла $N_i$ определена единичная нормаль $\overline{n}_i^N = (\overline{n}_{i-1}^F + \overline{n}_i^F) / |\overline{n}_{i-1}^F + \overline{n}_i^F|$, лежащая на биссектрисе телесного угла между ячейками $F_{i - 1}$ и $F_i$, который будем обозначать $2 \phi_i$ (рис.~\ref{fig:remesh_2d} a).}
 
 \begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
-\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_rectangles.pdf}
-&
-\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_trapeziums.pdf}
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.75\columnwidth]{pics/text_1_remesh_2d/grid_normals.pdf}\caption{обозначения}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.75\columnwidth]{pics/text_1_remesh_2d/remesh_rectangles.pdf}\caption{метод прямоугольников}\end{subfigure} \\
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.75\columnwidth]{pics/text_1_remesh_2d/remesh_trapeziums.pdf}\caption{метод трапеций}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.75\columnwidth]{pics/text_1_remesh_2d/remesh_okrestnost.pdf}\caption{метод окрестностей}\end{subfigure}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности методом прямоугольников (слева) и трапеций (справа).}
-\label{fig:text_1_remesh_2d_rectangles_and_trapeziums}
+\caption{Перестроение двумерной поверхностной сетки.}
+\label{fig:remesh_2d}
 \end{figure}
+
+Для моделирования процесса ледообразования центральной задачей перестроения поверхностной сетки является определение новых положений узлов $N'_i$, при которых площадь $S_i = S_{N_iN'_iN'_{i+1}N_{i+1}}$, заметаемая ячейкой $F_i$, как можно меньше отличалась от \textit{целевой площади} $T_i = l_i H_i$, где $H_i$ -- вычисленная высота ледяного покрова в ячейке $F_i$.
+Задача рассматривается при фиксированных направлениях смещения узлов $\overline{n}_i^N$, то есть требуется определить только величины смещения узлов $h_i$.
+Для оценки отклонения фактической заметаемой площади от целевой используются обозначения $\Delta_i = S_i - T_i$, $\delta_i = \frac{\Delta_i}{T_i}$.
+
+%----------------------------------
+
+В п.~1.1 задача определения величин смещений узлов $h_i$ рассматривается в общем виде, и она может быть решена с помощью метода градиентного спуска для нахождения минимума функции
+\begin{equation*}
+	D(\overline{h}) = \sum_{i = 0}^{n - 1}{\Delta_i^2} = \sum_{i = 0}^{n - 1}{ \left( \frac{ l_i(h_i \sin \phi_i + h_{i + 1} \sin \phi_{i+1}) - h_ih_{i + 1} \sin(\phi_i + \phi_{i+1}) }{2} - T_i \right)^2}
+\end{equation*}
+
+Так как решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательным к вычислительным ресурсам, а также качество решения зачастую оказывается неудовлетворительным при попадании в локальные минимумы, то рассматриваются приближенные методы, основанные на представлении целевой площади в виде примитивных геометрических фигур.
+
+%----------------------------------
+
+В п.~1.2 рассматриваются приближенные методы перестроения поверхностной сетки.
 
 В качестве первого метода перестроения поверхности рассматривается приближение, при котором целевая площадь для $i$-ой ячейки представлена прямоугольником со сторонами $l_i$ и $H_i$.
 В качестве величины смещения узла берется среднее арифметичское двух высот инцидентных ячеек $h_i = \frac{H_{i - 1} + H_i}{2}$ (рис.~\ref{fig:text_1_remesh_2d_rectangles_and_trapeziums} слева).
@@ -221,7 +207,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.5\textwidth]{pics/text_1_remesh_2d/remesh_okrestnost.pdf}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности методом окрестностей.}
+\caption{Перестроение поверхности методом окрестностей.}
 \label{fig:text_1_remesh_2d_okrestnost}
 \end{figure}
 
@@ -245,7 +231,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.6\textwidth]{pics/text_1_remesh_2d/remesh_3d_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\alpha, \frac{\Delta H}{l})$, $\delta_i^t(\alpha, \frac{\Delta H}{l})$, $\delta_i^o(\alpha, \frac{\Delta H}{l})$ при фиксированном значении $H = \frac{l}{2}$.}
+\caption{Графики поверхностнй $\delta_i^r(\alpha, \frac{\Delta H}{l})$, $\delta_i^t(\alpha, \frac{\Delta H}{l})$, $\delta_i^o(\alpha, \frac{\Delta H}{l})$ при фиксированном значении $H = \frac{l}{2}$.}
 \label{fig:text_1_remesh_3d_main_chart}
 \end{figure}
 
@@ -258,7 +244,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/remesh_fix_alfa_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\frac{\Delta H}{l})$, $\delta_i^t(\frac{\Delta H}{l})$, $\delta_i^o(\frac{\Delta H}{l})$ при фиксированных значениях $\alpha = 0,5$ (слева) и $\alpha = -0,5$ (справа).}
+\caption{Графики поверхностнй $\delta_i^r(\frac{\Delta H}{l})$, $\delta_i^t(\frac{\Delta H}{l})$, $\delta_i^o(\frac{\Delta H}{l})$ при фиксированных значениях $\alpha = 0,5$ (слева) и $\alpha = -0,5$ (справа).}
 \label{fig:text_1_remesh_fix_alfa_chart}
 \end{figure}
 
@@ -275,7 +261,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_1_remesh_2d/peak-cavern-general.pdf}
 \singlespacing
-\captionstyle{center}\caption{Оценка сглаживания угла при остром пике (слева) \\ и при впадине (справа).}
+\caption{Оценка сглаживания угла при остром пике (слева) \\ и при впадине (справа).}
 \label{fig:text_1_remesh_2d_peak_cavern_general}
 \end{figure}
 
@@ -295,7 +281,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/peak-methods-chart.png}
 \singlespacing
-\captionstyle{center}\caption{Сравнение сглаживания острого пика для методов прямоугольников, трапеций и окрестностей.}
+\caption{Сравнение сглаживания острого пика для методов прямоугольников, трапеций и окрестностей.}
 \label{fig:text_1_remesh_2d_peak_methods_chart}
 \end{figure}
 
@@ -303,7 +289,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/cavern-methods-chart.png}
 \singlespacing
-\captionstyle{center}\caption{Сравнение сглаживания впадины для методов прямоугольников, трапеций и окрестностей.}
+\caption{Сравнение сглаживания впадины для методов прямоугольников, трапеций и окрестностей.}
 \label{fig:text_1_remesh_2d_cavern_methods_chart}
 \end{figure}
 
@@ -342,7 +328,7 @@ escapeinside={\%*}{*)}
 \includegraphics[width=0.52\textwidth]{pics/text_1_remesh_3d/pic_classical_methods_pyramids.pdf}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности с помощью метода призм (слева) и пирамид (справа).}
+\caption{Перестроение поверхности с помощью метода призм (слева) и пирамид (справа).}
 \label{fig:text_1_remesh3_rect}
 \end{figure}
 
@@ -371,7 +357,7 @@ escapeinside={\%*}{*)}
 \includegraphics[width=0.45\textwidth]{pics/text_1_remesh_3d/crys2.png}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Эффект сглаживания дефектов при перестроении методом окрестностей (справа) в сравнении с программным комплексом FENSAP.}
+\caption{Эффект сглаживания дефектов при перестроении методом окрестностей (справа) в сравнении с программным комплексом FENSAP.}
 \label{fig:text_1_remesh3_with_fensap}
 \end{figure}
 
@@ -406,7 +392,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_1_int/bunnies_dbl.png}
 \singlespacing
-\captionstyle{center}\caption{Устранение самопересечений в случае достаточной точности определения пересечения пар треугольников.}
+\caption{Устранение самопересечений в случае достаточной точности определения пересечения пар треугольников.}
 \label{fig:text_1_int_1}
 \end{figure}
 
@@ -421,7 +407,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_1_int/wing_all.png}
 \singlespacing
-\captionstyle{center}\caption{Устранение самопересечения с использованием подложки поверхностной сетки.}
+\caption{Устранение самопересечения с использованием подложки поверхностной сетки.}
 \label{fig:text_1_int_2}
 \end{figure}
 
@@ -549,7 +535,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/2-merged-pic.pdf}
 \singlespacing
-\captionstyle{center}\caption{Гистограммы распределения блоков расчетной сетки по вычислительным узлам суперкомпьютера для сеток test (а, б), train (в, г), ref (д, е) с помощью алгоритмов UG (а, в, д) и MCC (б, г. е).}
+\caption{Гистограммы распределения блоков расчетной сетки по вычислительным узлам суперкомпьютера для сеток test (а, б), train (в, г), ref (д, е) с помощью алгоритмов UG (а, в, д) и MCC (б, г. е).}
 \label{fig:text_2_withcut_2_merged_pic}
 \end{figure}
 
@@ -578,7 +564,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_2_withcut/scaling3.png}
 \singlespacing
-\captionstyle{center}\caption{Масштабирование вычислений при различных параметрах дробления сетки на 1-32 микропроцессорах Intel Xeon Phi Knights Landing 7290.}
+\caption{Масштабирование вычислений при различных параметрах дробления сетки на 1-32 микропроцессорах Intel Xeon Phi Knights Landing 7290.}
 \label{fig:text_2_withcut_scaling3}
 \end{figure}
 
@@ -619,7 +605,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_2_smooth/bad-border.pdf}
 \singlespacing
-\captionstyle{center}\caption{Возникновение протяженных <<пилообразных>> границ между доменами.}
+\caption{Возникновение протяженных <<пилообразных>> границ между доменами.}
 \label{fig:text_2_smooth_bad_border}
 \end{figure}
 
@@ -635,7 +621,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/smooth-border.pdf}
 \singlespacing
-\captionstyle{center}\caption{Шаблоны элементарных действий сглаживания границ между доменами.}
+\caption{Шаблоны элементарных действий сглаживания границ между доменами.}
 \label{fig:text_2_smooth_smooth_border}
 \end{figure}
 
@@ -697,7 +683,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_2_smooth/decomp2.pdf}
 \singlespacing
-\captionstyle{center}\caption{Визуализация применения сглаживания границ между доменами после работы алгоритма Фархата (сверху) и иерархического алгоритма (снизу).}
+\caption{Визуализация применения сглаживания границ между доменами после работы алгоритма Фархата (сверху) и иерархического алгоритма (снизу).}
 \label{fig:text_2_smooth_decomp2}
 \end{figure}
 
@@ -723,7 +709,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{pics/text_2_scaling/2in1.png}
 \singlespacing
-\captionstyle{center}\caption{Ускорение (слева) и эффективность распараллеливания (справа) вычислений на сегментах суперкомпьютера МВС-10П при увеличении количества узлов.}
+\caption{Ускорение (слева) и эффективность распараллеливания (справа) вычислений на сегментах суперкомпьютера МВС-10П при увеличении количества узлов.}
 \label{fig:text_2_scaling_speedup_eff}
 \end{figure}
 
@@ -759,7 +745,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_3_edge_coloring/11-chart.png}
 \singlespacing
-\captionstyle{center}\caption{Эффективность распараллеливания пересчета потоков для разных способов устранения конфликтов по данным.}
+\caption{Эффективность распараллеливания пересчета потоков для разных способов устранения конфликтов по данным.}
 \label{fig:text_3_edge_coloring_11}
 \end{figure}
 
@@ -776,7 +762,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_3_omp2/main_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики ускорения и эффективности распараллеливания скалярной и векторизованной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake и Cascade Lake.}
+\caption{Графики ускорения и эффективности распараллеливания скалярной и векторизованной версии римановского решателя для микропроцессоров Haswell, Broadwell, KNL, Skylake и Cascade Lake.}
 \label{fig:text_3_omp2}
 \end{figure}
 
@@ -821,7 +807,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.4\textwidth]{./pics/text_4_flat/fun.pdf}
 \singlespacing
-\captionstyle{center}\caption{Схема выполнения скалярной функции fun и аналогичной векторной функции FUN.}
+\caption{Схема выполнения скалярной функции fun и аналогичной векторной функции FUN.}
 \label{fig:text_4_vec_flat_fun_FUN}
 \end{figure}
 
@@ -831,7 +817,7 @@ escapeinside={\%*}{*)}
 \begin{table}[!ht]
 \centering
 \singlespacing
-\captionstyle{center}\caption{Инструкции AVX-512 для работы с вещественными числами \\ и их семантика.}
+\caption{Инструкции AVX-512 для работы с вещественными числами \\ и их семантика.}
 \bigskip
 \label{tbl:text_4_flat_avx512semantic}
 \begin{tabular}{ | c | c | }
@@ -864,7 +850,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_ibm/diagr2.png}
 \singlespacing
-\captionstyle{center}\caption{Ускорение кода и эффективность векторизации отдельных функций газодинамического решателя.}
+\caption{Ускорение кода и эффективность векторизации отдельных функций газодинамического решателя.}
 \label{fig:text_4_ibm_diagr2}
 \end{figure}
 
@@ -888,7 +874,7 @@ escapeinside={\%*}{*)}
 	\includegraphics[width=0.45\textwidth]{./pics/text_4_vec_check_mask/cond.pdf}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Схема векторизации со слиянием двух линейных участков по условию без проверки векторной маски (слева) и с проверкой (справа).}
+\caption{Схема векторизации со слиянием двух линейных участков по условию без проверки векторной маски (слева) и с проверкой (справа).}
 \label{fig:text_4_vec_mrg_under_cond_cond}
 \end{figure}
 
@@ -903,7 +889,7 @@ escapeinside={\%*}{*)}
 	\includegraphics[width=0.45\textwidth]{./pics/text_4_vec_check_mask/chart_e_merged.png}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Графики зависимостей эффективности векторизации от вероятности перехода $p$ при значениях $\alpha = 10,0$, $\alpha = 0,1$, $\alpha = 1,0$ для слияния двух линейных участков без проверки векторной маски (слева) и с проверкой (справа).}
+\caption{Графики зависимостей эффективности векторизации от вероятности перехода $p$ при значениях $\alpha = 10,0$, $\alpha = 0,1$, $\alpha = 1,0$ для слияния двух линейных участков без проверки векторной маски (слева) и с проверкой (справа).}
 \label{fig:text_4_vec_under_cond_chart_e_merged}
 \end{figure}
 
@@ -918,7 +904,7 @@ escapeinside={\%*}{*)}
 \includegraphics[width=0.45\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Типовая гистограмма распределения плотности векторной маски в предположении независимости условия (слева) и на реальном профиле исполнения (справа).}
+\caption{Типовая гистограмма распределения плотности векторной маски в предположении независимости условия (слева) и на реальном профиле исполнения (справа).}
 \label{fig:text_4_vec_comb_mask_independent_p}
 \end{figure}
 
@@ -937,7 +923,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_4_vec_comb_mask/comb_masks.pdf}
 \singlespacing
-\captionstyle{center}\caption{Схема вычислений с объединением двух векторизованных блоков \texttt{in\_data\_1} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_1}, \texttt{in\_data\_2} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_2}}
+\caption{Схема вычислений с объединением двух векторизованных блоков \texttt{in\_data\_1} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_1}, \texttt{in\_data\_2} $\rightarrow$ \texttt{block} $\rightarrow$ \texttt{out\_data\_2}}
 \label{fig:text_4_vec_comb_mask_comb_masks}
 \end{figure}
 
@@ -949,7 +935,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_comb_mask/res.png}
 \singlespacing
-\captionstyle{center}\caption{Результаты сравнения эффективности векторизации при простом слиянии, с проверкой масок и с объединением масок в режимах эмуляции и на реальной машине.}
+\caption{Результаты сравнения эффективности векторизации при простом слиянии, с проверкой масок и с объединением масок в режимах эмуляции и на реальной машине.}
 \label{fig:text_4_vec_comb_mask_res}
 \end{figure}
 
@@ -962,7 +948,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.6\textwidth]{./pics/text_4_vec_riemann/flat_loop_nest.pdf}
 \singlespacing
-\captionstyle{center}\caption{Плоский цикл и вложенный в него цикл с произвольным условием выхода.}
+\caption{Плоский цикл и вложенный в него цикл с произвольным условием выхода.}
 \label{fig:text_4_vec_flat_loop_vec}
 \end{figure}
 
@@ -973,7 +959,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/shell_cfg.pdf}
 \singlespacing
-\captionstyle{center}\caption{Схема перевода тела вложенного цикла в предикатную форму для последующей векторизации.}
+\caption{Схема перевода тела вложенного цикла в предикатную форму для последующей векторизации.}
 \label{fig:text_4_vec_irreg_shell_cfg}
 \end{figure}
 
@@ -985,7 +971,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=0.8\textwidth]{./pics/text_4_vec_irreg/pack.png}
 \singlespacing
-\captionstyle{center}\caption{Иллюстрация потери производительности для вложенного цикла с нерегуярным количеством итераций.}
+\caption{Иллюстрация потери производительности для вложенного цикла с нерегуярным количеством итераций.}
 \label{fig:text_4_vec_irreg_pack}
 \end{figure}
 
@@ -993,7 +979,7 @@ escapeinside={\%*}{*)}
 \centering
 \includegraphics[width=1.0\textwidth]{./pics/text_4_fin/map_cut.pdf}
 \singlespacing
-\captionstyle{center}\caption{Карта эффективности векторизации.}
+\caption{Карта эффективности векторизации.}
 \label{fig:text_4_fin_map}
 \end{figure}
 
