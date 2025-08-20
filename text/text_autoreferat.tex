@@ -820,72 +820,63 @@ COMMON, \textit{внешние ячейки} -- целиком лежащие в
 
 %----------------------------------
 
-В п.~5.5 рассматривается оптимизация \textit{слияния путей исполнения по условию} внутри плоского цикла с помощью постановки операций из параллельных скалярных блоков под предикаты этих блоков, трансформирующиеся при векторизации в векторные маски.
+В разделе~5.5 рассматривается оптимизация \textit{слияния путей исполнения по условию} внутри плоского цикла с помощью постановки операций из параллельных скалярных блоков под предикаты этих блоков, трансформирующиеся при векторизации в векторные маски.
 Приводятся аналитические оценки логической эффективности векторизации плоского цикла, в котором два скалярных блока (с вероятностями $p$ и $1 - p$ и длинами $\frac{\alpha}{\alpha + 1}$ и $\frac{1}{\alpha + 1}$ соответственно) сливаются по условию в случае независимости условий с разных итераций плоского цикла.
 Рассматриваются два варианта векторного кода -- без проверки маски векторного блока на пустоту перед его выполнением и с проверкой (рис.~\ref{fig:vec_ifconv_nocheck_check}).
-Из приведенных на рис.~\ref{fig:text_4_vec_under_cond_chart_e_merged} графиков зависимостей логической эффективности векторизации от вероятности перехода $p$ можно сделать вывод о низкой эффективности векторизации при слиянии большого количества путей исполнения внутри плоского цикла.
+Из приведенных на рис.~\ref{fig:vec_charts_nocheck_check} графиков зависимостей логической эффективности векторизации от вероятности перехода $p$ можно сделать вывод о низкой эффективности векторизации при слиянии большого количества путей исполнения внутри плоского цикла.
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.9\textwidth]{./fig/vec_ifconv_nocheck_check.pdf}
+\begin{tabular}{ll}
+\begin{subfigure}{0.5\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_ifconv_nocheck.pdf}\caption{простое слияние}\end{subfigure} &
+\begin{subfigure}{0.5\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_ifconv_check.pdf}\caption{слияние с проверкой масок}\end{subfigure}
+\end{tabular}
 \singlespacing
-\caption{Схема векторизации со слиянием двух скалярных блоков по условию без проверки векторной маски (слева) и с проверкой (справа).}
+\caption{Схема векторизации со слиянием блоков.}
 \label{fig:vec_ifconv_nocheck_check}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
-	\includegraphics[width=0.35\textwidth]{./pics/text_4_vec_mrg_under_cond/chart_e_merged.png}
-	&
-	\includegraphics[width=0.35\textwidth]{./pics/text_4_vec_check_mask/chart_e_merged.png}
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_mrg_under_cond/chart_e_merged.png}\caption{простое слияние}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_check_mask/chart_e_merged.png}\caption{слияние с проверкой масок}\end{subfigure}
 \end{tabular}
 \singlespacing
-\caption{Графики зависимостей логической эффективности векторизации от вероятности перехода $p$ при значениях $\alpha = 10$, $\alpha = 0.1$, $\alpha = 1$ для слияния двух скалярных блоков без проверки векторной маски (слева) и с проверкой (справа).}
-\label{fig:text_4_vec_under_cond_chart_e_merged}
+\caption{Графики зависимости $e_{vec}^{*}$ от вероятности перехода $p$ при разных $\alpha$.}
+\label{fig:vec_charts_nocheck_check}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
-\includegraphics[width=0.35\textwidth]{./pics/text_4_vec_comb_mask/independent_p.png}
-&
-\includegraphics[width=0.35\textwidth]{./pics/text_4_vec_comb_mask/real_p.png}
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_comb_mask/independent_p.png}\caption{независимые условия}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_comb_mask/real_p.png}\caption{реальное приложение}\end{subfigure}
 \end{tabular}
 \singlespacing
-\caption{Типовое распределение количества выставленных битов в маске при независимых условиях с разных итераций плоского цикла (слева) и на реальном приложении (справа).}
-\label{fig:text_4_vec_comb_mask_independent_p}
+\caption{Типовое распределение количества единичных битов в маске.}
+\label{fig:vec_masks_density}
 \end{figure}
 
-Отмечается, что проверка векторной маски на пустоту перед выполнением векторного блока зачастую оправдана, так как на реальных приложениях пустые маски встречаются достаточно часто (рис.~\ref{fig:text_4_vec_comb_mask_independent_p}).
+Отмечается, что проверка векторной маски на пустоту перед выполнением векторного блока зачастую оправдана, так как на реальных приложениях пустые маски встречаются достаточно часто (рис.~\ref{fig:vec_masks_density}).
 Это связано с тем, что на расчетных приложениях характерно медленное изменение величин при переходе между итерациями плоского цикла, что влечет за собой медленное изменение условий, что в свою очередь приводит к частому возникновению пустых и полных масок при векторизации.
 
 %----------------------------------
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.45\textwidth]{./fig/vec_unite_masks.pdf}
-\singlespacing
-\caption{Схема вычислений с объединением масок двух векторных блоков \texttt{block(in\_data\_1)} $\rightarrow$ \texttt{out\_data\_1}, \texttt{block(in\_data\_2)} $\rightarrow$ \texttt{out\_data\_2}}.
-\label{fig:vec_unite_masks}
-\end{figure}
-
-В п.~5.6 рассматривается повышение плотности масок векторного кода с помощью \textit{объединения масок} и \textit{комбинирования масок} соседних векторных блоков.
+В разделе~5.6 рассматривается повышение плотности масок векторного кода с помощью \textit{объединения масок} и \textit{комбинирования масок} соседних векторных блоков.
 Так как в общем случае без учета комбинированных операций $L = w \sum_{c \in C_v}{\rho(m(c))}$ ($C_v$ -- множество векторных инструкций в векторном коде, $m(c)$ -- маска инструкции, $\rho(m)$ -- плотность маски), то для повышения эффективности векторизации требуется повышение плостности векторных масок.
 Если два соседних векторных блока \texttt{block(in\_data\_1)} $\rightarrow$ \texttt{out\_data\_1} и \texttt{block(in\_data\_2)} $\rightarrow$ \texttt{out\_data\_2} выполняются под непересекающимися масками \texttt{(mask\_1 \& mask\_2) == 0x0}, то вычисления в этих блоках можно объединить.
 Вместо их последовательного выполнения можно объединить входные данные \texttt{in\_data\_1} и \texttt{in\_data\_2} с помощью слияния \texttt{in\_data = blend(mask\_1, in\_data\_2, in\_data\_1}), после чего выполнить тот же блок вычислений под маской \texttt{mask\_1 | mask\_2}.
 Ввиду отсутствия пересечения векторных масок в результирующих выходных данных \texttt{out\_data} будут содержаться как необходимые элементы данных \texttt{out\_data\_1}, так и необходимые элементы данных \texttt{out\_data\_2} (рис.~\ref{fig:vec_unite_masks}).
+Комбинирование масок позволяет объединить вычисления в соседних блоках в случае пересечения векторных масок, если сумма их плотностей не превышает единицу.
 
-\begin{figure}[!ht]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{./pics/text_4_vec_comb_mask/res.png}
+\includegraphics[width=0.6\textwidth]{./fig/vec_unite_masks.pdf}
 \singlespacing
-\caption{Эффективность векторизации при простом слиянии, с проверкой масок и с объединением масок в режимах эмуляции и на реальной машине.}
-\label{fig:text_4_vec_comb_mask_res}
+\caption{Схема вычислений с объединением масок двух векторных блоков.}
+\label{fig:vec_unite_masks}
 \end{figure}
-
-Комбинирование масок позволяет объединить вычисления в соседних блоках в случае пересечения векторных масок.
-Комбинирование векторных масок рассматривается только теоретически, а для объединения масок поставлен эксперимент для одной из функций точного римановского решателя, результаты которого представлены на рис.~\ref{fig:text_4_vec_comb_mask_res}.
 
 %----------------------------------
 
