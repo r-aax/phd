@@ -11,20 +11,44 @@
 \setcounter{lemma}{0}
 \setcounter{definition}{0}
 
-В этой главе рассматривается перестроение поверхностной сетки в двумерном случае, предлагается новый метод перестроения, приводятся аналитические оценки этого метода и сравнение с существующими методами.
+В этой главе исследуется перестроение поверхностной расчетной сетки в двумерном случае применительно к моделированию обледенения: рассматриваются известные методы перестроения, предлагается новый метод и выводятся аналитические оценки точности и сглаживания дефектов на модельных сетках.
+Перестроение расчетной сетки должно выполняться таким образом, чтобы заметаемая площадь плоскости при движении сетки соответствовала объему накопленного на поверхности льда.
+
+Приведем кратко некоторые определения и соглашения касательно геометрических примитивов, которые будут использоваться в этой и последующих главах.
+
+При рассмотрении геометрических объектов наряду с понятием точки $P = (P_x, P_y) = (x_P, y_P)$ в двумерном случае и $P = (P_x, P_y, P_z) = (x_P, y_P, z_P)$ в трехмерном случае будем использовать также понятие радиус-вектора $\overline{P}$, компонентами которого являются координаты этой точки.
+В дальнейшем будем считать эти термины взаимозаменяемыми.
+
+Прямую, проходящую через точку $A$ и направленную вдоль вектора $\overline{D}$, обозначаемую $Line(A, \overline{D})$, будем определять как геометрическое место точек (ГМТ) $\overline{P}(\alpha)$ на плоскости или в пространстве, заданное следующим образом:
+\begin{equation}\label{eqn:text_1_geo_prim_line}
+	\overline{P}(\alpha) = \overline{A} + \alpha \overline{D}, \ \alpha \in \mathbb{R}
+\end{equation}
+
+Если даны две точки $A$ и $B$, то через $\overline{AB}$ будем обозначать вектор, направленный из точки $A$ в точку $B$ ($\overline{AB} = \overline{B} - \overline{A}$).
+
+Отрезок с концами $A$ и $B$, обозначаемый $Segm(A, B)$, определяется как ГМТ $\overline{P}(\alpha)$ на плоскости или в пространстве, заданное следующим образом:
+
+\begin{equation}\label{eqn:text_1_geo_prim_segment}
+	\left\{
+		\begin{aligned}
+			& \overline{P}(\alpha) = \overline{A} + \alpha \overline{AB}, \ \alpha \in \mathbb{R} \\
+			& 0 \le \alpha \le 1
+		\end{aligned}
+	\right.
+\end{equation}
 
 \begin{definition}
 Двумерной поверхностной расчетной сеткой будем называть ломаную без самопересечений, состоящую из $n$ ячеек-отрезков $F_i$ длиной $l_i$ ($0 \le i < N$).
-Ячейка $F_i$ имеет инцидентные узлы $N_i$, $N_{i + 1}$ и внешнюю единичную нормаль $\overline{n}_i^F$.
+Ячейка $F_i$ имеет инцидентные узлы $N_i$, $N_{i + 1}$ ($F_i = Segm(N_i, N_{i + 1})$) и внешнюю единичную нормаль $\overline{n}_i^F$.
 Если узлы с номерами $0$ и $n$ совпадают, то сетка является замкнутой.
 Для узла $N_i$ определена единичная нормаль $\overline{n}_i^N = \frac{\overline{n}_{i-1}^F + \overline{n}_i^F)}{|\overline{n}_{i-1}^F + \overline{n}_i^F|}$, лежащая на биссектрисе телесного угла между ячейками $F_{i - 1}$ и $F_i$, обозначаемого $2 \phi_i$ (рис.~\ref{fig:text_1_remesh_2d_grid_normals}).
 \end{definition}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/grid_normals.pdf}
+\includegraphics[width=0.7\textwidth]{fig/2dr_grid_normals.pdf}
 \singlespacing
-\captionstyle{center}\caption{Поверхностная сетка с обозначенными направлениями движения узлов.}
+\captionstyle{center}\caption{Поверхностная расчетная сетка с обозначенными \\ нормалями ячеек и узлов.}
 \label{fig:text_1_remesh_2d_grid_normals}
 \end{figure}
 
@@ -36,8 +60,8 @@
 
 Если просто сдвинуть каждую ячейку в направлении своей нормали, то сетка потеряет целостность, поэтому мы можем осуществлять движение только узлов.
 Для моделирования процесса ледообразования центральной задачей перестроения поверхностной сетки является определение новых положений узлов $N'_i$, при которых площадь $S_i = S_{N_iN'_iN'_{i+1}N_{i+1}}$, заметаемая ячейкой $F_i$, как можно меньше отличается от целевой площади $T_i$.
-Задача рассматривается при фиксированных направлениях смещения узлов $\overline{n}_i^N$ \cite{Fortin2004Remesh2d}, то есть требуется определить только величины смещения узлов $h_i$.
-Для оценки отклонения заметаемой площади от целевой используются обозначения $\Delta_i = S_i - T_i$, $\delta_i = \frac{\Delta_i}{T_i}$.
+Задача рассматривается при фиксированных направлениях смещения узлов вдоль их нормалей $\overline{n}_i^N$ \cite{Fortin2004Remesh2d}, то есть требуется определить только величины смещения узлов $h_i$.
+Для оценки отклонения заметаемой площади от целевой используются обозначения: $\Delta_i = S_i - T_i$ -- абсолютное отклонение от целевой площади, $\delta_i = \frac{\Delta_i}{T_i}$ -- относительное отклонение от целевой площади.
 Новая перестроенная поверхностная сетка соответствует поверхности ледяного покрова, а общая заметаемая площадь при движении поверхности соответствует объему накопленного на поверъности льда.
 
 %---------------------------------------------------------------------------------------------------
@@ -46,6 +70,7 @@
 
 Рассмотрим геометрическую задачу о перестроении поверхности в двумерном случае в общем виде \cite{Rybakov2019Geo2D}.
 Для решения поставленной задачи сначала требуется вычислить заметаемую площадь для каждой отдельной ячейки.
+Затем, просуммировав заметаемые площади для всех ячеек, можно получить площадь, заметаемую при движении сетки целиком.
 
 \subsubsection{Задача о вычислении заметаемой площади при движении узлов отдельной ячейки}
 
@@ -56,9 +81,9 @@
 \begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
-	\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/local.pdf}
+	\includegraphics[width=0.45\textwidth]{fig/2dr_remesh_local.pdf}
 	&
-	\includegraphics[width=0.38\textwidth]{pics/text_1_remesh_2d/local2.pdf}
+	\includegraphics[width=0.38\textwidth]{fig/2dr_remesh_local2.pdf}
 \end{tabular}
 \singlespacing
 \captionstyle{center}\caption{Вычисление заметаемой площади через смещения узлов ячейки.}
@@ -75,15 +100,17 @@ S_{AA'B'B} = \frac{1}{2} \left( l (a \sin \alpha + b \sin \beta) - ab \sin (\alp
 
 Опустим перпендикуляры из точек $A'$ и $B'$ на прямую $AB$.
 Их основаниями будут точки $A_H$ и $B_H$ соответственно.
-Искомая площадь может быть представлена в следующем виде:
+Если $\alpha \ge \frac{\pi}{2}$, то перпендикуляр $A'A_H$ проходит снаружи четырехугольника $AA'B'B$, в противном случае -- внутри.
+Аналогично, если $\beta \ge \frac{\pi}{2}$, то перпендикуляр $B'B_H$ проходит снаружи четырехугольника $AA'B'B$, в противном случае -- внутри.
+В любом случае искомая площадь может быть представлена в следующем виде:
 \begin{equation}
-S_{AA'B'B} = S_{A_HA'B'B_H} - S_{AA'A_H} - S_{BB'B_H}
+S_{AA'B'B} = S_{A_HA'B'B_H} - \sign \left( \alpha - \frac{\pi}{2} \right) S_{AA'A_H} - \sign \left( \beta - \frac{\pi}{2} \right) S_{BB'B_H}
 \end{equation}
 
-Ее можно выразить явно через значения углов $\alpha$ и $\beta$:
-\begin{equation}
-S_{AA'B'B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \sin \beta) + \frac{1}{2}a^2 \sin \alpha \cos \alpha + \frac{1}{2}b^2 \sin \beta \cos \beta
-\end{equation}
+Эту площадь можно выразить явно через значения углов $\alpha$ и $\beta$:
+\begin{multline}\label{eqn:2dr_local_square_abalphabeta}
+S_{AA'B'B} = \frac{1}{2}(l - a \cos \alpha - b \cos \beta)(a \sin \alpha + b \sin \beta) \\ + \frac{1}{2}a^2 \sin \alpha \cos \alpha + \frac{1}{2}b^2 \sin \beta \cos \beta
+\end{multline}
 
 После раскрытия скобок и преобразований получим \eqref{eqn:text_1_remesh_2d_one_cell_lemma}.
 $\blacksquare$\\
@@ -99,7 +126,6 @@ $\blacksquare$\\
 		& \frac{\partial S_{AA'B'B}}{\partial b} = \frac{1}{2}(l \sin \beta - a \sin (\alpha + \beta)) \ge 0
 	\end{aligned}
 \end{equation}
-
 или
 \begin{equation}\label{eqn:text_1_remesh_2d_cond_abl}
 	\begin{aligned}
@@ -112,31 +138,31 @@ $\blacksquare$\\
 Если выполнятеся только одно условие из \eqref{eqn:text_1_remesh_2d_cond_abl}, то четырех угольник является невыпуклым.
 Если не выполняется ни одно из условий \eqref{eqn:text_1_remesh_2d_cond_abl}, то произошло самопересечение сетки, то есть оба отрезка $AA'$ и $BB'$ вышли за пределы треугольника $ABO$, где $O$ -- точка пересечения лучей $AA'$ и $BB'$.
 Случаи самопересечения должны быть обработаны отдельно для возможности продолжения работы с расчетной сеткой.
+В этой главе вопросы самопересечения расчетной сетки не рассматриваются, они будут рассмотрены в третьей главе в общей трехмерной постановке.
 
 \subsubsection{Поиск смещений узлов методом градиентного спуска}
 
-Метод градиентного спуска является одним из наиболее простых методов оптимизации для нахождения локального минимума функции.
-При условии, что в любой точке функции можно вычислить ее градиент, то начиная с некоторого начального приближения $x_0$ строится итерационная последовательность~\cite{Kantorovich1984Func}:
+Метод градиентного спуска является одним из наиболее простых методов оптимизации для нахождения локального минимума функции ($f(x)$).
+При условии, что в любой точке функции можно вычислить ее градиент, то начиная с некоторого начального приближения $x_0$, находящегося в окрестности локального минимума, строится итерационная последовательность~\cite{Kantorovich1984Func}:
 \begin{equation}
-x^{k+1} = x^k - \gamma_k \nabla f(x_k)
+x_{k+1} = x_k - \gamma_k \nabla f(x_k)
 \end{equation}
-
 где $\gamma_k \ge 0$ задает длину шага и, соответственно, скорость градиентного спуска.
 
 Метод градиентного спуска находит свое основное применение в задаче поиска минимума или максимума функции.
 Направление антиградиента является направлением наискорейшего убывания функции.
 Основная проблема метода заключается в выборе шага $\gamma$.
 При слишком больших значениях шага существует вероятность миновать искомый минимум функции.
-К тому же, метод не гарантирует нахождение глобального минимума.
+К тому же, метод не гарантирует нахождение глобальных экстремумов.
 
-Рассмотрим решение задачи определения величин смещения узлов расчетной сетки при перестроении методом градиентного спуска.
+Рассмотрим решение задачи определения величин смещения узлов поверхностной расчетной сетки при перестроении методом градиентного спуска.
 Неизвестными параметрами являются величины сдвигов узлов сетки $h_i$ для $0 \le i \le n$.
 Опираясь на решение локальной задачи об определении заметаемой площади из леммы~\ref{lem:text_1_remesh_2d_AA1B1B}, можно записать заметаемую площадь при движении отдельной ячейки (см. рис.~\ref{fig:text_1_remesh_2d_local} справа):
 \begin{equation}
 S_i = \frac{1}{2} \left( l_i(h_i \sin \phi_i + h_{i + 1} \sin \phi_{i+1}) - h_ih_{i + 1} \sin(\phi_i + \phi_{i+1}) \right)
 \end{equation}
 
-Для нахождения решения задачи перестроения сетки в двумерном пространстве в соответствии с методом наименьших квадратов будем искать минимум функции
+Для нахождения решения задачи перестроения поверхностной сетки в соответствии с методом наименьших квадратов будем искать минимум функции
 \begin{equation}
 D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 \end{equation}
@@ -146,7 +172,6 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 \begin{equation}
 \frac{\partial D}{\partial h_i} = \frac{\partial (\Delta_{i - 1})^2}{\partial h_i} + \frac{\partial (\Delta_i)^2}{\partial h_i}
 \end{equation}
-
 где
 \begin{equation}
 \begin{cases}
@@ -158,37 +183,37 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 \
 
 Также при осуществлении метода градиентного спуска требуется следить за соблюдением дополнительных условий, которые накладываются на неизвестные $h_i$.
-Например, очевидным условием является выполнение соотношения $h_i \ge 0$, что запрещает движение сетки в отрицательном направлении.
+Например, очевидным условием является выполнение соотношения $h_i \ge 0$, что запрещает движение узлов сетки в отрицательном направлении.
 Также можно использовать более строгие условия $\min(H_{i - 1}, H_i) \le h_i \le \max(H_{i - 1}, H_i)$, которые не позволят величинам смещения узлов сетки выходить за пределы смещений инцидентных им ячеек сетки.
 
 Решение задачи о перестроении сетки методом градиентного спуска оказывается слишком требовательным к вычислительным ресурсам при увеличении размера сетки.
-К тому же, качество решения зачастую оказывается неудовлетворительным при попадании в локальные минимумы.
+К тому же качество решения зачастую оказывается неудовлетворительным при попадании в локальные минимумы.
 Поэтому рассматриваются приближенные методы перестроения.
 
 %---------------------------------------------------------------------------------------------------
 
-\subsection{Приближенные методы перестроения поверхности}
+\subsection{Приближенные методы перестроения}
 
 Для решения задачи перестроения расчетной сетки в двумерном случае рассмотрим приближенные методы, основанные на представлении целевой площади в виде примитивных геометрических фигур.
 
 \begin{figure}[ht]
 \centering
 \begin{tabular}{ll}
-\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_rectangles.pdf}
+\includegraphics[width=0.45\textwidth]{fig/2dr_remesh_rectangles.pdf}
 &
-\includegraphics[width=0.45\textwidth]{pics/text_1_remesh_2d/remesh_trapeziums.pdf}
+\includegraphics[width=0.45\textwidth]{fig/2dr_remesh_trapeziums.pdf}
 \end{tabular}
 \singlespacing
-\captionstyle{center}\caption{Перестроение поверхности методом прямоугольников (слева) и трапеций (справа).}
+\captionstyle{center}\caption{Перестроение поверхностной расчетной сетки методом прямоугольников (слева) и трапеций (справа).}
 \label{fig:text_1_remesh_2d_rectangles_and_trapeziums}
 \end{figure}
 
 \subsubsection{Метод прямоугольников}
 
-В качестве первого метода перестроения поверхности рассмотрим приближение, при котором целевая площадь для $i$-ой ячейки представлена прямоугольником со сторонами $l_i$ и $H_i$.
+В качестве первого метода перестроения поверхностной расчетной сетки рассмотрим приближение, при котором целевая площадь для $i$-ой ячейки представлена прямоугольником со сторонами $l_i$ и $H_i$.
 В качестве величины смещения узла берется среднее арифметичское двух высот инцидентных ячеек $h_i = \frac{H_{i - 1} + H_i}{2}$ (см. рис.~\ref{fig:text_1_remesh_2d_rectangles_and_trapeziums} слева).
-Этот метод перестроения поверхности будем называть методом прямогольников.
-Заметаемую $i$-ой ячейкой площадь при использовании метода прямоугольников будем обозначать $S_i^r$, также обозначим $\Delta_i^r = S_i^r - T_i$, $\delta_i^r = \frac{\Delta_i^r}{T_i}$.
+Этот метод перестроения будем называть методом прямогольников.
+Заметаемую $i$-ой ячейкой площадь при использовании метода прямоугольников будем обозначать $S_i^r$, а также обозначим абсолютное и относительное отклонения от целевой площади через $\Delta_i^r = S_i^r - T_i$ и $\delta_i^r = \frac{\Delta_i^r}{T_i}$ соответственно.
 
 \subsubsection{Заметаемая площадь при параллельном смещении ячейки}\label{sec:text_1_geo_prim_volume}
 
@@ -199,7 +224,7 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.45\textwidth]{./pics/text_1_geo_prim/trapezoid_partial.pdf}
+\includegraphics[width=0.45\textwidth]{fig/2dr_trapezoid_partial.pdf}
 \singlespacing
 \captionstyle{center}\caption{Заметаемая площадь при движении концов отрезка.}
 \label{fig:text_1_geo_prim_trapezoid_partial}
@@ -220,31 +245,32 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 
 Отметим один частный случай, в котором трапеция $AA'B'B$ является равнобокой с углом $\alpha$ при основании $AB$.
 Тогда при $AB = l$ имеем $A'B' = l - 2 h \ctg \alpha$, и
+\begin{equation}
+	S_{AA'B'B}(h) = (l - h \ctg \alpha) h
+\end{equation}
+откуда $h$ может быть выражена с помощью решения квадратного уравнения
 \begin{equation}\label{eqn:text_1_geo_prim_trapezium_h_from_s}
-	\begin{aligned}
-		S_{AA'B'B}(h) = (l - h \ctg \alpha) h \\
-		h(S, l, \alpha) = \frac{l - \sqrt{l^2 - 4 S \ctg \alpha}}{2 \ctg \alpha}
-	\end{aligned}
+	h(S, l, \alpha) = \frac{l - \sqrt{l^2 - 4 S \ctg \alpha}}{2 \ctg \alpha}
 \end{equation}
 
 \subsubsection{Метод трапеций}
 
-В качестве второго метода перестроения поверхности будем рассматривать метод трапеций.
+В качестве второго метода перестроения поверхностной расчетной сетки будем рассматривать метод трапеций.
 В методе трапеций целевая площадь $i$-ой ячейки представляется трапецией с площадью $T_i$.
 Боковые стороны этой трапеции лежат на направлениях движения двух узлов, инцидентных рассматриваемой ячейке.
 Высота трапеции $H_i^t$ находится из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
 После построения трапеций для всех ячеек сетки у каждого узла появляется две новые потенциальные позиции для сдвига (образованные ячейкой слева и ячейкой справа).
 В качестве финальной новой позиции выбирается их среднее значение (рис.~\ref{fig:text_1_remesh_2d_rectangles_and_trapeziums} справа).
 Таким образом, величина смещения узла определяется как $h_i = \frac{H_{i - 1}^t + H_i^t}{2 \sin \phi_i}$.
-Заметаемую $i$-ой ячейкой площадь при использовании метода трапеций будем обозначать $S_i^t$, также обозначим $\Delta_i^t = S_i^t - T_i$, $\delta_i^t = \frac{\Delta_i^t}{T_i}$.
+Заметаемую $i$-ой ячейкой площадь при использовании метода трапеций будем обозначать $S_i^t$, а абсолютное и относительное отклонения от целевой площади -- $\Delta_i^t = S_i^t - T_i$ и $\delta_i^t = \frac{\Delta_i^t}{T_i}$ соответственно.
 
 \subsubsection{Метод окрестностей в двумерном случае}
 
-Предлагается новый метод перестроения поверхностной сетки, который будем называть методом окрестностей (см. рис.~\ref{fig:text_1_remesh_2d_okrestnost}).
+Предлагается новый метод перестроения поверхностной расчетной сетки, который будем называть методом окрестностей (см. рис.~\ref{fig:text_1_remesh_2d_okrestnost}).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{pics/text_1_remesh_2d/remesh_okrestnost.pdf}
+\includegraphics[width=0.6\textwidth]{fig/2dr_remesh_okrestnost.pdf}
 \singlespacing
 \captionstyle{center}\caption{Перестроение поверхности методом окрестностей.}
 \label{fig:text_1_remesh_2d_okrestnost}
@@ -265,18 +291,18 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 \end{equation}
 \end{definition}
 
-Окрестность ячейки или сетки несет смысл области распространения льда (ОРЛ), где функция $R(C)$ соотвествует радиусу роста льда в точке $C$.
+Окрестность ячейки или сетки несет смысл области распространения льда (ОРЛ), где функция $R(C)$ соотвествует радиусу распространения льда в точке $C$.
 ОРЛ узла с номером $i$ будем считать сферу с центром в этом узле и радиусом $R_i = \frac{H_{i - 1} + H_i}{2}$.
 ОРЛ ячейки является выпуклая оболочка ОРЛ двух инцидентных ей узлов.
 Тогда ОРЛ сетки является объединение ОРЛ всех ее ячеек.
 В качестве нового положения узла будем брать пересечение направления смещения узла и границы ОРЛ сетки, то есть ее окрестности.
-Заметаемую $i$-ой ячейкой площадь при использовании метода окрестностей будем обозначать $S_i^o$, также обозначим $\Delta_i^o = S_i^o - T_i$, $\delta_i^o = \frac{\Delta_i^o}{T_i}$.
+Заметаемую $i$-ой ячейкой площадь при использовании метода окрестностей будем обозначать $S_i^o$, а абсолютное и относительное отклонения от целевой площади -- $\Delta_i^o = S_i^o - T_i$ и $\delta_i^o = \frac{\Delta_i^o}{T_i}$ соответственно.
 
 %---------------------------------------------------------------------------------------------------
 
 \subsection{Аналитические оценки точности методов перестроения}
 
-Приведем аналитические оценки точности приближенных методов перестроения поверхностной сетки.
+Приведем аналитические оценки точности приближенных методов перестроения поверхностной расчетной сетки.
 Оценки будем проводить для модельной расчетной сетки, которая удовлетворяет следующим требованиям.
 Все ячейки сетки одинаковые и имеют длину $l$.
 Для любой ячейки $AB$ и ее соседей $A_1A$ и $BB_1$ углы $\angle (\overline{BA}, \overline{AA_1})$ и $\angle (\overline{AB}, \overline{BB_1})$ являются постоянной величиной и равны $\alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}).
@@ -286,11 +312,15 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 
 Сначала рассмотрим случай, когда сетка является выпуклой.
 
+\begin{definition}
+Поверхностная расчетная сетка называется выпуклой в некоторой ячейке $AB$, если из двух полуплоскостей, на которые прямая $AB$ разбивает плоскость, все смежные $AB$ ячейки лежат в одной полуплоскости, а внешняя нормаль $\overline{n}_{AB}^F$ направлена в другую полуплоскость.
+\end{definition}
+
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical.pdf}
+\includegraphics[width=0.8\textwidth]{fig/2dr_theoretical_convex.pdf}
 \singlespacing
-\captionstyle{center}\caption{Теоретическая оценка приближенных методов перестроения выпуклой поверхности в двумерном случае.}
+\captionstyle{center}\caption{Оценка приближенных методов перестроения выпуклой в ячейке $AB$ поверхностной расчетной сетки в двумерном случае.}
 \label{fig:text_1_remesh_2d_theoretical}
 \end{figure}
 
@@ -298,14 +328,14 @@ D(\overline{h}) = D(h_0, \dots, h_{n}) = \sum_{i = 0}^{n - 1}{\Delta_i^2}
 При использовании разных методов перестроения эта площадь будет различаться.
 
 \begin{lemma}\label{lem:text_1_remesh2_vypukl_lemma}
-Для ячейки $AB$ выпуклой сетки с равными углами $\angle (\overline{BA}, \overline{AA_1}) = \angle (\overline{AB}, \overline{BB_1}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical})
+Для поверхностной расчетной сетки, выпуклой в ячейке $F_i = AB$, при выполнении условия $\angle (\overline{BA}, \overline{AA_1}) = \angle (\overline{AB}, \overline{BB_1}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical}) верно соотношение
 \begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen}
 S_i(h_i, h_{i + 1}) = \frac{1}{2} \sin \alpha \left( \lambda(h_i + h_{i+1}) + h_ih_{i+1} \right)
 \end{equation}
 где $\lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$, $l = AB$, $h_i = AA'$, $h_{i + 1} = BB'$.
 \end{lemma}
 
-Так как рассматриваемая сетка выпуклая, то лучи $A'A$ и $B'B$ пересекаются в некоторой точке $O$.
+Так как рассматриваемая сетка выпуклая в ячейке $AB$, то лучи $A'A$ и $B'B$ пересекаются в некоторой точке $O$.
 При этом треугольник $AOB$ равнобедренный, $\angle BAO = \angle ABO = \angle B'BX = \angle B'BB_1 - \alpha = \frac{\pi - \alpha}{2}$, $\phi_i = \phi_{i + 1} = \frac{\pi + \alpha}{2}$, $\angle AOB = \alpha$, откуда $OA = OB = \lambda = \frac{l}{2 \sin \frac{\alpha}{2}}$.
 Далее выражаем площадь $S_i = S_{A'OB'} - S_{AOB}$, что после преобразования и дает требуемое соотношение \eqref{eqn:text_1_remesh2_saa2b2b_gen}.
 $\blacksquare$\\
@@ -314,7 +344,7 @@ $\blacksquare$\\
 
 Для перестроения методом прямоугольников имеем $h_i = H - \frac{1}{2} \Delta H$, $h_{i + 1} = H + \frac{1}{2} \Delta H$, откуда
 \begin{equation}\label{eqn:text_1_remesh2_s_rect}
-	S_i^r = \cos \frac{\alpha}{2} \left( lH + \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right)
+	S_i^r = \cos \frac{\alpha}{2} \left( lH + ( H^2 - \frac{1}{4} \Delta H^2) \sin \frac{\alpha}{2} \right)
 \end{equation}
 
 Теперь перейдем к вычислению $S_i^t$ для метода трапеций.
@@ -334,13 +364,13 @@ $\blacksquare$\\
 	S_i^t = \frac{1}{4} \left( (H_{i - 1}^t + 2 H_i^t + H_{i + 1}^t)l + (H_{i - 1}^t + H_i^t) (H_i^t + H_{i+1}^t) \tg \frac{\alpha}{2} \right)
 \end{equation}
 
-Для получения теоретической оценки точности для метода окрестностей в случае выпуклой сетки рассмотрим следующее вспомогательное утверждение.
+Для получения аналитической оценки точности для метода окрестностей в случае выпуклой сетки рассмотрим следующее вспомогательное утверждение.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/accuracy_okrestnost.pdf}
+\includegraphics[width=0.7\textwidth]{fig/2dr_accuracy_okrestnost.pdf}
 \singlespacing
-\captionstyle{center}\caption{Вычисление смещения узла в методе окрестностей для выпуклой сетки.}
+\captionstyle{center}\caption{Вычисление смещения узла в методе окрестностей для выпуклой расчетной сетки.}
 \label{fig:text_1_remesh_2d_accuracy_okrestnost}
 \end{figure}
 
@@ -357,12 +387,12 @@ $\blacksquare$\\
 \end{equation}
 \end{lemma}
 
-Если точка $A'$ не находится на отрезке $A_1B_1$, то $h = AA' = r$.
+Если $\Delta r \le 0$, то точка $A'$ находится на окружности с центром в точке $A$, то есть $h = r$.
 
 Рассмотрим случай, когда $A'$ находится на отрезке $A_1B_1$, в этом случае $\Delta r > 0$.
 Через точку $A$ проведем прямую, параллельную $A_1B_1$, до пересечения с $BB_1$ в точке $H$.
 Тогда $\angle B_1OB = \angle HAB = \beta = \arcsin \frac{\Delta r}{l}$.
-Так как $\angle A'AB = \phi = \frac{\pi + \alpha}{2}$, то $\angle OAA_1 + \theta + \phi = \pi$, откуда получим $\theta = \beta - \frac{\alpha}{2}$.
+Так как $\angle A'AB = \phi = \frac{\pi + \alpha}{2}$, а $\angle OAA_1 + \angle A_1AA' + \phi = \pi$, то $\theta = \angle A_1AA' = \beta - \frac{\alpha}{2}$.
 
 Таким образом, условие нахождения точки $A'$ на отрезке $A_1B_1$ равносильно $\theta \ge 0$.
 То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA'A_1$.
@@ -380,16 +410,20 @@ $\blacksquare$\\
 
 Теперь рассмотрим случай вогнутой сетки, представленный на рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}.
 
+\begin{definition}
+Поверхностная расчетная сетка называется вогнутой в некоторой ячейке $AB$, если из двух полуплоскостей, на которые прямая $AB$ разбивает плоскость, все смежные $AB$ ячейки лежат в одной полуплоскости, и внешняя нормаль $\overline{n}_{AB}^F$ направлена в ту же полуплоскость.
+\end{definition}
+
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/theoretical_concave.pdf}
+\includegraphics[width=0.8\textwidth]{fig/2dr_theoretical_concave.pdf}
 \singlespacing
-\captionstyle{center}\caption{Теоретическая оценка приближенных методов перестроения вогнутой поверхности в двумерном случае.}
+\captionstyle{center}\caption{Оценка приближенных методов перестроения вогнутой в ячейке $AB$ поверхностной расчетной сетки в двумерном случае.}
 \label{fig:text_1_remesh_2d_theoretical_concave}
 \end{figure}
 
 \begin{lemma}
-Для ячейки $AB$ вогнутой сетки с равными углами $\angle (\overline{BA}, \overline{AA_1}) = \angle (\overline{AB}, \overline{BB_1}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical_concave})
+Для поверхностной расчетной сетки, вогнутой в ячейке $F_i = AB$, при выполнении условия $\angle (\overline{BA}, \overline{AA_1}) = \angle (\overline{AB}, \overline{BB_1}) = \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_theoretical_concave}) верно соотношение
 \begin{equation}\label{eqn:text_1_remesh2_saa2b2b_gen2}
 S_i = \frac{1}{2} \sin \alpha \left( \lambda(h_i + h_{i+1}) - h_ih_{i+1} \right)
 \end{equation}
@@ -403,7 +437,7 @@ $\blacksquare$\\
 
 Для перестроения методом прямоугольников и методом трапеций в случае вогнутой сетки получим формулы, аналогичные \eqref{eqn:text_1_remesh2_s_rect}, \eqref{eqn:text_1_remesh_2_Ht_vypukl} и \eqref{eqn:text_1_remesh2_trap}:
 \begin{equation}\label{eqn:text_1_remesh2_s_rect_vogn}
-	S_i^r = \cos \frac{\alpha}{2} \left( lH - \left( H^2 - \frac{1}{4} \Delta H^2 \right) \sin \frac{\alpha}{2} \right) \\
+	S_i^r = \cos \frac{\alpha}{2} \left( lH - ( H^2 - \frac{1}{4} \Delta H^2 ) \sin \frac{\alpha}{2} \right) \\
 \end{equation}
 \begin{equation}\label{eqn:text_1_remesh_2_Ht_vogn}
 	\begin{aligned}
@@ -416,13 +450,13 @@ $\blacksquare$\\
 	S_i^t = \frac{1}{4} \left( (H_{i - 1}^t + 2 H_i^t + H_{i + 1}^t)l - (H_{i - 1}^t + H_i^t) (H_i^t + H_{i+1}^t) \tg \frac{\alpha}{2} \right)
 \end{equation}
 
-Заметим, что формулы \eqref{eqn:text_1_remesh2_s_rect_vogn} -- \eqref{eqn:text_1_remesh2_trap_vogn} идентичны формулам \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} с учетом знака $\alpha$, поэтому формулы \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} применимы как для положительных значений углов $\alpha$ (случай выпуклой сетки), так и для отрицательных значений $\alpha$ (случай вогнутой сетки).
+Заметим, что формулы \eqref{eqn:text_1_remesh2_s_rect_vogn} -- \eqref{eqn:text_1_remesh2_trap_vogn} идентичны формулам \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} с учетом знака $\alpha$, поэтому формулы \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} применимы как для выпуклой расчетной сетки (в этом случае используется положительное значение угла $\alpha$), так и для вогнутой сетки (в этом случае используем формулы \eqref{eqn:text_1_remesh2_s_rect} -- \eqref{eqn:text_1_remesh2_trap} с отрицательным значением угла $\alpha$).
 
-Для получения теоретической оценки точности для метода окрестностей в случае вогнутой сетки рассмотрим следующее вспомогательное утверждение, аналогичное лемме~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}.
+Для получения аналитической оценки точности для метода окрестностей в случае вогнутой сетки рассмотрим следующее вспомогательное утверждение, аналогичное лемме~\ref{lem:text_1_remesh_2d_accuracy_okrestnost}.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_1_remesh_2d/accuracy_okrestnost2.pdf}
+\includegraphics[width=0.7\textwidth]{fig/2dr_accuracy_okrestnost2.pdf}
 \singlespacing
 \captionstyle{center}\caption{Вычисление смещения узла в методе окрестностей для вогнутой сетки.}
 \label{fig:text_1_remesh_2d_accuracy_okrestnost}
@@ -441,12 +475,12 @@ $\blacksquare$\\
 \end{equation}
 \end{lemma}
 
-Если точка $A'$ не находится на отрезке $A_1B_1$, то $h = AA' = r$.
+Если $\Delta r \ge 0$, то точка $A'$ находится на отрезке $A_1B_1$.
 
-Рассмотрим случай, когда $A'$ находится на отрезке $A_1B_1$, в этом случае $\Delta r < 0$.
+Рассмотрим случай, когда $A'$ находится на отрезке $A_1B_1$, и $\Delta r < 0$.
 Через точку $B$ проведем прямую, параллельную $A_1B_1$, до пересечения с $AA_1$ в точке $H$.
 Тогда $\angle A_1OA = \angle HBA = \beta = \arcsin \frac{-\Delta r}{l}$.
-Так как $\angle A'AB = \phi = \frac{\pi - \alpha}{2}$, то $\angle A_1AA' = \theta = \angle A_1AO - \phi = \frac{\alpha}{2} - \beta$.
+Так как $\angle A'AB = \phi = \frac{\pi - \alpha}{2}$, то $\theta = \angle A_1AA' = \angle A_1AO - \phi = \frac{\alpha}{2} - \beta$.
 
 Таким образом, условие нахождения точки $A'$ на отрезке $A_1B_1$ равносильно $\theta \ge 0$.
 То есть при $\theta < 0$, получаем $h = r$, а при $\theta \ge 0$ значение $h$ можно выразить из прямоугольного треугольника $AA'A_1$.
@@ -462,27 +496,27 @@ $\blacksquare$\\
 
 \subsubsection{Анализ оценок точности}
 
-Используя полученные соотношения для $S_i^r$, $S_i^t$, $S_i^o$, можно проанализировать зависимости величин $\delta_i^r$, $\delta_i^t$, $\delta_i^o$ от $\alpha$ и $\frac{\Delta H}{l}$, при этом будем использовать фиксированную величину $H = \frac{l}{2}$ (см. рис.~\ref{fig:text_1_remesh_3d_main_chart}).
+Используя полученные в предыдущем разделе соотношения для $S_i^r$, $S_i^t$, $S_i^o$, проанализируем зависимости величин $\delta_i^r$, $\delta_i^t$, $\delta_i^o$ от $\alpha$ и $\frac{\Delta H}{l}$, при этом будем использовать фиксированную величину $H = \frac{l}{2}$ (см. рис.~\ref{fig:text_1_remesh_3d_main_chart}).
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{pics/text_1_remesh_2d/remesh_3d_chart.png}
+\includegraphics[width=0.8\textwidth]{fig/2dr_remesh_3d_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\alpha, \frac{\Delta H}{l})$, $\delta_i^t(\alpha, \frac{\Delta H}{l})$, $\delta_i^o(\alpha, \frac{\Delta H}{l})$ при фиксированном значении $H = \frac{l}{2}$.}
+\captionstyle{center}\caption{Графики поверхностей $\delta_i^r(\alpha, \frac{\Delta H}{l})$, $\delta_i^t(\alpha, \frac{\Delta H}{l})$, $\delta_i^o(\alpha, \frac{\Delta H}{l})$ при фиксированном значении $H = \frac{l}{2}$.}
 \label{fig:text_1_remesh_3d_main_chart}
 \end{figure}
 
-Из полученных зависимостей, графики которых приведены на рис.~\ref{fig:text_1_remesh_3d_main_chart}, можно отметить, что при $\Delta H = 0$ метод трапеций по определению абсолютно точен.
-Также отметим, что при $\Delta H = 0$ отклонения $\delta_i^r$ и $\delta_i^o$ практически совпадают.
+Анализируя полученные зависимости, графики которых приведены на рис.~\ref{fig:text_1_remesh_3d_main_chart}, можно отметить, что при $\Delta H = 0$ метод трапеций абсолютно точен.
+Также отметим, что при малых значениях $\Delta H$ отклонения $\delta_i^r$ и $\delta_i^o$ практически совпадают.
 
 Построим дополнительно два графика зависимостей $\delta_i^r$, $\delta_i^t$, $\delta_i^o$ от $\frac{\Delta H}{l}$ при фиксированных значениях $\alpha = 0,5$ (для выпуклой сетки) и $\alpha = -0,5$ (для вогнутой сетки) (см. рис.~\ref{fig:text_1_remesh_fix_alfa_chart}).
 Из рисунка видно, что метод трапеций перестроения поверхности при небольших значениях $\frac{\Delta H}{l}$ наиболее точен, а точность методов прямоугольников и окрестностей достаточно близки.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{pics/text_1_remesh_2d/remesh_fix_alfa_chart.png}
+\includegraphics[width=1.0\textwidth]{fig/2dr_remesh_fix_alfa_chart.png}
 \singlespacing
-\captionstyle{center}\caption{Графики поверхностнй $\delta_i^r(\frac{\Delta H}{l})$, $\delta_i^t(\frac{\Delta H}{l})$, $\delta_i^o(\frac{\Delta H}{l})$ при фиксированных значениях $\alpha = 0,5$ (слева) и $\alpha = -0,5$ (справа).}
+\captionstyle{center}\caption{Графики зависимостей $\delta_i^r(\frac{\Delta H}{l})$, $\delta_i^t(\frac{\Delta H}{l})$, $\delta_i^o(\frac{\Delta H}{l})$ при фиксированных значениях $\alpha = 0,5$ (слева) и $\alpha = -0,5$ (справа).}
 \label{fig:text_1_remesh_fix_alfa_chart}
 \end{figure}
 
@@ -490,7 +524,9 @@ $\blacksquare$\\
 
 \subsection{Оценки сглаживания острых пиков и впадин}
 
-Приведем оценки сглаживания острых пиков и впадин для рассмотренных методов перестроения сетки (методы прямоугольников, трапеций и окрестностей).
+В процессе перестроения поверхностной расчетной сетки могут возникать мелкие дефекты, такие как острые пики (если значение $\phi_i$ близко к $\pi$) и впадины (если значение $\phi_i$ близко к нулю).
+
+Приведем оценки сглаживания острых пиков и впадин для рассмотренных методов перестроения (методы прямоугольников, трапеций и окрестностей).
 Для этого будем рассматривать расчетную сетку с одинаковыми ячейками-отрезками длины $l$.
 
 Для оценки сглаживания острых пиков будем считать, что сетка является абсолютно плоской за исключением двух соседних ячеек, которые образуют острый пик с углом $2 \alpha$ (см. рис.~\ref{fig:text_1_remesh_2d_peak_cavern_general} слева).
@@ -498,30 +534,30 @@ $\blacksquare$\\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{./pics/text_1_remesh_2d/peak-cavern-general.pdf}
+\includegraphics[width=0.8\textwidth]{fig/2dr_peak_cavern_general.pdf}
 \singlespacing
 \captionstyle{center}\caption{Оценка сглаживания угла при остром пике (слева) \\ и при впадине (справа).}
 \label{fig:text_1_remesh_2d_peak_cavern_general}
 \end{figure}
 
-\subsubsection{Получение аналитических оценок сглаживания}
+\subsubsection{Получение аналитических оценок сглаживания дефектов}
 
 Во всех трех методах (прямоугольников, трапеций и окрестностей) направления смещения узлов совпадают (и лежат на биссектрисах углов, образованных соседними ячейками), поэтому будем рассматривать задачу сглаживания угла при остром пике и при впадине для произвольных смещений узлов $A$ и $B$.
 Для этого докажем следующие леммы.
 
 \begin{lemma}\label{lem:text_1_peak_smooth}
-При перемещении узлов $A$ и $B$ -- узлов одной из сторон острого пика -- вдоль биссектрис углов, образованных инцидентными ячейками, на расстояния $h_A$ и $h_B$ соответственно (см. рис.~\ref{fig:text_1_remesh_2d_peak_cavern_general} слева) значение сглаженного угла $\angle OA'B' = \hat{\alpha}$ выражается через $\angle OAB = \alpha$ следующим образом:
+При перемещении узлов $A$ и $B$ -- узлов одной из сторон острого пика -- вдоль биссектрис углов, образованных инцидентными ячейками, на расстояния $h_A$ и $h_B$ соответственно (см. рис.~\ref{fig:text_1_remesh_2d_peak_cavern_general} слева) значение сглаженного угла $\hat{\alpha} = \angle OA'B'$ выражается через $\alpha = \angle OAB$ и $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$ следующим образом:
 \begin{equation}\label{eqn:text_1_envelope_alpha1_peak}
 \hat{\alpha}(h_A, h_B) = \arctg \frac{l \sin \alpha + h_B \cos \gamma}{l \cos \alpha + h_A - h_B \sin \gamma}	
 \end{equation}
 \end{lemma}
 
-Выразим через $\alpha$ остальные углы: $\beta = \frac{\pi}{2} - \alpha$, $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$.
+Выразим через $\alpha$ остальные углы: $\beta = \angle OBA = \frac{\pi}{2} - \alpha$, $\gamma = \angle ABB' = \angle XBB' = \frac{\pi}{4} + \frac{\alpha}{2}$.
 Через углы $\alpha$ и $\gamma$ находим $OA = l \cos \alpha$, $OB = l \sin \alpha$, $BX = h_B \cos \gamma$, $B'X = h_B \sin \gamma = OY$, откуда получаем $YB' = OB + BX = l \sin \alpha + h_B \cos \gamma$, $YA' = OA + AA' - OY = l \cos \alpha + h_A - h_B \sin \gamma$, откуда получаем $\hat{\alpha}(h_A, h_B) = \arctg \frac{YB'}{YA'}$, что приводит к \eqref{eqn:text_1_envelope_alpha1_peak}.
 $\blacksquare$\\
 
 \begin{lemma}\label{lem:text_1_cavern_smooth}
-При перемещении узлов $A$ и $B$ -- узлов одной из сторон впадины -- вдоль биссектрис углов, образованных инцидентными ячейками, на расстояния $h_A \le AO$ и $h_B$ соответственно (см. рис.~\ref{fig:text_1_remesh_2d_peak_cavern_general} справа) значение сглаженного угла $\angle OA'B' = \check{\alpha}$ выражается через $\angle OAB = \alpha$ следующим образом:
+При перемещении узлов $A$ и $B$ -- узлов одной из сторон впадины -- вдоль биссектрис углов, образованных инцидентными ячейками, на расстояния $h_A \le AO$ и $h_B$ соответственно (см. рис.~\ref{fig:text_1_remesh_2d_peak_cavern_general} справа) значение сглаженного угла $\check{\alpha} = \angle OA'B'$ выражается через $\alpha = \angle OAB$ и $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$ следующим образом:
 \begin{equation}\label{eqn:text_1_envelope_alpha1_cavern}
 \check{\alpha}(h_A, h_B) = \arctg \frac{l \sin \alpha - h_B \cos \gamma}{l \cos \alpha - h_A + h_B \sin \gamma}
 \end{equation}
@@ -531,7 +567,7 @@ $\blacksquare$\\
 \end{equation}
 \end{lemma}
 
-Выразим через $\alpha$ остальные углы: $\beta = \frac{\pi}{2} - \alpha$, $\gamma = \frac{\pi}{4} + \frac{\alpha}{2}$.
+Выразим через $\alpha$ остальные углы: $\beta = \angle OBA = \frac{\pi}{2} - \alpha$, $\gamma = \angle OBB' = \frac{\pi}{4} + \frac{\alpha}{2}$.
 Через углы $\alpha$ и $\gamma$ находим $OA = l \cos \alpha$, $OB = l \sin \alpha$, $BX = h_B \cos \gamma$, $B'X = h_B \sin \gamma = OY$, откуда получаем $YB' = OB - BX = l \sin \alpha - h_B \cos \gamma$, $YA' = OA - AA' + OY = l \cos \alpha - h_A + h_B \sin \gamma$, откуда получаем $\check{\alpha}(h_A, h_B) = \arctg \frac{YB'}{YA'}$, что приводит к \eqref{eqn:text_1_envelope_alpha1_cavern}.
 
 Рассмотрим дополнительные условия применимости формулы \eqref{eqn:text_1_envelope_alpha1_cavern}.
@@ -554,7 +590,7 @@ $\blacksquare$\\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/peak-methods.pdf}
+\includegraphics[width=1.0\textwidth]{fig/2dr_peak_methods.pdf}
 \singlespacing
 \captionstyle{center}\caption{Сглаживание пика при методах прямоугольников (слева), трапеций (в центре), окрестностей (справа).}
 \label{fig:text_1_remesh_2d_peak_methods}
@@ -562,37 +598,38 @@ $\blacksquare$\\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/peak-methods-chart.png}
+\includegraphics[width=1.0\textwidth]{fig/2dr_peak_methods_chart.png}
 \singlespacing
 \captionstyle{center}\caption{Сравнение сглаживания острого пика для методов прямоугольников, трапеций и окрестностей.}
 \label{fig:text_1_remesh_2d_peak_methods_chart}
 \end{figure}
 
-\subsubsection{Анализ оценок сглаживания пиков}
+\subsubsection{Анализ оценок сглаживания острых пиков}
 
 На основе Леммы~\ref{lem:text_1_peak_smooth} получим оценки сглаживания угла при остром пике при условии постоянного значения $H$ во всех ячейках сетки.
 
 Для метода прямоугольников имеем $h_A = h_B = H$ (см. рис~\ref{fig:text_1_remesh_2d_peak_methods} слева).
 
-Для метода трапеций необходимо сначала найти высоты трапеций $AA'B^{-}B$ и $CC'B^{+}B$ с рис.~\ref{fig:text_1_remesh_2d_peak_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
+Для метода трапеций необходимо сначала найти высоты двух трапеций $AA'B^{-}B$ и $CC'B^{+}B$ с рис.~\ref{fig:text_1_remesh_2d_peak_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
 Высоты этих трапеций $H^{-}$ и $H^{+}$ получаются из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
 Тогда $h_A = \frac{H^{-}}{\sin \alpha}$, $h_B = \frac{H^{-} + H^{+}}{2 \sin \gamma}$.
+Из выражения для $h_A$ видно, что при малых значениях $\alpha$ смещение $h_A$ неконтролируемо возрастает.
 
 В случае метода окрестностей $h_A = H$,  $h_B = \frac{H}{\sin \gamma}$ (см. рис.~\ref{fig:text_1_remesh_2d_peak_methods} справа).
 
 На рис.~\ref{fig:text_1_remesh_2d_peak_methods_chart} приведены графики сравнения методов прямоугольников, трапеций и окрестностей в применении к сглаживанию острых пиков.
 При этом используется фиксированная величина смещения ячейки $H = \frac{l}{4}$.
 На графике слева показана зависимость изменения сглаженного угла $\hat{\alpha}$ от $\alpha$.
-На графике справа показана эффективность сглаживания, выраженная формулой $\frac{2 \hat{\alpha} - 2 \alpha}{\pi - 2 \alpha}$ (значение 1 означает полное сглаживание пика до угла $\hat{\alpha} = \frac{\pi}{2}$).
+На графике справа показана эффективность сглаживания, выраженная формулой $\frac{\check{\alpha} - \alpha}{\frac{\pi}{2} - \alpha} = \frac{2 \check{\alpha} - 2 \alpha}{\pi - 2 \alpha}$ (значение 1 означает полное сглаживание пика до угла $\hat{\alpha} = \frac{\pi}{2}$).
 
-Можно отметить, что наиболее эффективное сглаживание угла $\alpha$ обеспечивает метод окрестностей.
+Можно отметить, что наиболее эффективное сглаживание угла $\alpha$ обеспечивает метод окрестностей, а наименее эффективное -- метод трапеций.
 Дополнительно заметим, что использование метода трапеций для малых углов $\alpha$ приводит к неконтролируемому росту $h_A$, что делает применение этого метода неприемлемым.
 
 \subsubsection{Анализ оценок сглаживания впадин}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/cavern-methods.pdf}
+\includegraphics[width=1.0\textwidth]{fig/2dr_cavern_methods.pdf}
 \singlespacing
 \captionstyle{center}\caption{Сглаживание впадины при методах прямоугольников (слева), трапеций (в центре), окрестностей (справа).}
 \label{fig:text_1_remesh_2d_cavern_methods}
@@ -600,7 +637,7 @@ $\blacksquare$\\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_1_remesh_2d/cavern-methods-chart.png}
+\includegraphics[width=1.0\textwidth]{fig/2dr_cavern_methods_chart.png}
 \singlespacing
 \captionstyle{center}\caption{Сравнение сглаживания впадины для методов прямоугольников, трапеций и окрестностей.}
 \label{fig:text_1_remesh_2d_cavern_methods_chart}
@@ -610,7 +647,7 @@ $\blacksquare$\\
 
 Для метода прямоугольников имеем $h_A = h_B = H$ (см. рис~\ref{fig:text_1_remesh_2d_cavern_methods} слева).
 
-Для метода трапеций необходимо сначала найти высоты трапеций $AA'B^{-}B$ и $CC'B^{+}B$ с рис.~\ref{fig:text_1_remesh_2d_cavern_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
+Для метода трапеций необходимо сначала найти высоты двух трапеций $AA'B^{-}B$ и $CC'B^{+}B$ с рис.~\ref{fig:text_1_remesh_2d_cavern_methods} в центре из условия равенства площадей этих трапеций значению $lH$.
 Высоты этих трапеций $H^{-}$ и $H^{+}$ получаются из \eqref{eqn:text_1_geo_prim_aa1b1b} с помощью решения квадратного уравнения.
 Тогда $h_A = \frac{H^{-}}{\sin \alpha}$, $h_B = \frac{H^{-} + H^{+}}{2 \sin \gamma}$.
 
@@ -625,15 +662,32 @@ $\blacksquare$\\
 Метод трапеций показывает лучшую эффективность сглаживания, но с меньшей областью применимости.
 
 Из приведенных оценок на рис.~\ref{fig:text_1_remesh_2d_peak_methods_chart} и рис.~\ref{fig:text_1_remesh_2d_cavern_methods_chart} можно сделать следующие выводы.
-Метод трапеций перестроения сетки является более точным, точность методов прямоугольников и окрестностей практически совпадают при небольших значениях и изменениях $H$.
 С точки зрения сглаживания дефектов сетки метод трапеций неприменим, так как приводит к неконтролируемому росту острых пиков.
 Метод прямоугольников неэффективен при сглаживании острых пиков и впадин.
-Таким образом, метод окрестностей перестроения является оптимальным с точки зрения точноси перестроения и способности сглаживания дефектов сетки.
+Метод окрестностей позволяет сглаживать как острые пики, так и впадины.
 
 %---------------------------------------------------------------------------------------------------
 
 \subsection{Выводы из главы}
 
-Метод окрестностей перестроения поверхностной расчетной сетки является оптимальным с точки зрения точности перестроения и способности сглаживания дефектов сетки.
+В главе исследовались методы перестроения поверхностной расчетной сетки в двумерном случае.
+Рассматривалось перестроение сетки при фиксированных направлениях смещения узлов $N_i$, совпадающих с их нормалями $\overline{n}_{N_i}^N$.
+Рассматривались известные методы перестроения, основанные на приближении целевой площади ячейки $T_i$ с помощью геометрических примитивов (методы прямоугольников и трапеций).
+
+Предложен новый метод перестрения поверхностной расчетной сетки -- метод окрестностей -- в котором новое положение узла $N'_i$ определеятся как точка пересечения направления $\overline{n}_{N_i}^N$ с границей окрестности сетки.
+
+Выведены аналитические оценки точности рассмотренных в главе методов перестроения расчетной сетки.
+Проведен анализ полученных аналитических оценок.
+Анализ оценок точности перестроения показал, что наиболее точным методом при малой скорости изменения ледяного покрова является метод трапеций, а точность метода прямоугольников и точность метода окрестностей близки.
+
+Исследована способность рассмотренных методов перестроения сглаживать дефекты расчетной сетки: острые пики и впадины.
+Выведены аналитические оценки эффективности сглаживания дефектов расчетной сетки.
+Проведен анализ полученных аналитических оценок.
+Анализ оценок эффективности сглаживания острых пиков и впадин позволил сделать следующие выводы.
+Метод трапеций неприменим для перестроения сетки, так как приводит к неконтролируемому росту острых пиков.
+Метод прямоугольников не позволяет сглаживать впадины.
+Метод окрестностей наиболее эффективно позволяет сглаживать острые пики, а также позволяет сглаживать впадины.
+
+По результатам проведенных исследований можно заключить, что предложенный метод окрестностей перестроения поверхностной расчетной сетки является наиболее подходящим для моделирования обледенения с точки зрения точности перестроения и эффективности сглаживания дефектов сетки.
 
 %---------------------------------------------------------------------------------------------------
