@@ -164,9 +164,7 @@ escapeinside={\%*}{*)}
 
 Для достижения поставленной цели в диссертационной работе необходимо решить следующие \textbf{задачи}:
 \begin{enumerate}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
-\item Разработать и реализовать метод перестроения поверхностной расчетной сетки, обладающий способностью устранения мелких дефектов, а также разработать и реализовать методы устранения самопересечений поверхностной расчетной сетки для устойчивого выполнения вычислений при моделировании обледенения.
-\item Разработать и реализовать методы повышения эффективности распараллеливания вычислений на поверхностных и объемных расчетных сетках в моделях распараллеливания с передачей сообщений и на общей памяти.
-\item Разработать методику повышения производительности суперкомпьютерных приложений с помощью векторизации вычислений и методы векторизации программного кода.
+\input text_tasks.tex
 \end{enumerate}
 
 \paragraph{Методология и методы исследования}
@@ -272,7 +270,7 @@ escapeinside={\%*}{*)}
 
 \textbf{Во введении} обоснована актуальность работы, сформулированы цель и задачи работы, приведены научная новизна, практическая значимость полученных результатов и защищаемые положения, рассмотрена структура диссертации. 
 
-Первые три главы посвящены задаче перестроения поверхностной расчетной сетки с поддержкой сглаживания мелких дефектов и устранения самопересечений для обеспечения устойчивых расчетов при моделировании процесса обледенения.
+\input text_brief_content.tex
 
 %---------------------------------------------------------------------------------------------------
 
@@ -810,8 +808,8 @@ COMMON, \textit{внешние ячейки} -- целиком лежащие в
 \begin{figure}[!ht]
 \centering
 \begin{tabular}{ll}
-\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_mrg_under_cond/chart_e_merged.png}\caption{простое слияние}\end{subfigure} &
-\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_check_mask/chart_e_merged.png}\caption{слияние с проверкой масок}\end{subfigure}
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_ifconv_nocheck_chart.png}\caption{простое слияние}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_ifconv_check_chart.png}\caption{слияние с проверкой масок}\end{subfigure}
 \end{tabular}
 \singlespacing
 \caption{Графики зависимости $e_{vec}^{*}$ от вероятности перехода $p$ при разных $\alpha$.}
@@ -821,8 +819,8 @@ COMMON, \textit{внешние ячейки} -- целиком лежащие в
 \begin{figure}[!ht]
 \centering
 \begin{tabular}{ll}
-\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_comb_mask/independent_p.png}\caption{независимые условия}\end{subfigure} &
-\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./pics/text_4_vec_comb_mask/real_p.png}\caption{реальное приложение}\end{subfigure}
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_mask_distr_independent_p.png}\caption{независимые условия}\end{subfigure} &
+\begin{subfigure}{0.45\textwidth}\centering\includegraphics[width=0.85\columnwidth]{./fig/vec_mask_distr_real_p.png}\caption{реальное приложение}\end{subfigure}
 \end{tabular}
 \singlespacing
 \caption{Типовое распределение количества единичных битов в маске.}
