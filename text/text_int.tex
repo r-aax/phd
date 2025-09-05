@@ -157,18 +157,22 @@ Q(f) = \frac{4\sqrt{3} S_{ABC}}{|\overline{AB}|^2 + |\overline{BC}|^2 + |\overli
 
 Введем следующие обозначения.
 Пусть $M$ и $M'$ -- два множества треугольников, $K = [M]$ и $K' = [M']$ -- их контейнеры.
-Обозначим через $Int(K, K')$ множество пар потенциально пересекающихся треугольников $(T, T')$ таких, что $T \in M$, $T' \in M'$.
-Через $Ch(K)$ обозначим множество дочерних контейнеров для контейнера $K$.
+Обозначим через $\mathscr{P}(K, K')$ множество пар потенциально пересекающихся треугольников $(T, T')$ таких, что $T \in M$, $T' \in M'$.
+Через $\mathscr{C}(K)$ обозначим множество дочерних контейнеров для контейнера $K$.
 Тогда множество пар потенциально пересекающихся треугольников может быть вычислено рекурсивно следующим образом:
-\begin{multline}
-	Int(K, K') = \\
+\begin{equation}
+	\mathscr{P}(K, K') =
 	\begin{cases}
-		\bigcup_{ \substack{ L \in Ch(K) \\ L' \in Ch(K') } }{ Int(L, L') } & \text{если } Ch(K) \ne \emptyset, \ Ch(K') \ne \emptyset \\
-		\bigcup_{ L \in Ch(K) }{ Int(L, K') }                               & \text{если } Ch(K) \ne \emptyset, \ Ch(K') = \emptyset \\
-		Int(K', K)                                                          & \text{если } Ch(K) = \emptyset, \ Ch(K') \ne \emptyset \\
-		\{ (T, T') : T \in M, \ T' \in M', \ [T] \cap [T'] \ne \emptyset \} & \text{если } Ch(K) = \emptyset, \ Ch(K') = \emptyset
+		\bigcup_{ \substack{ L \in \mathscr{C}(K) \\ L' \in \mathscr{C}(K') } }{ \mathscr{P}(L, L') }, & \text{если } \mathscr{C}(K) \ne \emptyset, \ \mathscr{C}(K') \ne \emptyset \\
+		\bigcup_{ L \in \mathscr{C}(K) }{ \mathscr{P}(L, K') },                                        & \text{если } \mathscr{C}(K) \ne \emptyset, \ \mathscr{C}(K') = \emptyset \\
+		\mathscr{P}(K', K),                                                                            & \text{если } \mathscr{C}(K) = \emptyset, \ \mathscr{C}(K') \ne \emptyset \\
+		\setlength{\jot}{-8pt}
+		\begin{split}
+			\{ (T, T') : \ & T \in M, \ T' \in M', \\
+			               & T \ne T', \ [T] \cap [T'] \ne \emptyset \}
+		\end{split},                                                                                   & \text{если } \mathscr{C}(K) = \emptyset, \ \mathscr{C}(K') = \emptyset
 	\end{cases}
-\end{multline}
+\end{equation}
 
 Построенное дерево облаков треугольников позволяет существенно сократить количество проверяемых потенциальных пересечений треугольников \cite{Jung2004Int}, так как если $K \cap K' = \emptyset$, $L$ -- дочерний контейнер для $K$, а $L'$ -- дочерний контейнер для $K'$, то $L \cap L' = \emptyset$.
 Для поиска всех пар потенциально пересекающихся треугольников из множества всех треугольников расчетной сетки $M$ нужно найти пересечение этого контейнера с самим собой $Int([M], [M])$.
