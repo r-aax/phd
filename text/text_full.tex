@@ -31,6 +31,7 @@
 \usepackage{setspace}                                        % чтобы менять междустрочный интервал с подписях
 \usepackage{cite}                                            % для использования диапазона цитирования
 \usepackage{enumitem}                                        % для отступов в списках
+\usepackage{algorithm2e}                                     % оформление алгоритмов
 
 %---------------------------------------------------------------------------------------------------
 
@@ -73,16 +74,20 @@ escapeinside={\%*}{*)}
 \newtheorem{theorem}{Теорема}[section]                       % теорема
 \newtheorem{lemma}{Лемма}[section]                           % лемма
 \newtheorem{definition}{Определение}[section]                % определение
+\newtheorem{algo}{Алгоритм}[section]                         % алгоритм
 \numberwithin{theorem}{section}                              % нумерация теорем по секциям
 \numberwithin{lemma}{section}                                % нумерация лемм по секциям
 \numberwithin{definition}{section}                           % нумерация определений по секциям
-\DeclareMathOperator{\sign}{sign}
+\numberwithin{algo}{section}                                 % нумерация алгоритмов по секциям
+\DeclareMathOperator{\sign}{sign}                            % обозначения функции "знак"
 
 %---------------------------------------------------------------------------------------------------
 
 \captionstyle{center}
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
+\SetKwInput{KwInput}{Вход}                                   % input for algorithm2e
+\SetKwInput{KwOutput}{Выход}                                 % output for algorithm2e
 
 %---------------------------------------------------------------------------------------------------
 
