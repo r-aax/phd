@@ -4,7 +4,7 @@
 
 %\usepackage{times}                                          % использование Times New Roman
                                                              %     (почему-то сносит все форматирование)
-\usepackage[top=2cm,left=3cm,right=1cm,bottom=2cm]{geometry} % размеры полей
+\usepackage[top=2cm,left=2cm,right=2cm,bottom=2cm]{geometry} % размеры полей
 \usepackage[]{inputenc}                                      % эта строка нужна, чтобы документ открывался в редакторе MikTex
 \usepackage[T2A]{fontenc}                                    % для поддержки русского языка
 \usepackage[russian]{babel}                                  % включение русского языка
@@ -114,41 +114,47 @@ escapeinside={\%*}{*)}
 
 \thispagestyle{empty}
 
+\
+
+\vspace{0pt plus0.5fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+
 \noindent%
-%\begin{tabularx}{\textwidth}{@{}lXr@{}}%
-%    & & \large{На правах рукописи}\\
+\begin{tabularx}{\textwidth}{@{}lXr@{}}%
+    & & \textit{На правах рукописи}\\
 %    \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
 %    \ifnumequal{\value{showperssign}}{0}{%
 %        \rule[0pt]{0pt}{1.5cm}
 %    }{
 %        \includegraphics[height=1.5cm]{personal-signature.png}
 %    }\\
-%\end{tabularx}
+\end{tabularx}
 
-\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
-\textbf {\large Рыбаков Алексей Анатольевич}
+Рыбаков Алексей Анатольевич
 \end{center}
 
-\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
-\textbf {\Large %\MakeUppercase
-Методы и средства повышения производительности вычислений на поверхностных расчетных сетках с изменяемой геометрией}
+\textbf{\large Методы и средства}
 
-\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\large Специальность 2.3.5\ "---\par <<Математическое и программное обеспечение вычислительных систем, комплексов и компьютерных сетей>>}
+\textbf{\large повышения производительности вычислений}
 
-\ifdefined\thesisSpecialtyTwoNumber
-{\large Специальность \thesisSpecialtyTwoNumber\ "---\par <<\thesisSpecialtyTwoTitle>>}
-\fi
+\textbf{\large на поверхностных расчетных сетках}
+
+\textbf{\large с изменяемой геометрией}
+
+\vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+{Специальность 2.3.5 --\par <<Математическое и программное обеспечение вычислительных систем, комплексов и компьютерных сетей>>}
 
 \vspace{0pt plus1.5fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\Large{Автореферат}\par
-\large{диссертации на соискание учёной степени\par доктора технических наук}
+Автореферат\par
+диссертации на соискание учёной степени\par доктора технических наук\par
+\textbf{проект (26.09.2025)}
 \end{center}
 
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\centering Москва~--- 2026\par}
+{\centering Москва -- 2026\par}
 
 \newpage
 % оборотная сторона обложки
@@ -157,7 +163,7 @@ escapeinside={\%*}{*)}
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
-%\begin{tabularx}{\textwidth}{@{}lX@{}}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
 %    \ifdefined\supervisorTwoFio
 %    Научные руководители:   & \supervisorRegalia\par
 %                              \ifdefined\supervisorDead
@@ -183,34 +189,28 @@ escapeinside={\%*}{*)}
 %                              \fi
 %                              \vspace{0.013\paperheight}\\
 %    \fi
-%    Официальные оппоненты:  &
+    Официальные оппоненты:  &
 %    \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
-%        \textbf{\opponentOneFio,}\par
-%        \opponentOneRegalia,\par
-%        \opponentOneJobPlace,\par
-%        \opponentOneJobPost\par
-%        \vspace{0.01\paperheight}
-%        \textbf{\opponentTwoFio,}\par
-%        \opponentTwoRegalia,\par
-%        \opponentTwoJobPlace,\par
-%        \opponentTwoJobPost
-%    \ifdefined\opponentThreeFio
-%        \par
-%        \vspace{0.01\paperheight}
-%        \textbf{\opponentThreeFio,}\par
-%        \opponentThreeRegalia,\par
-%        \opponentThreeJobPlace,\par
-%        \opponentThreeJobPost
+        \textbf{Фамилия Имя Отчество}\par
+        ученая степень,\par
+        место работы,\par
+        должность\par
+        \vspace{0.01\paperheight}
+        \textbf{Фамилия Имя Отчество}\par
+        ученая степень,\par
+        место работы,\par
+        должность\par
+        \vspace{0.01\paperheight}
+        \textbf{Фамилия Имя Отчество}\par
+        ученая степень,\par
+        место работы,\par
+        должность\par
 %    \fi
 %    }%
-%    \vspace{0.013\paperheight} \\
-%    \ifdefined\leadingOrganizationTitle
-%    Ведущая организация:    &
-%    \ifnumequal{\value{showopplead}}{0}{\vspace{6\onelineskip plus1fill}}{%
-%        \leadingOrganizationTitle
-%    }%
-%    \fi
-%\end{tabularx}
+    \vspace{0.013\paperheight} \\
+    Ведущая организация:    &
+        Название ведущей организации
+\end{tabularx}
 \vspace{0.008\paperheight plus1fill}
 
 \noindent Защита состоится <<00>> 'месяца' 2026 г. в 00 ч. 00 мин. на~заседании диссертационного совета 0000 при 'организация' по адресу: 'адрес'.
@@ -226,22 +226,20 @@ escapeinside={\%*}{*)}
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
-%\begin{tabularx}{\textwidth}{@{}%
-%>{\raggedright\arraybackslash}b{18em}@{}
-%>{\centering\arraybackslash}X
-%r
-%@{}}
-%    Ученый секретарь\par
-%    диссертационного совета\par
-%    \defenseCouncilNumber,\par
-%    \defenseSecretaryRegalia
-%    &
+\begin{tabularx}{\textwidth}{@{}%
+>{\raggedright\arraybackslash}b{28em}@{}
+>{\centering\arraybackslash}X
+r
+@{}}
+    Ученый секретарь\par
+    диссертационного совета 0000
+    &
 %    \ifnumequal{\value{showsecrsign}}{0}{}{%
 %        \includegraphics[width=2cm]{secretary-signature.png}%
 %    }%
 %    &
-%    \defenseSecretaryFio
-%\end{tabularx}
+    И.О.~Фамилия
+\end{tabularx}
 
 %---------------------------------------------------------------------------------------------------
 
