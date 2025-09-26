@@ -30,8 +30,9 @@
 \usepackage{float}                                           % расположение флотов прямо тут
 \usepackage{setspace}                                        % чтобы менять междустрочный интервал с подписях
 \usepackage{subcaption}                                      % подпись к каждому подрисунку
-\usepackage{enumitem}
+\usepackage{enumitem}                                        % для стилей перечислений
 \usepackage{algorithm2e}                                     % оформление алгоритмов
+\usepackage{tabularx}                                        % таблица для титула
 
 %---------------------------------------------------------------------------------------------------
 
@@ -106,11 +107,141 @@ escapeinside={\%*}{*)}
                                                              % еще не существует
                                                              % https://tex.stackexchange.com/questions/441618/how-to-number-the-listings-within-sections
 
-\title{Проект автореферата на диссертацию по теме <<Методы и средства повышения производительности вычислений на поверхностных расчетных сетках с изменяемой геометрией>>}
-\author{Рыбаков~А.~А.}
-\date{24.09.2025}
-\maketitle
-\thispagestyle{empty}                                        % не нумеруем первую страницу
+%\title{Проект автореферата на диссертацию по теме <<Методы и средства повышения производительности вычислений на поверхностных расчетных сетках с изменяемой геометрией>>}
+%\author{Рыбаков~А.~А.}
+%\date{24.09.2025}
+%\maketitle
+
+\thispagestyle{empty}
+
+\noindent%
+%\begin{tabularx}{\textwidth}{@{}lXr@{}}%
+%    & & \large{На правах рукописи}\\
+%    \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
+%    \ifnumequal{\value{showperssign}}{0}{%
+%        \rule[0pt]{0pt}{1.5cm}
+%    }{
+%        \includegraphics[height=1.5cm]{personal-signature.png}
+%    }\\
+%\end{tabularx}
+
+\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\begin{center}
+\textbf {\large Рыбаков Алексей Анатольевич}
+\end{center}
+
+\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\begin{center}
+\textbf {\Large %\MakeUppercase
+Методы и средства повышения производительности вычислений на поверхностных расчетных сетках с изменяемой геометрией}
+
+\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+{\large Специальность 2.3.5\ "---\par <<Математическое и программное обеспечение вычислительных систем, комплексов и компьютерных сетей>>}
+
+\ifdefined\thesisSpecialtyTwoNumber
+{\large Специальность \thesisSpecialtyTwoNumber\ "---\par <<\thesisSpecialtyTwoTitle>>}
+\fi
+
+\vspace{0pt plus1.5fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\Large{Автореферат}\par
+\large{диссертации на соискание учёной степени\par доктора технических наук}
+\end{center}
+
+\vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+{\centering Москва~--- 2026\par}
+
+\newpage
+% оборотная сторона обложки
+\thispagestyle{empty}
+\noindent Работа выполнена в Федеральном государственном бюджетном учреждении <<Национальный исследовательский центр<<Курчатовский институт>>
+
+\vspace{0.008\paperheight plus1fill}
+\noindent%
+%\begin{tabularx}{\textwidth}{@{}lX@{}}
+%    \ifdefined\supervisorTwoFio
+%    Научные руководители:   & \supervisorRegalia\par
+%                              \ifdefined\supervisorDead
+%                              \framebox{\textbf{\supervisorFio}}
+%                              \else
+%                              \textbf{\supervisorFio}
+%                              \fi
+%                              \par
+%                              \vspace{0.013\paperheight}
+%                              \supervisorRegalia\par
+%                              \ifdefined\supervisorTwoDead
+%                              \framebox{\textbf{\supervisorTwoFio}}
+%                              \else
+%                              \textbf{\supervisorTwoFio}
+%                              \fi
+%                              \vspace{0.013\paperheight}\\
+%    \else
+%    Научный руководитель:   & \supervisorRegalia\par
+%                              \ifdefined\supervisorDead
+%                              \framebox{\textbf{\supervisorFio}}
+%                              \else
+%                              \textbf{\supervisorFio}
+%                              \fi
+%                              \vspace{0.013\paperheight}\\
+%    \fi
+%    Официальные оппоненты:  &
+%    \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
+%        \textbf{\opponentOneFio,}\par
+%        \opponentOneRegalia,\par
+%        \opponentOneJobPlace,\par
+%        \opponentOneJobPost\par
+%        \vspace{0.01\paperheight}
+%        \textbf{\opponentTwoFio,}\par
+%        \opponentTwoRegalia,\par
+%        \opponentTwoJobPlace,\par
+%        \opponentTwoJobPost
+%    \ifdefined\opponentThreeFio
+%        \par
+%        \vspace{0.01\paperheight}
+%        \textbf{\opponentThreeFio,}\par
+%        \opponentThreeRegalia,\par
+%        \opponentThreeJobPlace,\par
+%        \opponentThreeJobPost
+%    \fi
+%    }%
+%    \vspace{0.013\paperheight} \\
+%    \ifdefined\leadingOrganizationTitle
+%    Ведущая организация:    &
+%    \ifnumequal{\value{showopplead}}{0}{\vspace{6\onelineskip plus1fill}}{%
+%        \leadingOrganizationTitle
+%    }%
+%    \fi
+%\end{tabularx}
+\vspace{0.008\paperheight plus1fill}
+
+\noindent Защита состоится <<00>> 'месяца' 2026 г. в 00 ч. 00 мин. на~заседании диссертационного совета 0000 при 'организация' по адресу: 'адрес'.
+
+\vspace{0.008\paperheight plus1fill}
+\noindent С диссертацией можно ознакомиться в библиотеке 'библиотека'.
+
+\vspace{0.008\paperheight plus1fill}
+\noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: 'адрес', ученому секретарю диссертационного совета~0000.
+
+\vspace{0.008\paperheight plus1fill}
+\noindent{Автореферат разослан <<00>> 'месяца' 2026 г.}
+
+\vspace{0.008\paperheight plus1fill}
+\noindent%
+%\begin{tabularx}{\textwidth}{@{}%
+%>{\raggedright\arraybackslash}b{18em}@{}
+%>{\centering\arraybackslash}X
+%r
+%@{}}
+%    Ученый секретарь\par
+%    диссертационного совета\par
+%    \defenseCouncilNumber,\par
+%    \defenseSecretaryRegalia
+%    &
+%    \ifnumequal{\value{showsecrsign}}{0}{}{%
+%        \includegraphics[width=2cm]{secretary-signature.png}%
+%    }%
+%    &
+%    \defenseSecretaryFio
+%\end{tabularx}
 
 %---------------------------------------------------------------------------------------------------
 
