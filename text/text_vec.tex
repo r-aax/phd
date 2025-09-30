@@ -1684,7 +1684,7 @@ f1 = fabs(gi0) * g[j][2] + fabs(g[j][0]) * g[i][2]
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_4_mesh_intersect/final_scheme.pdf}
+\includegraphics[width=1.0\textwidth]{fig/vec_mesh_intersect_final_scheme.pdf}
 \singlespacing
 \captionstyle{center}\caption{Схема перевода последовательного кода в векторный аналог для ядра функции \texttt{tri\_box\_intersect\_16}.}
 \label{fig:text_1_mesh_intersect_scheme}
@@ -1737,7 +1737,7 @@ void upgrade(__mmask16 m, __m512 f0, __m512 f1,
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.5\textwidth]{pics/text_4_vec_riemann/pic_functions.pdf}
+\includegraphics[width=0.5\textwidth]{fig/vec_riemann_functions.pdf}
 \singlespacing
 \captionstyle{center}\caption{Схема потока данных в римановском решателе}
 \label{fig:text_4_vec_riem_functions}
@@ -1849,7 +1849,7 @@ void starpu_16(__m512 dl, __m512 ul, __m512 pl, __m512 cl,
 
 \begin{figure}
 \centering
-\includegraphics[width=1.0\textwidth]{pics/text_4_vec_riemann/pic_perf.pdf}
+\includegraphics[width=1.0\textwidth]{fig/vec_riemann_perf.pdf}
 \singlespacing
 \captionstyle{center}\caption{Диаграмма ускорения отдельных функций и суммарного ускорения римановского решателя.}
 \label{fig:text_4_vec_riemann_perf}
@@ -1935,7 +1935,7 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{./pics/text_4_vec_irreg/code_decomp.pdf}
+\includegraphics[width=0.7\textwidth]{fig/vec_shell_code_decomp.pdf}
 \singlespacing
 \captionstyle{center}\caption{Декомпозиция сортировки Шелла для выделения векторизуемых участков кода.}
 \label{fig:text_4_vec_irreg_code_decomp}
@@ -1959,7 +1959,7 @@ void shell_sort(float* m, int n, int* ks, int k_ind)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/shell_cfg.pdf}
+\includegraphics[width=1.0\textwidth]{fig/vec_shell_cfg.pdf}
 \singlespacing
 \captionstyle{center}\caption{Схема перевода тела внутреннего цикла сортировки Шелла в предикатную форму.}
 \label{fig:text_4_vec_irreg_shell_cfg}
@@ -2012,7 +2012,7 @@ void shell_sort_k_i_w(float *m, int n, int k, int i, int w)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_4_vec_irreg/experimental_eff.pdf}
+\includegraphics[width=1.0\textwidth]{fig/vec_shell_experimental_eff.pdf}
 \singlespacing
 \captionstyle{center}\caption{Ускорение векторизованной версии сортировки Шелла для различных последовательностей шагов.}
 \label{fig:text_4_vec_irreg_eff}
@@ -2089,7 +2089,7 @@ while (is_q)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.90\textwidth]{pics/text_4_vec_integer/code.pdf}
+\includegraphics[width=0.90\textwidth]{fig/vec_genetic_code.pdf}
 \singlespacing
 \captionstyle{center}\caption{Векторизация программного кода алгоритма пузырькового роста путем замены скалярных инструкций векторными аналогами.}
 \label{fig:text_4_vec_integer_code}
@@ -2111,7 +2111,7 @@ while (is_q)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{pics/text_4_vec_integer/chart_speedup_rus.png}
+\includegraphics[width=0.7\textwidth]{fig/vec_genetic_chart_speedup_rus.png}
 \singlespacing
 \captionstyle{center}\caption{Ускорение и эффективность векторизации алгоритма пузырькового роста в зависимости от размера стороны расчетной сетки.}
 \label{fig:text_4_vec_integer_sp}
@@ -2130,7 +2130,7 @@ while (is_q)
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1.0\textwidth]{./pics/text_4_fin/map_cut.pdf}
+\includegraphics[width=1.0\textwidth]{fig/vec_map_cut.pdf}
 \singlespacing
 \captionstyle{center}\caption{Карта эффективности векторизации.}
 \label{fig:text_4_fin_map}
