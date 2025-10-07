@@ -744,14 +744,14 @@ $\blacksquare$\\
 Алгоритм распределения множества блоков по партициям с помощью дробления наибольших блоков (\texttt{DistributeHalfMaxBlock}).
 \begin{algorithm}
 \DontPrintSemicolon
-\KwInput{$B$ -- множество блоков ($|B| = m$), $k$ -- количество результирующих партиций, $\epsilon$ -- допустимое значение показателя $D^{*}$.}
+\KwInput{$B$ -- множество блоков ($|B| = m$), $k$ -- количество результирующих партиций, $\varepsilon$ -- допустимое значение показателя $D^{*}$.}
 \KwOutput{$P$ -- множество результирующих партиций.}
-\Fn{\texttt{DistributeHalfMaxBlock}($B$, $k$, $\epsilon$)}
+\Fn{\texttt{DistributeHalfMaxBlock}($B$, $k$, $\varepsilon$)}
 {
 	\While{$true$}
 	{
 		$P \leftarrow \texttt{DistributeGreedy}(B, k)$\;
-		\If{$P.D^{*} \le \epsilon$}
+		\If{$P.D^{*} \le \varepsilon$}
 		{
 			\KwRet $P$\;
 		}
@@ -765,8 +765,8 @@ $\blacksquare$\\
 \end{algorithm}
 \end{algo}
 
-Приведенный алгоритм гарантированно завершает работу при $\epsilon \ge \frac{\lceil \mu \rceil - \mu}{\mu}$, где $\mu = \frac{B.w}{k}$, так как значение $P.D^{*} = \frac{\lceil \mu \rceil - \mu}{\mu}$ может быть достигнуто при дроблении всех блоков до единичного размера.
-Количество требуемых дроблений сильно зависит от конкретных размеров блоков и возрастает при уменьшении параметра $\epsilon$.
+Приведенный алгоритм гарантированно завершает работу при $\varepsilon \ge \frac{\lceil \mu \rceil - \mu}{\mu}$, где $\mu = \frac{B.w}{k}$, так как значение $P.D^{*} = \frac{\lceil \mu \rceil - \mu}{\mu}$ может быть достигнуто при дроблении всех блоков до единичного размера.
+Количество требуемых дроблений сильно зависит от конкретных размеров блоков и возрастает при уменьшении параметра $\varepsilon$.
 Если количество разрезов блоков принять за $\sigma \ge 1$, то сложность алгоритма можно оценить как $O(m \log m + \sigma(m \log k + k + \sigma))$.
 $\blacksquare$\\
 
